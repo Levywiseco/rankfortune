@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Visibility Audit - SEO and AEO checker",
+  title: "RankFortune - AI Visibility Audit for Websites",
   description:
-    "Audit whether AI search engines can understand, cite, and recommend your website.",
+    "Check whether ChatGPT, Perplexity, Gemini, and AI search engines can understand, cite, and recommend your website.",
 };
 
 export default function RootLayout({

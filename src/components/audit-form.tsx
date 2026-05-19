@@ -43,10 +43,32 @@ const sampleGaps = [
   },
 ];
 
+const samplePromptChecks = [
+  {
+    prompt: "Best AI workflow automation tools for small teams",
+    model: "ChatGPT",
+    status: "Not cited",
+    action: "Create a comparison page with clear category positioning.",
+  },
+  {
+    prompt: "Sample SaaS alternatives for founders",
+    model: "Perplexity",
+    status: "Competitors cited",
+    action: "Publish alternatives and use-case pages with answer-first copy.",
+  },
+  {
+    prompt: "Is Sample SaaS good for secure team workflows?",
+    model: "Gemini",
+    status: "Weak evidence",
+    action: "Add security, pricing, FAQ, and proof sections to the homepage.",
+  },
+];
+
 export function AuditForm() {
   const [url, setUrl] = useState("pdf-everything.com");
   const [productName, setProductName] = useState("");
   const [competitors, setCompetitors] = useState("");
+  const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const [report, setReport] = useState<AuditReport | null>(null);
@@ -98,7 +120,7 @@ export function AuditForm() {
               Free audit
             </p>
             <h2 className="mt-2 text-2xl font-semibold text-white">
-              Scan a website
+              Run a RankFortune scan
             </h2>
           </div>
           <div className="rounded-[8px] border border-cyan-300/30 bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
@@ -144,6 +166,19 @@ export function AuditForm() {
             />
           </label>
 
+          <label className="block">
+            <span className="text-sm font-medium text-slate-200">
+              Work email
+            </span>
+            <input
+              className="mt-2 h-11 w-full rounded-[8px] border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none ring-cyan-300/40 transition focus:border-cyan-300 focus:ring-4"
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Optional for full report"
+              type="email"
+              value={email}
+            />
+          </label>
+
           <button
             className="flex h-12 w-full items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
             disabled={status === "loading"}
@@ -173,6 +208,11 @@ export function AuditForm() {
             <strong className="mt-1 block text-white">JSON</strong>
           </div>
         </div>
+
+        <p className="mt-4 text-xs leading-5 text-slate-500">
+          The free snapshot runs immediately. The email field is reserved for
+          the full report and weekly monitoring workflow.
+        </p>
       </section>
 
       <section className="min-h-[560px] rounded-[8px] border border-white/10 bg-slate-950/70 p-5">
@@ -267,6 +307,40 @@ export function AuditForm() {
                   </dd>
                 </div>
               </dl>
+            </div>
+
+            <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
+              <div className="flex items-center justify-between gap-3">
+                <h4 className="font-semibold text-white">
+                  Prompt visibility preview
+                </h4>
+                <span className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-slate-300">
+                  Full report
+                </span>
+              </div>
+              <div className="mt-4 space-y-3">
+                {samplePromptChecks.map((check) => (
+                  <div
+                    className="rounded-[8px] border border-white/10 bg-slate-950 p-4"
+                    key={check.prompt}
+                  >
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      <span className="rounded-full border border-cyan-300/30 px-2.5 py-1 text-cyan-100">
+                        {check.model}
+                      </span>
+                      <span className="rounded-full border border-rose-400/40 px-2.5 py-1 text-rose-100">
+                        {check.status}
+                      </span>
+                    </div>
+                    <p className="mt-3 text-sm font-medium text-white">
+                      {check.prompt}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                      {check.action}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ) : (
