@@ -1,0 +1,321 @@
+"use client";
+
+import { FormEvent, useMemo, useState } from "react";
+import type { AuditReport } from "@/lib/audit/types";
+
+type Status = "idle" | "loading" | "ready" | "error";
+
+function percent(score: number, maxScore: number) {
+  return Math.round((score / Math.max(maxScore, 1)) * 100);
+}
+
+function priorityClass(priority: string) {
+  if (priority === "High") return "border-rose-400/60 bg-rose-500/10 text-rose-100";
+  if (priority === "Medium")
+    return "border-amber-400/60 bg-amber-500/10 text-amber-100";
+  return "border-emerald-400/60 bg-emerald-500/10 text-emerald-100";
+}
+
+export function AuditForm() {
+  const [url, setUrl] = useState("pdf-everything.com");
+  const [productName, setProductName] = useState("");
+  const [competitors, setCompetitors] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
+  const [report, setReport] = useState<AuditReport | null>(null);
+
+  const scoreLabel = useMemo(() => {
+    if (!report) return "Ready";
+    if (report.overallScore >= 80) return "Strong";
+    if (report.overallScore >= 60) return "Fixable";
+    return "Needs work";
+  }, [report]);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus("loading");
+    setError("");
+    setReport(null);
+
+    try {
+      const response = await fetch("/api/audit", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          url,
+          productName,
+          competitors: competitors
+            .split(",")
+            .map((value) => value.trim())
+            .filter(Boolean),
+        }),
+      });
+
+      const json = await response.json();
+      if (!response.ok) throw new Error(json.error ?? "Audit failed.");
+
+      setReport(json as AuditReport);
+      setStatus("ready");
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Audit failed.");
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
+      <section className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20">
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-cyan-200">
+              Free audit
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold text-white">
+              Scan a website
+            </h2>
+          </div>
+          <div className="rounded-[8px] border border-cyan-300/30 bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
+            {scoreLabel}
+          </div>
+        </div>
+
+        <form className="space-y-4" onSubmit={submit}>
+          <label className="block">
+            <span className="text-sm font-medium text-slate-200">
+              Website URL
+            </span>
+            <input
+              className="mt-2 h-12 w-full rounded-[8px] border border-white/10 bg-slate-950 px-4 text-base text-white outline-none ring-cyan-300/40 transition focus:border-cyan-300 focus:ring-4"
+              onChange={(event) => setUrl(event.target.value)}
+              placeholder="example.com"
+              required
+              value={url}
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-sm font-medium text-slate-200">
+              Product name
+            </span>
+            <input
+              className="mt-2 h-11 w-full rounded-[8px] border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none ring-cyan-300/40 transition focus:border-cyan-300 focus:ring-4"
+              onChange={(event) => setProductName(event.target.value)}
+              placeholder="Optional"
+              value={productName}
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-sm font-medium text-slate-200">
+              Competitors
+            </span>
+            <input
+              className="mt-2 h-11 w-full rounded-[8px] border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none ring-cyan-300/40 transition focus:border-cyan-300 focus:ring-4"
+              onChange={(event) => setCompetitors(event.target.value)}
+              placeholder="competitor.com, another.com"
+              value={competitors}
+            />
+          </label>
+
+          <button
+            className="flex h-12 w-full items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
+            disabled={status === "loading"}
+            type="submit"
+          >
+            {status === "loading" ? "Running audit..." : "Run free audit"}
+          </button>
+        </form>
+
+        {status === "error" ? (
+          <div className="mt-4 rounded-[8px] border border-rose-400/40 bg-rose-500/10 p-3 text-sm text-rose-100">
+            {error}
+          </div>
+        ) : null}
+
+        <div className="mt-6 grid grid-cols-3 gap-2 text-center text-xs text-slate-300">
+          <div className="rounded-[8px] bg-white/[0.04] p-3">
+            Crawl
+            <strong className="mt-1 block text-white">HTML</strong>
+          </div>
+          <div className="rounded-[8px] bg-white/[0.04] p-3">
+            Check
+            <strong className="mt-1 block text-white">AEO</strong>
+          </div>
+          <div className="rounded-[8px] bg-white/[0.04] p-3">
+            Report
+            <strong className="mt-1 block text-white">JSON</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="min-h-[560px] rounded-[8px] border border-white/10 bg-slate-950/70 p-5">
+        {!report ? (
+          <div className="flex h-full min-h-[520px] flex-col justify-center">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-400">
+              Sample output
+            </p>
+            <h3 className="mt-3 max-w-xl text-4xl font-semibold leading-tight text-white">
+              A practical report that tells a founder what to fix next.
+            </h3>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {[
+                ["Technical", "Sitemap, robots, canonical, schema"],
+                ["Clarity", "Title, H1, positioning, crawlable copy"],
+                ["Answer-ready", "FAQ, use cases, alternatives, entity pages"],
+              ].map(([title, detail]) => (
+                <div
+                  className="rounded-[8px] border border-white/10 bg-white/[0.04] p-4"
+                  key={title}
+                >
+                  <h4 className="font-semibold text-white">{title}</h4>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">
+                    {detail}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div className="flex flex-col gap-4 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-sm text-slate-400">{report.snapshot.host}</p>
+                <h3 className="mt-2 text-3xl font-semibold text-white">
+                  AI visibility score
+                </h3>
+              </div>
+              <div className="flex items-end gap-2">
+                <span className="text-6xl font-semibold text-cyan-200">
+                  {report.overallScore}
+                </span>
+                <span className="pb-2 text-sm text-slate-400">/100</span>
+              </div>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-3">
+              {report.scores.map((score) => (
+                <div
+                  className="rounded-[8px] border border-white/10 bg-white/[0.04] p-4"
+                  key={score.label}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <h4 className="text-sm font-semibold text-white">
+                      {score.label}
+                    </h4>
+                    <span className="font-mono text-lg text-cyan-200">
+                      {percent(score.score, score.maxScore)}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-slate-400">
+                    {score.summary}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+              <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
+                <h4 className="font-semibold text-white">Biggest gaps</h4>
+                <div className="mt-4 space-y-3">
+                  {report.biggestGaps.map((gap) => (
+                    <div
+                      className="rounded-[8px] border border-white/10 bg-slate-950 p-4"
+                      key={gap.title}
+                    >
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span
+                          className={`rounded-full border px-2.5 py-1 text-xs ${priorityClass(
+                            gap.priority,
+                          )}`}
+                        >
+                          {gap.priority}
+                        </span>
+                        <span className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-slate-300">
+                          {gap.effort} effort
+                        </span>
+                      </div>
+                      <h5 className="mt-3 font-semibold text-white">
+                        {gap.title}
+                      </h5>
+                      <p className="mt-2 text-sm leading-6 text-slate-400">
+                        {gap.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <aside className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
+                <h4 className="font-semibold text-white">Detected signals</h4>
+                <div className="mt-4 space-y-2">
+                  {report.signals.slice(0, 10).map((signal) => (
+                    <div
+                      className="flex items-start justify-between gap-3 rounded-[8px] bg-slate-950 px-3 py-2"
+                      key={signal.key}
+                    >
+                      <div>
+                        <p className="text-sm font-medium text-white">
+                          {signal.label}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {signal.detail}
+                        </p>
+                      </div>
+                      <span
+                        className={
+                          signal.passed ? "text-emerald-300" : "text-rose-300"
+                        }
+                      >
+                        {signal.passed ? "Pass" : "Fix"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </aside>
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-2">
+              <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
+                <h4 className="font-semibold text-white">Copy suggestions</h4>
+                <dl className="mt-4 space-y-4 text-sm">
+                  <div>
+                    <dt className="text-slate-500">Title</dt>
+                    <dd className="mt-1 text-slate-200">
+                      {report.copySuggestions.title}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-slate-500">Description</dt>
+                    <dd className="mt-1 text-slate-200">
+                      {report.copySuggestions.description}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <h4 className="font-semibold text-white">AI report</h4>
+                  <span className="rounded-full border border-cyan-300/30 px-2.5 py-1 text-xs text-cyan-100">
+                    {report.aiReport.enabled ? "Connected" : "Rule fallback"}
+                  </span>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-slate-300">
+                  {report.aiReport.summary}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  {report.aiReport.positioning}
+                </p>
+                <ul className="mt-4 space-y-2 text-sm text-slate-300">
+                  {report.aiReport.recommendations.map((recommendation) => (
+                    <li key={recommendation}>• {recommendation}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
