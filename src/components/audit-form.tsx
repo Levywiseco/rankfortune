@@ -16,6 +16,33 @@ function priorityClass(priority: string) {
   return "border-emerald-400/60 bg-emerald-500/10 text-emerald-100";
 }
 
+const sampleScores = [
+  ["Technical Discoverability", "92", "Sitemap, robots, canonical, and indexability are healthy."],
+  ["Brand Clarity", "78", "The homepage explains the core job, but the category could be sharper."],
+  ["AI Answer Readiness", "46", "Missing FAQ, comparison, and use-case pages limit answer-engine coverage."],
+];
+
+const sampleGaps = [
+  {
+    title: "Create an FAQ block with buyer-intent questions",
+    priority: "High",
+    detail:
+      "Add short answers for pricing, use cases, security, alternatives, and setup so AI answers have citeable content.",
+  },
+  {
+    title: "Publish one alternatives page",
+    priority: "Medium",
+    detail:
+      "Comparison-style pages help AI systems recommend your product for high-intent prompts.",
+  },
+  {
+    title: "Add use-case pages for the top customer jobs",
+    priority: "Medium",
+    detail:
+      "Separate pages for concrete workflows improve entity coverage and retrieval quality.",
+  },
+];
+
 export function AuditForm() {
   const [url, setUrl] = useState("pdf-everything.com");
   const [productName, setProductName] = useState("");
@@ -150,29 +177,96 @@ export function AuditForm() {
 
       <section className="min-h-[560px] rounded-[8px] border border-white/10 bg-slate-950/70 p-5">
         {!report ? (
-          <div className="flex h-full min-h-[520px] flex-col justify-center">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-400">
-              Sample output
-            </p>
-            <h3 className="mt-3 max-w-xl text-4xl font-semibold leading-tight text-white">
-              A practical report that tells a founder what to fix next.
-            </h3>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {[
-                ["Technical", "Sitemap, robots, canonical, schema"],
-                ["Clarity", "Title, H1, positioning, crawlable copy"],
-                ["Answer-ready", "FAQ, use cases, alternatives, entity pages"],
-              ].map(([title, detail]) => (
+          <div className="space-y-6">
+            <div className="flex flex-col gap-4 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+                  Example report
+                </p>
+                <p className="mt-3 text-sm text-slate-400">
+                  sample-saas.com
+                </p>
+                <h3 className="mt-2 text-3xl font-semibold text-white">
+                  AI visibility score
+                </h3>
+              </div>
+              <div className="flex items-end gap-2">
+                <span className="text-6xl font-semibold text-cyan-200">
+                  72
+                </span>
+                <span className="pb-2 text-sm text-slate-400">/100</span>
+              </div>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-3">
+              {sampleScores.map(([title, score, detail]) => (
                 <div
                   className="rounded-[8px] border border-white/10 bg-white/[0.04] p-4"
                   key={title}
                 >
-                  <h4 className="font-semibold text-white">{title}</h4>
+                  <div className="flex items-center justify-between gap-3">
+                    <h4 className="text-sm font-semibold text-white">
+                      {title}
+                    </h4>
+                    <span className="font-mono text-lg text-cyan-200">
+                      {score}
+                    </span>
+                  </div>
                   <p className="mt-2 text-sm leading-6 text-slate-400">
                     {detail}
                   </p>
                 </div>
               ))}
+            </div>
+
+            <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
+              <h4 className="font-semibold text-white">Sample gaps</h4>
+              <div className="mt-4 space-y-3">
+                {sampleGaps.map((gap) => (
+                  <div
+                    className="rounded-[8px] border border-white/10 bg-slate-950 p-4"
+                    key={gap.title}
+                  >
+                    <span
+                      className={`rounded-full border px-2.5 py-1 text-xs ${priorityClass(
+                        gap.priority,
+                      )}`}
+                    >
+                      {gap.priority}
+                    </span>
+                    <h5 className="mt-3 font-semibold text-white">
+                      {gap.title}
+                    </h5>
+                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                      {gap.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-4">
+              <div className="flex items-center justify-between gap-3">
+                <h4 className="font-semibold text-white">Copy-ready fixes</h4>
+                <span className="rounded-full border border-cyan-300/30 px-2.5 py-1 text-xs text-cyan-100">
+                  Preview
+                </span>
+              </div>
+              <dl className="mt-4 space-y-4 text-sm">
+                <div>
+                  <dt className="text-slate-500">Suggested title</dt>
+                  <dd className="mt-1 text-slate-200">
+                    Sample SaaS - AI workflow automation for small teams
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">Suggested FAQ</dt>
+                  <dd className="mt-1 text-slate-200">
+                    What does Sample SaaS do, who is it for, and how is it
+                    different from alternatives?
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
         ) : (
