@@ -7,6 +7,12 @@ const proofMetrics = [
   ["60s", "first snapshot"],
 ];
 
+const audienceFit = [
+  ["Indie SaaS", "Find the pages and proof AI engines need before recommending your tool."],
+  ["SEO teams", "Turn technical crawl checks into answer-engine content priorities."],
+  ["Agencies", "Use a quick audit as a lead magnet before selling deeper GEO work."],
+];
+
 const auditLayers = [
   {
     title: "Technical discovery",
@@ -42,6 +48,14 @@ const visibilitySignals = [
   ["Citation readiness", "Pages with direct answers, clear entities, and structured proof that AI engines can quote."],
   ["Competitor gap", "The pages competitors have that make them easier to recommend."],
   ["Tracking path", "A repeatable baseline for future weekly monitoring and share-of-voice checks."],
+];
+
+const reportDeliverables = [
+  "Visibility score with technical, clarity, and answer-readiness layers",
+  "Prompt gap examples for ChatGPT, Perplexity, Gemini, and AI Overviews",
+  "Competitor page gaps and the next pages to publish",
+  "Copy-ready title, description, FAQ, and schema recommendations",
+  "7-day fix roadmap that a founder or marketer can execute",
 ];
 
 const plans = [
@@ -235,9 +249,9 @@ export default function Home() {
               Show the missing recommendation path.
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-300">
-              Most GEO competitors sell monitoring. RankFortune starts one step
-              earlier: it explains why a site is not ready to be cited, then
-              turns that into the prompts, pages, and proof assets to build.
+              RankFortune starts with the reasons your site is not ready to be
+              cited, then turns that into the prompts, pages, and proof assets
+              to build next.
             </p>
           </div>
 
@@ -271,9 +285,8 @@ export default function Home() {
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-slate-400">
-              This is the monetization ladder we should test first. It keeps the
-              first scan low-friction, then sells the deeper report and
-              monitoring.
+              Start with a free scan, then upgrade when you need the deeper
+              report, export, and monitoring workflow.
             </p>
           </div>
 
@@ -297,8 +310,84 @@ export default function Home() {
                     <li key={feature}>✓ {feature}</li>
                   ))}
                 </ul>
+                <a
+                  className="mt-6 flex h-11 items-center justify-center rounded-[8px] border border-cyan-300/30 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
+                  href="#audit"
+                >
+                  {plan.name === "Free Snapshot"
+                    ? "Run free scan"
+                    : "Start with audit"}
+                </a>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[420px_1fr] lg:items-start">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+              Buyer fit
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-white">
+              Built for people who need an answer this week.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-slate-300">
+              Get a fast, credible audit that shows what to fix before you
+              invest in heavier AI visibility monitoring.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {audienceFit.map(([title, detail]) => (
+              <article
+                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                key={title}
+              >
+                <h3 className="font-semibold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  {detail}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 bg-slate-950/40 py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[1fr_460px] lg:items-start">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+              Full report
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-white">
+              Know exactly what the full report includes.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-slate-300">
+              The free scan gives you the first diagnosis. The full report turns
+              that diagnosis into exportable recommendations and a fix plan.
+            </p>
+          </div>
+
+          <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-5">
+            <h3 className="text-xl font-semibold text-white">
+              What the $19 report includes
+            </h3>
+            <ul className="mt-5 space-y-4 text-sm leading-6 text-slate-300">
+              {reportDeliverables.map((deliverable) => (
+                <li className="flex gap-3" key={deliverable}>
+                  <span className="mt-1 size-2 shrink-0 rounded-full bg-cyan-300" />
+                  <span>{deliverable}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              className="mt-6 flex h-11 items-center justify-center rounded-[8px] bg-cyan-300 px-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
+              href="#audit"
+            >
+              Run the free scan first
+            </a>
           </div>
         </div>
       </section>

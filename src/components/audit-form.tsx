@@ -80,6 +80,8 @@ export function AuditForm() {
     return "Needs work";
   }, [report]);
 
+  const hasLeadEmail = email.trim().length > 3;
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("loading");
@@ -168,12 +170,12 @@ export function AuditForm() {
 
           <label className="block">
             <span className="text-sm font-medium text-slate-200">
-              Work email
+              Work email for full report
             </span>
             <input
               className="mt-2 h-11 w-full rounded-[8px] border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none ring-cyan-300/40 transition focus:border-cyan-300 focus:ring-4"
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="Optional for full report"
+              placeholder="you@company.com"
               type="email"
               value={email}
             />
@@ -210,8 +212,8 @@ export function AuditForm() {
         </div>
 
         <p className="mt-4 text-xs leading-5 text-slate-500">
-          The free snapshot runs immediately. The email field is reserved for
-          the full report and weekly monitoring workflow.
+          Free scan runs immediately. Add an email if you want the full report,
+          export, and weekly monitoring offer after the score is ready.
         </p>
       </section>
 
@@ -479,6 +481,30 @@ export function AuditForm() {
                     <li key={recommendation}>• {recommendation}</li>
                   ))}
                 </ul>
+              </div>
+            </div>
+
+            <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-5">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+                    Next step
+                  </p>
+                  <h4 className="mt-2 text-xl font-semibold text-white">
+                    Turn this scan into a full report.
+                  </h4>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    {hasLeadEmail
+                      ? `Ready to prepare delivery for ${email.trim()}.`
+                      : "Add a work email in the form, then rerun the scan when you want report delivery."}
+                  </p>
+                </div>
+                <a
+                  className="flex h-11 shrink-0 items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
+                  href="#pricing"
+                >
+                  See paid options
+                </a>
               </div>
             </div>
           </div>
