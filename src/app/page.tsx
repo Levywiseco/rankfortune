@@ -1,5 +1,28 @@
 import { AuditForm } from "@/components/audit-form";
 
+const faqItems = [
+  {
+    question: "What does RankFortune check in the free audit?",
+    answer:
+      "The free audit reviews crawl access, metadata clarity, structured data, internal linking, and whether your homepage gives AI engines enough evidence to explain and recommend the product.",
+  },
+  {
+    question: "Who is RankFortune for?",
+    answer:
+      "RankFortune is built for indie SaaS founders, SEO teams, and agencies that need a fast way to spot why ChatGPT, Perplexity, Gemini, and AI search results are not citing a site yet.",
+  },
+  {
+    question: "What do I get after the first scan?",
+    answer:
+      "You get a visibility score, the biggest technical and content gaps, copy-ready title and description ideas, and the next pages or proof assets that are most worth publishing.",
+  },
+  {
+    question: "How is RankFortune different from a normal SEO audit?",
+    answer:
+      "A normal SEO audit often stops at crawlability and rankings. RankFortune adds answer-engine readiness, competitor citation gaps, and fixes designed for AI discovery and recommendation prompts.",
+  },
+];
+
 const proofMetrics = [
   ["15", "readiness signals"],
   ["3", "score layers"],
@@ -79,9 +102,62 @@ const plans = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "RankFortune",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  url: "https://rankfortune.vercel.app/",
+  description:
+    "AI visibility audit for websites that checks technical discoverability, entity clarity, and answer-engine readiness.",
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free Snapshot",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    {
+      "@type": "Offer",
+      name: "Full Report",
+      price: "19",
+      priceCurrency: "USD",
+    },
+    {
+      "@type": "Offer",
+      name: "Monitor",
+      price: "39",
+      priceCurrency: "USD",
+      billingDuration: "P1M",
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#09111f] text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <section className="border-b border-white/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5">
           <div className="flex items-center gap-3">
@@ -318,6 +394,39 @@ export default function Home() {
                     ? "Run free scan"
                     : "Start with audit"}
                 </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 bg-slate-950/40 py-16">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="max-w-3xl">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+              FAQ
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-white">
+              Answer the questions AI engines and buyers both ask.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-slate-300">
+              The homepage now includes direct answers that can be quoted in AI
+              results, comparison prompts, and buyer research flows.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4">
+            {faqItems.map((item) => (
+              <article
+                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                key={item.question}
+              >
+                <h3 className="text-xl font-semibold text-white">
+                  {item.question}
+                </h3>
+                <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">
+                  {item.answer}
+                </p>
               </article>
             ))}
           </div>
