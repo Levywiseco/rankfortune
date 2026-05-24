@@ -149,7 +149,7 @@ const productSchema = {
   name: "RankFortune",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
-  url: "https://rankfortune.vercel.app/",
+  url: "https://rankfortune.com/",
   description:
     "AI visibility audit for websites that checks technical discoverability, entity clarity, and answer-engine readiness.",
   offers: [

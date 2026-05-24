@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const siteUrl = "https://rankfortune.vercel.app";
+const siteUrl = "https://rankfortune.com";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

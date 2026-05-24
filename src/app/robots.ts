@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://rankfortune.vercel.app/sitemap.xml",
+    sitemap: "https://rankfortune.com/sitemap.xml",
   };
 }
