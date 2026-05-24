@@ -73,6 +73,21 @@ const visibilitySignals = [
   ["Tracking path", "A repeatable baseline for future weekly monitoring and share-of-voice checks."],
 ];
 
+const comparisonCards = [
+  [
+    "Audit-first tools",
+    "Best when you need the first roadmap before paying for a bigger monitoring platform.",
+  ],
+  [
+    "Prompt trackers",
+    "Useful when you already know your category and want repeated mention checks across AI engines.",
+  ],
+  [
+    "Authority suites",
+    "Worth it when your team also needs citation, backlink, and wider brand-signal workflows.",
+  ],
+];
+
 const reportDeliverables = [
   "Visibility score with technical, clarity, and answer-readiness layers",
   "Prompt gap examples for ChatGPT, Perplexity, Gemini, and AI Overviews",
@@ -312,6 +327,45 @@ export default function Home() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 bg-slate-950/40 py-16">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="max-w-3xl">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+              Compare tools
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-white">
+              Not every AI visibility tool solves the same problem.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-slate-300">
+              Some products are built for a first audit. Others are built for
+              continuous monitoring and wider authority workflows. Use the
+              comparison guide to choose the right next step for your team.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {comparisonCards.map(([title, detail]) => (
+              <article
+                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                key={title}
+              >
+                <h3 className="text-xl font-semibold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  {detail}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <a
+            className="mt-8 inline-flex h-12 items-center justify-center rounded-[8px] border border-cyan-300/30 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
+            href="/ai-visibility-audit-tools"
+          >
+            Compare AI visibility audit tools
+          </a>
         </div>
       </section>
 
