@@ -1,12 +1,5 @@
 import { AuditForm } from "@/components/audit-form";
 
-const checkoutLinks = {
-  fullReport:
-    "https://checkout.dodopayments.com/buy/pdt_0NfWo9jSycHJv16ZUlpD3?quantity=1",
-  monitorMonthly:
-    "https://checkout.dodopayments.com/buy/pdt_0NfWo9p9ml2W0HnkC5Nsc?quantity=1",
-};
-
 const faqItems = [
   {
     question: "What does RankFortune check in the free audit?",
@@ -117,16 +110,16 @@ const plans = [
     price: "$19",
     detail: "A founder-ready report for one website.",
     features: ["Full AI narrative report", "PDF/Markdown export", "7-day execution checklist"],
-    href: checkoutLinks.fullReport,
-    cta: "Buy full report",
+    href: "#audit",
+    cta: "Run scan first",
   },
   {
     name: "Monitor",
     price: "$39/mo",
     detail: "Weekly reruns and competitor tracking.",
     features: ["Audit history", "Competitor comparison", "Email alerts for score drops"],
-    href: checkoutLinks.monitorMonthly,
-    cta: "Start monitoring",
+    href: "#audit",
+    cta: "Run scan first",
   },
 ];
 
@@ -560,11 +553,9 @@ export default function Home() {
             </ul>
             <a
               className="mt-6 flex h-11 items-center justify-center rounded-[8px] bg-cyan-300 px-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
-              href={checkoutLinks.fullReport}
-              rel="noopener noreferrer"
-              target="_blank"
+              href="#audit"
             >
-              Buy the full report
+              Run scan first
             </a>
           </div>
         </div>

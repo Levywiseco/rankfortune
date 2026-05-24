@@ -4,6 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 import type { AuditReport } from "@/lib/audit/types";
 
 type Status = "idle" | "loading" | "ready" | "error";
+type CheckoutStatus = "idle" | "loading";
 
 function percent(score: number, maxScore: number) {
   return Math.round((score / Math.max(maxScore, 1)) * 100);
@@ -70,6 +71,7 @@ export function AuditForm() {
   const [competitors, setCompetitors] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [checkoutStatus, setCheckoutStatus] = useState<CheckoutStatus>("idle");
   const [error, setError] = useState("");
   const [report, setReport] = useState<AuditReport | null>(null);
 
@@ -80,7 +82,7 @@ export function AuditForm() {
     return "Needs work";
   }, [report]);
 
-  const hasLeadEmail = email.trim().length > 3;
+  const hasLeadEmail = email.trim().includes("@");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -110,6 +112,43 @@ export function AuditForm() {
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Audit failed.");
       setStatus("error");
+    }
+  }
+
+  async function startCheckout() {
+    if (!report) return;
+    if (!hasLeadEmail) {
+      setError("Add a work email before buying the full report.");
+      setStatus("error");
+      return;
+    }
+
+    setCheckoutStatus("loading");
+    setError("");
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          product: "fullReport",
+          email,
+          auditUrl: report.input.url,
+          productName,
+        }),
+      });
+      const json = (await response.json()) as {
+        checkoutUrl?: string;
+        error?: string;
+      };
+      if (!response.ok || !json.checkoutUrl) {
+        throw new Error(json.error ?? "Could not start checkout.");
+      }
+      window.location.href = json.checkoutUrl;
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Could not start checkout.");
+      setStatus("error");
+      setCheckoutStatus("idle");
     }
   }
 
@@ -499,12 +538,14 @@ export function AuditForm() {
                       : "Add a work email in the form, then rerun the scan when you want report delivery."}
                   </p>
                 </div>
-                <a
-                  className="flex h-11 shrink-0 items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
-                  href="#pricing"
+                <button
+                  className="flex h-11 shrink-0 items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
+                  disabled={checkoutStatus === "loading"}
+                  onClick={startCheckout}
+                  type="button"
                 >
-                  See paid options
-                </a>
+                  {checkoutStatus === "loading" ? "Starting checkout..." : "Buy full report"}
+                </button>
               </div>
             </div>
           </div>
