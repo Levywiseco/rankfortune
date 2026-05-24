@@ -470,6 +470,103 @@ function buildCopySuggestions(snapshot: PageSnapshot, input: AuditInput) {
   };
 }
 
+function parseAiJson(text: string) {
+  try {
+    return JSON.parse(text);
+  } catch {
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error("AI response did not include JSON");
+    return JSON.parse(match[0]);
+  }
+}
+
+async function requestAiJson(
+  input: AuditInput,
+  snapshot: PageSnapshot,
+  baseUrl: string,
+) {
+  const payload = {
+    input,
+    page: {
+      host: snapshot.host,
+      title: snapshot.title,
+      description: snapshot.description,
+      h1: snapshot.h1,
+      h2: snapshot.h2.slice(0, 10),
+      schemaTypes: snapshot.schemaTypes,
+      detectedPages: snapshot.detectedPages,
+      textSample: snapshot.textSample,
+    },
+    requiredShape: {
+      summary: "one sentence",
+      positioning: "one sentence",
+      recommendations: ["3 concise recommendations"],
+    },
+  };
+
+  if (baseUrl.includes("api.kimi.com/coding")) {
+    const response = await fetch(`${baseUrl}/v1/messages`, {
+      method: "POST",
+      headers: {
+        "x-api-key": process.env.OPENAI_API_KEY ?? "",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "claude-code/0.1.0",
+      },
+      body: JSON.stringify({
+        model: process.env.OPENAI_MODEL || process.env.AI_MODEL || "kimi-k2.6",
+        max_tokens: 700,
+        system:
+          "You are an SEO and AI search visibility auditor. Return concise JSON only. Do not use markdown.",
+        messages: [
+          {
+            role: "user",
+            content: JSON.stringify(payload),
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) throw new Error(`AI request failed ${response.status}`);
+    const json = await response.json();
+    const text = (json.content ?? [])
+      .map((content: { text?: string }) => content.text ?? "")
+      .join("");
+    if (!text) throw new Error("AI response did not include content");
+    return parseAiJson(text);
+  }
+
+  const response = await fetch(`${baseUrl}/chat/completions`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: process.env.OPENAI_MODEL || process.env.AI_MODEL || "gpt-4.1-mini",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are an SEO and AI search visibility auditor. Return concise JSON only.",
+        },
+        {
+          role: "user",
+          content: JSON.stringify(payload),
+        },
+      ],
+      response_format: { type: "json_object" },
+      temperature: 0.2,
+    }),
+  });
+
+  if (!response.ok) throw new Error(`AI request failed ${response.status}`);
+  const json = await response.json();
+  const text = json.choices?.[0]?.message?.content;
+  if (!text) throw new Error("AI response did not include content");
+  return parseAiJson(text);
+}
+
 async function buildOptionalAiReport(
   input: AuditInput,
   snapshot: PageSnapshot,
@@ -488,58 +585,10 @@ async function buildOptionalAiReport(
   }
 
   try {
-    const response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
-        input: [
-          {
-            role: "system",
-            content:
-              "You are an SEO and AI search visibility auditor. Return concise JSON only.",
-          },
-          {
-            role: "user",
-            content: JSON.stringify({
-              input,
-              page: {
-                host: snapshot.host,
-                title: snapshot.title,
-                description: snapshot.description,
-                h1: snapshot.h1,
-                h2: snapshot.h2.slice(0, 10),
-                schemaTypes: snapshot.schemaTypes,
-                detectedPages: snapshot.detectedPages,
-                textSample: snapshot.textSample,
-              },
-              requiredShape: {
-                summary: "one sentence",
-                positioning: "one sentence",
-                recommendations: ["3 concise recommendations"],
-              },
-            }),
-          },
-        ],
-        text: {
-          format: {
-            type: "json_object",
-          },
-        },
-      }),
-    });
-
-    if (!response.ok) throw new Error(`AI request failed ${response.status}`);
-    const json = await response.json();
-    const text =
-      json.output_text ??
-      json.output?.flatMap((item: { content?: { text?: string }[] }) =>
-        item.content?.map((content) => content.text),
-      )?.[0];
-    const parsed = JSON.parse(text);
+    const baseUrl =
+      process.env.OPENAI_BASE_URL?.replace(/\/$/, "") ||
+      "https://api.openai.com/v1";
+    const parsed = await requestAiJson(input, snapshot, baseUrl);
 
     return {
       enabled: true,
