@@ -1,5 +1,12 @@
 import { AuditForm } from "@/components/audit-form";
 
+const checkoutLinks = {
+  fullReport:
+    "https://checkout.dodopayments.com/buy/pdt_0NfWo9jSycHJv16ZUlpD3?quantity=1",
+  monitorMonthly:
+    "https://checkout.dodopayments.com/buy/pdt_0NfWo9p9ml2W0HnkC5Nsc?quantity=1",
+};
+
 const faqItems = [
   {
     question: "What does RankFortune check in the free audit?",
@@ -102,18 +109,24 @@ const plans = [
     price: "$0",
     detail: "One-page audit with score, blockers, and top fixes.",
     features: ["No login for first scan", "15 readiness signals", "Sample copy suggestions"],
+    href: "#audit",
+    cta: "Run free scan",
   },
   {
     name: "Full Report",
     price: "$19",
     detail: "A founder-ready report for one website.",
     features: ["Full AI narrative report", "PDF/Markdown export", "7-day execution checklist"],
+    href: checkoutLinks.fullReport,
+    cta: "Buy full report",
   },
   {
     name: "Monitor",
     price: "$39/mo",
     detail: "Weekly reruns and competitor tracking.",
     features: ["Audit history", "Competitor comparison", "Email alerts for score drops"],
+    href: checkoutLinks.monitorMonthly,
+    cta: "Start monitoring",
   },
 ];
 
@@ -442,11 +455,11 @@ export default function Home() {
                 </ul>
                 <a
                   className="mt-6 flex h-11 items-center justify-center rounded-[8px] border border-cyan-300/30 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
-                  href="#audit"
+                  href={plan.href}
+                  rel={plan.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  target={plan.href.startsWith("http") ? "_blank" : undefined}
                 >
-                  {plan.name === "Free Snapshot"
-                    ? "Run free scan"
-                    : "Start with audit"}
+                  {plan.cta}
                 </a>
               </article>
             ))}
@@ -547,9 +560,11 @@ export default function Home() {
             </ul>
             <a
               className="mt-6 flex h-11 items-center justify-center rounded-[8px] bg-cyan-300 px-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
-              href="#audit"
+              href={checkoutLinks.fullReport}
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Run the free scan first
+              Buy the full report
             </a>
           </div>
         </div>
