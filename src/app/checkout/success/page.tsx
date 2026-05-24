@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default async function CheckoutSuccessPage({
   searchParams,
 }: {
@@ -75,12 +77,12 @@ export default async function CheckoutSuccessPage({
           <p className="text-sm text-slate-400">
             Delivery usually takes less than a minute if the audited site is reachable.
           </p>
-          <a
+          <Link
             className="inline-flex h-11 items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
             href="/"
           >
             Back to RankFortune
-          </a>
+          </Link>
         </div>
       </section>
     </main>

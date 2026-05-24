@@ -1,4 +1,6 @@
 import { AuditForm } from "@/components/audit-form";
+import { landingPages } from "@/lib/landing-pages";
+import Link from "next/link";
 
 const faqItems = [
   {
@@ -122,6 +124,8 @@ const plans = [
     cta: "Run scan first",
   },
 ];
+
+const seoPages = landingPages.slice(0, 8);
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -366,12 +370,52 @@ export default function Home() {
             ))}
           </div>
 
-          <a
+          <Link
             className="mt-8 inline-flex h-12 items-center justify-center rounded-[8px] border border-cyan-300/30 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
             href="/ai-visibility-audit-tools"
           >
             Compare AI visibility audit tools
-          </a>
+          </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 py-16">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+                AI search pages
+              </p>
+              <h2 className="mt-3 text-4xl font-semibold text-white">
+                Start with the audit page that matches the buyer question.
+              </h2>
+            </div>
+            <p className="max-w-xl text-sm leading-6 text-slate-400">
+              These focused pages cover the main search intents around AI
+              visibility, answer engine optimization, GEO, and model-specific
+              readiness checks.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {seoPages.map((page) => (
+              <Link
+                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-300/40 hover:bg-cyan-300/[0.06]"
+                href={`/${page.slug}`}
+                key={page.slug}
+              >
+                <p className="text-sm font-medium text-cyan-200">
+                  {page.eyebrow}
+                </p>
+                <h3 className="mt-3 text-lg font-semibold leading-6 text-white">
+                  {page.h1}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  {page.description}
+                </p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

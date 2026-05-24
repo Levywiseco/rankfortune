@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { landingPages } from "@/lib/landing-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: "https://rankfortune.com/",
       lastModified: new Date(),
@@ -15,4 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
   ];
+
+  const seoLandingPages: MetadataRoute.Sitemap = landingPages.map((page) => ({
+    url: `https://rankfortune.com/${page.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.82,
+  }));
+
+  return [...staticPages, ...seoLandingPages];
 }

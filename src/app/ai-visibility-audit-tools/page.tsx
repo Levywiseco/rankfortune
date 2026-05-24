@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Best AI Visibility Audit Tools for Indie SaaS Teams",
@@ -139,18 +140,18 @@ export default function AiVisibilityAuditToolsPage() {
             next step instead of buying too much software too early.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
+            <Link
               className="flex h-12 items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
               href="/#audit"
             >
               Run RankFortune free audit
-            </a>
-            <a
+            </Link>
+            <Link
               className="flex h-12 items-center justify-center rounded-[8px] border border-white/10 px-5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/50 hover:text-white"
               href="/#pricing"
             >
               Compare pricing paths
-            </a>
+            </Link>
           </div>
         </div>
       </section>
