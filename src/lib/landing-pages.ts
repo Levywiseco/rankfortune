@@ -248,6 +248,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "reddit-ai-visibility-checker",
+    title: "Reddit AI Visibility Checker for UGC Citation Gaps - RankFortune",
+    description:
+      "Check whether your brand has the Reddit, forum, and community signals that AI engines often cite for buyer-intent recommendations.",
+    eyebrow: "Reddit AI visibility checker",
+    h1: "See whether AI engines find enough Reddit and community proof to cite your brand.",
+    intro:
+      "When AI search results mention competitors instead of your product, the missing signal is often not another landing page. It is the lack of crawlable community proof, honest comparisons, and discussion pages that buyers already trust.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies that want to understand how Reddit, forums, and UGC shape AI recommendations for commercial prompts.",
+    checks: [
+      "Whether the site links to comparison, alternatives, docs, and proof pages buyers can discuss",
+      "Whether public pages answer the objections that often surface in Reddit threads and forum recommendations",
+      "Whether the brand has enough crawlable entity clarity for AI engines to connect site claims with community mentions",
+      "Whether the content plan includes pages that can earn citations beyond the homepage",
+    ],
+    outcomes: [
+      "A Reddit and UGC citation-readiness baseline",
+      "A list of missing proof, comparison, and buyer-question pages",
+      "A practical roadmap for making community mentions easier for AI engines to trust and reuse",
+    ],
+    sections: [
+      {
+        title: "AI recommendations often borrow community evidence",
+        body:
+          "For high-intent prompts, answer engines frequently lean on Reddit, forums, and review-style discussions because they contain candid buyer language. If your site lacks matching proof pages, AI systems have little first-party evidence to connect with those mentions.",
+      },
+      {
+        title: "Reddit visibility is really a page-coverage problem",
+        body:
+          "Teams often assume they need more prompt tracking, but the earlier win is publishing comparison, alternatives, use-case, FAQ, and proof pages that mirror the objections and workflows discussed in community threads.",
+      },
+      {
+        title: "RankFortune turns UGC signals into site fixes",
+        body:
+          "The audit highlights where the site is too thin for AI engines to reconcile buyer discussions with official product claims, then recommends the next pages and proof blocks to publish.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Why does Reddit matter for AI visibility?",
+        answer:
+          "Reddit and other forums often rank well and contain authentic buyer language. AI engines can use those discussions as evidence, especially when a brand's own site does not answer the same questions clearly.",
+      },
+      {
+        question: "Can RankFortune check my Reddit mentions directly?",
+        answer:
+          "The current audit focuses on readiness: whether your site has the pages, proof, and entity clarity needed to benefit from community citations and recommendation prompts.",
+      },
+      {
+        question: "What should I publish first if competitors win on Reddit-style prompts?",
+        answer:
+          "Usually comparison pages, alternatives pages, strong FAQ blocks, and proof-heavy use-case pages are the first assets to publish because they match how buyers discuss tools in community threads.",
+      },
+    ],
+  },
+  {
     slug: "answer-engine-optimization-audit",
     title: "Answer Engine Optimization Audit - RankFortune",
     description:
