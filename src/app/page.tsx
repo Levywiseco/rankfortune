@@ -125,7 +125,7 @@ const plans = [
   },
 ];
 
-const seoPages = landingPages.slice(0, 8);
+const seoPages = landingPages;
 
 const faqSchema = {
   "@context": "https://schema.org",
