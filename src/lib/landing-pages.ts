@@ -305,6 +305,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "agent-readiness-checker",
+    title: "Agent Readiness Checker for Websites - RankFortune",
+    description:
+      "Check whether your website is ready for AI agents to crawl, understand, and act on with clear metadata, schema, robots rules, and answer-ready pages.",
+    eyebrow: "Agent readiness checker",
+    h1: "Check whether your website is ready for AI agents.",
+    intro:
+      "An agent-ready website does more than rank. It gives AI crawlers and task-oriented agents the structure they need to discover key pages, understand what the product does, and trust the next action.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies that want to diagnose whether a site is machine-readable enough for AI agents, answer engines, and automated buying research workflows.",
+    checks: [
+      "Robots, sitemap, canonical, and indexability signals that expose the right pages to crawlers",
+      "Metadata, schema, pricing, docs, and FAQ blocks that help agents explain the product correctly",
+      "Page coverage for buyer tasks such as comparisons, use cases, support, and proof",
+      "Whether the site gives enough structured clues for AI agents to choose the next action confidently",
+    ],
+    outcomes: [
+      "An agent-readiness baseline for technical and content gaps",
+      "A shortlist of missing pages or proof blocks that make the site hard for agents to use",
+      "A practical fix plan for improving machine readability before heavier monitoring",
+    ],
+    sections: [
+      {
+        title: "Agent readiness starts with machine-readable basics",
+        body:
+          "AI agents need the same fundamentals as answer engines: crawlable pages, clear canonicals, useful metadata, and public content that explains what the product is, who it serves, and what action to take next.",
+      },
+      {
+        title: "The missing signal is often page coverage",
+        body:
+          "If a site only has a homepage and pricing page, an agent has little evidence for comparisons, implementation questions, trust checks, or workflow-specific recommendations. Agent readiness usually improves when those pages exist and interlink clearly.",
+      },
+      {
+        title: "RankFortune turns agent-readiness checks into shipping work",
+        body:
+          "The audit highlights which technical signals are weak, which buyer-intent pages are missing, and what to publish next so your site becomes easier for AI systems to crawl, summarize, and recommend.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What does agent readiness mean for a website?",
+        answer:
+          "It means AI agents can access the important pages, understand the product and category, and find enough structured evidence to recommend, compare, or act on the site reliably.",
+      },
+      {
+        question: "Does agent readiness only mean adding llms.txt?",
+        answer:
+          "No. An llms.txt file can help, but the larger issue is whether the site already exposes clear metadata, schema, pricing, docs, FAQ answers, and task-specific pages that agents can use.",
+      },
+      {
+        question: "What should I fix first if my site is not agent-ready?",
+        answer:
+          "Usually the first wins come from healthy crawl signals, stronger category positioning, and publishing FAQ, comparison, use-case, and proof pages that reduce ambiguity for AI systems.",
+      },
+    ],
+  },
+  {
     slug: "answer-engine-optimization-audit",
     title: "Answer Engine Optimization Audit - RankFortune",
     description:
