@@ -362,6 +362,120 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "ai-agent-observability-audit",
+    title: "AI Agent Observability Audit for Website Signals - RankFortune",
+    description:
+      "Audit whether your AI agent product site explains observability, tracing, integrations, and outcome metrics clearly enough for buyers and answer engines.",
+    eyebrow: "AI agent observability audit",
+    h1: "Audit whether buyers and AI engines understand your agent observability story.",
+    intro:
+      "AI agent analytics tools sell trust, debugging, and measurable improvement. RankFortune checks whether the public site exposes enough integrations, workflow proof, event metrics, and answer-ready pages for AI engines to recommend it accurately.",
+    audience:
+      "Best for AI agent analytics, monitoring, evaluation, and automation platforms that need clearer public proof before investing in heavier prompt tracking.",
+    checks: [
+      "Whether the homepage explains agent tracing, event capture, resolution metrics, and optimization outcomes",
+      "Whether SDK, framework, security, and data-ownership signals are easy for buyers and AI engines to find",
+      "Whether pricing, use cases, dashboards, and team workflows are framed as business outcomes instead of raw telemetry",
+      "Whether FAQ and comparison pages answer buyer questions about OpenAI, Anthropic, Gemini, LangChain, CrewAI, and Vercel AI SDK support",
+    ],
+    outcomes: [
+      "A readiness baseline for AI agent observability positioning",
+      "Missing proof blocks for SDK onboarding, dashboards, metrics, and team adoption",
+      "A practical roadmap for making the site easier for answer engines to cite in agent monitoring recommendations",
+    ],
+    sections: [
+      {
+        title: "Agent observability needs more than a dashboard claim",
+        body:
+          "The strongest pages make the path from SDK install to event timeline to outcome metrics obvious. If that story is buried, AI engines have little evidence for why the product belongs in monitoring and analytics recommendations.",
+      },
+      {
+        title: "Integration proof reduces buyer risk",
+        body:
+          "Public support for major models, orchestration frameworks, and TypeScript or Python SDKs gives answer engines concrete facts to reuse when buyers ask which tools fit their stack.",
+      },
+      {
+        title: "RankFortune turns observability positioning into site fixes",
+        body:
+          "The audit identifies missing metadata, FAQ answers, integration pages, pricing clarity, and proof sections so the site communicates trust before a prospect reaches a demo.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI agent observability audit?",
+        answer:
+          "It is a review of whether a site clearly explains agent monitoring, traces, integrations, outcome metrics, pricing, and trust signals in ways buyers and answer engines can understand.",
+      },
+      {
+        question: "Why does this matter for AI visibility?",
+        answer:
+          "Agent analytics is a technical category. AI engines need specific public evidence about SDKs, supported frameworks, dashboards, security, and use cases before they can recommend a product confidently.",
+      },
+      {
+        question: "What should an agent observability site publish first?",
+        answer:
+          "Start with SDK onboarding, supported framework pages, dashboard examples, pricing clarity, security answers, and comparison content for common monitoring alternatives.",
+      },
+    ],
+  },
+  {
+    slug: "agentic-engineering-visibility-audit",
+    title: "Agentic Engineering Visibility Audit - RankFortune",
+    description:
+      "Audit whether an agentic engineering, coding agent, or AI developer tool site has the public proof AI answer engines need to recommend it.",
+    eyebrow: "Agentic engineering visibility audit",
+    h1: "Audit whether AI engines understand your agentic engineering product.",
+    intro:
+      "Developer AI tools now compete on agents, IDE workflows, CLI commands, worker execution, model choice, and review quality. RankFortune checks whether those signals are clear enough for buyers and AI answer engines to trust.",
+    audience:
+      "Best for coding agent, AI IDE, code review, developer automation, and agentic engineering platforms that need stronger public positioning before heavier prompt tracking.",
+    checks: [
+      "Whether the site explains CLI, IDE, browser, worker-agent, and code-review workflows in plain buyer language",
+      "Whether docs, install commands, examples, model support, and security boundaries are easy for AI engines to find",
+      "Whether pricing, benchmarks, integrations, and proof blocks support developer-tool recommendation prompts",
+      "Whether FAQ, alternatives, and comparison pages answer questions about vibe coding, agentic engineering, and AI software development",
+    ],
+    outcomes: [
+      "A readiness baseline for agentic engineering category visibility",
+      "Missing proof blocks for install, workflows, benchmarks, pricing, and trust",
+      "A practical roadmap for making the site easier to cite in AI developer-tool recommendations",
+    ],
+    sections: [
+      {
+        title: "Agentic engineering pages need concrete workflow proof",
+        body:
+          "AI answer engines need more than a claim that a tool writes code. They need public evidence of how the product moves from prompt to plan, edit, review, test, and deployment.",
+      },
+      {
+        title: "Developer conversion signals double as AI evidence",
+        body:
+          "Install commands, docs, supported IDEs, model routing, security notes, benchmarks, and pricing tiers are useful to buyers and also give answer engines specific facts to reuse.",
+      },
+      {
+        title: "RankFortune turns category ambiguity into page tasks",
+        body:
+          "The audit identifies where the site is too vague for agentic engineering prompts, then recommends the comparison, FAQ, docs, and proof sections to publish next.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an agentic engineering visibility audit?",
+        answer:
+          "It is a review of whether an AI developer-tool site clearly explains agents, workflows, docs, pricing, integrations, benchmarks, and trust signals for buyers and answer engines.",
+      },
+      {
+        question: "Why does this matter for coding agent products?",
+        answer:
+          "Coding agent categories are crowded and technical. AI engines need concrete public evidence before they can recommend one product over another for developer workflows.",
+      },
+      {
+        question: "What should an agentic engineering site publish first?",
+        answer:
+          "Start with install and docs pages, workflow examples, model and IDE support, security answers, pricing clarity, benchmarks, and comparison pages for common alternatives.",
+      },
+    ],
+  },
+  {
     slug: "answer-engine-optimization-audit",
     title: "Answer Engine Optimization Audit - RankFortune",
     description:
