@@ -23,6 +23,11 @@ const faqItems = [
     answer:
       "A normal SEO audit often stops at crawlability and rankings. RankFortune adds answer-engine readiness, competitor citation gaps, and fixes designed for AI discovery and recommendation prompts.",
   },
+  {
+    question: "Should I use RankFortune before an AI visibility monitoring platform?",
+    answer:
+      "Yes, if you do not yet know what to fix. Monitoring platforms are more useful after the site has clear crawl signals, comparison pages, FAQ answers, pricing context, and proof content that AI systems can cite.",
+  },
 ];
 
 const proofMetrics = [
@@ -88,6 +93,30 @@ const comparisonCards = [
     "Authority suites",
     "Worth it when your team also needs citation, backlink, and wider brand-signal workflows.",
   ],
+];
+
+const competitorTakeaways = [
+  {
+    tool: "Profound-style platforms",
+    emphasis: "Full-stack AI search workflows with agents, prompt demand, and crawler analytics.",
+    gap: "Strong after a team already has enough pages, proof, and budget to operate a program.",
+    rankfortune:
+      "RankFortune starts earlier: it finds the missing crawl, entity, FAQ, comparison, and proof signals before weekly monitoring.",
+  },
+  {
+    tool: "Peec-style trackers",
+    emphasis: "Visibility, position, and sentiment tracking across AI search prompts and markets.",
+    gap: "Useful for trend reporting, but the first blocker is often missing answer-ready content.",
+    rankfortune:
+      "RankFortune turns that blocker into a 7-day fix plan with copy-ready title, FAQ, schema, and page recommendations.",
+  },
+  {
+    tool: "SEO authority suites",
+    emphasis: "Broad brand, search, and authority workflows that sit beside traditional SEO operations.",
+    gap: "Too heavy when an indie SaaS or agency lead only needs to decide what to publish next.",
+    rankfortune:
+      "RankFortune keeps the first step small: scan a public URL, explain the gaps, then upgrade only when the report is useful.",
+  },
 ];
 
 const reportDeliverables = [
@@ -376,6 +405,38 @@ export default function Home() {
           >
             Compare AI visibility audit tools
           </Link>
+
+          <div className="mt-10 overflow-hidden rounded-[8px] border border-white/10">
+            <div className="grid bg-white/[0.04] text-sm font-semibold text-slate-300 md:grid-cols-[220px_1fr_1fr_1fr]">
+              <div className="border-b border-white/10 p-4 md:border-b-0 md:border-r">
+                Tool category
+              </div>
+              <div className="border-b border-white/10 p-4 md:border-b-0 md:border-r">
+                What competitors emphasize
+              </div>
+              <div className="border-b border-white/10 p-4 md:border-b-0 md:border-r">
+                Where teams get stuck
+              </div>
+              <div className="p-4">RankFortune angle</div>
+            </div>
+            {competitorTakeaways.map((takeaway) => (
+              <article
+                className="grid border-t border-white/10 text-sm leading-6 text-slate-300 md:grid-cols-[220px_1fr_1fr_1fr]"
+                key={takeaway.tool}
+              >
+                <h3 className="border-b border-white/10 p-4 font-semibold text-white md:border-b-0 md:border-r">
+                  {takeaway.tool}
+                </h3>
+                <p className="border-b border-white/10 p-4 md:border-b-0 md:border-r">
+                  {takeaway.emphasis}
+                </p>
+                <p className="border-b border-white/10 p-4 md:border-b-0 md:border-r">
+                  {takeaway.gap}
+                </p>
+                <p className="p-4 text-cyan-100">{takeaway.rankfortune}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
