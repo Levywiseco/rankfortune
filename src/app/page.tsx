@@ -1,4 +1,5 @@
 import { AuditForm } from "@/components/audit-form";
+import { LandingMotion } from "@/components/landing-motion";
 import { landingPages } from "@/lib/landing-pages";
 import Link from "next/link";
 
@@ -203,7 +204,8 @@ const productSchema = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#09111f] text-white">
+    <main className="min-h-screen overflow-hidden bg-[#09111f] text-white">
+      <LandingMotion />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
@@ -237,22 +239,30 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-12 md:py-16">
-        <div className="grid gap-10 lg:grid-cols-[1fr_460px] lg:items-end">
+      <section className="relative mx-auto max-w-7xl px-5 py-12 md:py-16">
+        <div className="pointer-events-none absolute inset-x-5 top-4 z-0 h-[520px] overflow-hidden rounded-[8px] border border-white/5 bg-[linear-gradient(115deg,rgba(34,211,238,0.08),rgba(15,23,42,0.04)_38%,rgba(16,185,129,0.08))] opacity-90">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:52px_52px]" />
+          <div className="rf-scan-line absolute left-0 top-0 h-16 w-full bg-[linear-gradient(180deg,transparent,rgba(34,211,238,0.18),transparent)]" />
+          <div className="rf-signal-line absolute left-[-12%] top-24 h-px w-2/3 bg-cyan-300/35" />
+          <div className="rf-signal-line absolute left-[18%] top-52 h-px w-3/5 bg-emerald-300/25" />
+          <div className="rf-signal-line absolute left-[-8%] top-80 h-px w-1/2 bg-white/20" />
+        </div>
+
+        <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_460px] lg:items-end">
           <div>
-            <p className="inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-100">
+            <p className="rf-reveal inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-100 backdrop-blur">
               AI visibility audit for SaaS and indie tools
             </p>
-            <h1 className="mt-6 max-w-4xl text-5xl font-semibold leading-[1.05] text-white md:text-7xl">
+            <h1 className="rf-reveal mt-6 max-w-4xl text-5xl font-semibold leading-[1.05] text-white md:text-7xl">
               See what keeps AI engines from recommending your website.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            <p className="rf-reveal mt-6 max-w-2xl text-lg leading-8 text-slate-300">
               RankFortune checks whether your website is discoverable,
               understandable, and citeable for ChatGPT, Perplexity, Gemini, AI
               Overviews, and answer engines. Start with a free snapshot, then
               upgrade to a full report when the gaps are worth fixing.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="rf-reveal mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 className="flex h-12 items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
                 href="#audit"
@@ -268,11 +278,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5">
+          <div className="rf-float rounded-[8px] border border-white/10 bg-slate-950/70 p-5 shadow-2xl shadow-cyan-950/30 backdrop-blur">
             <div className="grid grid-cols-2 gap-3">
               {proofMetrics.map(([metric, label]) => (
                 <div
-                  className="rounded-[8px] bg-slate-950 p-4 text-center"
+                  className="rf-card rounded-[8px] bg-white/[0.05] p-4 text-center"
                   key={label}
                 >
                   <div className="text-2xl font-semibold text-cyan-200">
@@ -293,16 +303,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-16" id="audit">
+      <section className="rf-section mx-auto max-w-7xl px-5 pb-16" id="audit">
         <AuditForm />
       </section>
 
       <section
-        className="border-t border-white/10 bg-slate-950/40 py-16"
+        className="rf-section border-t border-white/10 bg-slate-950/40 py-16"
         id="methodology"
       >
         <div className="mx-auto max-w-7xl px-5">
-          <div className="max-w-3xl">
+          <div className="rf-rise max-w-3xl">
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
               Methodology
             </p>
@@ -319,7 +329,7 @@ export default function Home() {
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {auditLayers.map((layer) => (
               <article
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
                 key={layer.title}
               >
                 <h3 className="font-semibold text-white">{layer.title}</h3>
@@ -332,9 +342,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-16">
+      <section className="rf-section mx-auto max-w-7xl px-5 py-16">
         <div className="grid gap-8 lg:grid-cols-[360px_1fr] lg:items-start">
-          <div>
+          <div className="rf-rise">
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
               Workflow
             </p>
@@ -351,7 +361,7 @@ export default function Home() {
           <div className="grid gap-4 md:grid-cols-2">
             {platformSteps.map(([title, detail], index) => (
               <article
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
                 key={title}
               >
                 <div className="font-mono text-sm text-cyan-200">
@@ -369,9 +379,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-slate-950/40 py-16">
+      <section className="rf-section border-t border-white/10 bg-slate-950/40 py-16">
         <div className="mx-auto max-w-7xl px-5">
-          <div className="max-w-3xl">
+          <div className="rf-rise max-w-3xl">
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
               Compare tools
             </p>
@@ -388,7 +398,7 @@ export default function Home() {
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {comparisonCards.map(([title, detail]) => (
               <article
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
                 key={title}
               >
                 <h3 className="text-xl font-semibold text-white">{title}</h3>
@@ -400,13 +410,13 @@ export default function Home() {
           </div>
 
           <Link
-            className="mt-8 inline-flex h-12 items-center justify-center rounded-[8px] border border-cyan-300/30 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
+            className="rf-rise mt-8 inline-flex h-12 items-center justify-center rounded-[8px] border border-cyan-300/30 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
             href="/ai-visibility-audit-tools"
           >
             Compare AI visibility audit tools
           </Link>
 
-          <div className="mt-10 overflow-hidden rounded-[8px] border border-white/10">
+          <div className="rf-rise mt-10 overflow-hidden rounded-[8px] border border-white/10">
             <div className="grid bg-white/[0.04] text-sm font-semibold text-slate-300 md:grid-cols-[220px_1fr_1fr_1fr]">
               <div className="border-b border-white/10 p-4 md:border-b-0 md:border-r">
                 Tool category
@@ -440,9 +450,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-16">
+      <section className="rf-section border-t border-white/10 py-16">
         <div className="mx-auto max-w-7xl px-5">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="rf-rise flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
                 AI search pages
@@ -461,7 +471,7 @@ export default function Home() {
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {seoPages.map((page) => (
               <Link
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-300/40 hover:bg-cyan-300/[0.06]"
+                className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5 transition hover:border-cyan-300/40 hover:bg-cyan-300/[0.06]"
                 href={`/${page.slug}`}
                 key={page.slug}
               >
@@ -480,9 +490,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-slate-950/40 py-16">
+      <section className="rf-section border-t border-white/10 bg-slate-950/40 py-16">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[1fr_520px] lg:items-start">
-          <div>
+          <div className="rf-rise">
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
               Visibility preview
             </p>
@@ -496,7 +506,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5">
+          <div className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5">
             <div className="grid gap-3 sm:grid-cols-2">
               {visibilitySignals.map(([title, detail]) => (
                 <div className="rounded-[8px] bg-slate-950 p-4" key={title}>
@@ -512,11 +522,11 @@ export default function Home() {
       </section>
 
       <section
-        className="border-t border-white/10 bg-slate-950/40 py-16"
+        className="rf-section border-t border-white/10 bg-slate-950/40 py-16"
         id="pricing"
       >
         <div className="mx-auto max-w-7xl px-5">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="rf-rise flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
                 Pricing path
@@ -534,7 +544,7 @@ export default function Home() {
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {plans.map((plan) => (
               <article
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
                 key={plan.name}
               >
                 <h3 className="text-xl font-semibold text-white">
@@ -565,9 +575,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-slate-950/40 py-16">
+      <section className="rf-section border-t border-white/10 bg-slate-950/40 py-16">
         <div className="mx-auto max-w-7xl px-5">
-          <div className="max-w-3xl">
+          <div className="rf-rise max-w-3xl">
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
               FAQ
             </p>
@@ -583,7 +593,7 @@ export default function Home() {
           <div className="mt-8 grid gap-4">
             {faqItems.map((item) => (
               <article
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
                 key={item.question}
               >
                 <h3 className="text-xl font-semibold text-white">
@@ -598,9 +608,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-16">
+      <section className="rf-section border-t border-white/10 py-16">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[420px_1fr] lg:items-start">
-          <div>
+          <div className="rf-rise">
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
               Buyer fit
             </p>
@@ -616,7 +626,7 @@ export default function Home() {
           <div className="grid gap-4 md:grid-cols-3">
             {audienceFit.map(([title, detail]) => (
               <article
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
+                className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5"
                 key={title}
               >
                 <h3 className="font-semibold text-white">{title}</h3>
@@ -629,9 +639,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-slate-950/40 py-16">
+      <section className="rf-section border-t border-white/10 bg-slate-950/40 py-16">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[1fr_460px] lg:items-start">
-          <div>
+          <div className="rf-rise">
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
               Full report
             </p>
@@ -644,7 +654,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-5">
+          <div className="rf-rise rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-5">
             <h3 className="text-xl font-semibold text-white">
               What the $19 report includes
             </h3>

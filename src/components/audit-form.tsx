@@ -154,7 +154,7 @@ export function AuditForm() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
-      <section className="rounded-[8px] border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20">
+      <section className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20 backdrop-blur">
         <div className="mb-5 flex items-center justify-between">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-cyan-200">
@@ -256,7 +256,8 @@ export function AuditForm() {
         </p>
       </section>
 
-      <section className="min-h-[560px] rounded-[8px] border border-white/10 bg-slate-950/70 p-5">
+      <section className="rf-rise relative min-h-[560px] overflow-hidden rounded-[8px] border border-white/10 bg-slate-950/70 p-5">
+        <div className="rf-scan-line pointer-events-none absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,transparent,rgba(34,211,238,0.1),transparent)]" />
         {!report ? (
           <div className="space-y-6">
             <div className="flex flex-col gap-4 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
