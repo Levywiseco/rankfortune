@@ -703,6 +703,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-marketing-audit",
+    title: "AI Marketing Audit for SEO, AEO, and Competitor Gaps - RankFortune",
+    description:
+      "Run an AI marketing audit that checks SEO foundations, answer-engine readiness, competitor page gaps, and the next fixes to publish.",
+    eyebrow: "AI marketing audit",
+    h1: "Turn a website URL into an AI marketing fix list.",
+    intro:
+      "RankFortune gives marketers a focused audit path: scan a public URL, check SEO and AEO basics, compare competitor-ready page signals, and turn the gaps into a shareable report.",
+    audience:
+      "Best for founders, lean marketers, and agencies that want chat-style marketing insights without buying a broad campaign suite first.",
+    checks: [
+      "SEO crawl basics, metadata, sitemap, robots, canonical, and indexability",
+      "AEO and GEO signals such as FAQ, schema, answer blocks, and entity clarity",
+      "Competitor page gaps across alternatives, comparisons, use cases, pricing, and proof",
+      "Shareable recommendations for the next pages, headings, FAQ items, and schema updates",
+    ],
+    outcomes: [
+      "Marketing audit score with technical, clarity, and answer-readiness layers",
+      "Competitor-informed content gaps that explain what to publish next",
+      "Copy-ready actions for SEO, AEO, and AI visibility improvement",
+    ],
+    sections: [
+      {
+        title: "Why AI marketing audits need structure",
+        body:
+          "Chat-first marketing tools are useful when they produce decisions, not generic advice. RankFortune narrows the workflow to public website evidence, competitor page gaps, and fixes that can be shipped quickly.",
+      },
+      {
+        title: "Where SEO meets AEO",
+        body:
+          "Traditional SEO checks still matter, but answer engines also need direct answers, product entities, comparison context, and proof content. The audit connects both layers in one report.",
+      },
+      {
+        title: "Built for a first marketing deliverable",
+        body:
+          "The output is designed to be shared with a founder, client, or content team: score the site, show the missing pages, and recommend the next copy and schema changes.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI marketing audit?",
+        answer:
+          "It is a website audit that combines SEO health, answer-engine readiness, competitor content gaps, and practical recommendations for improving AI-era marketing visibility.",
+      },
+      {
+        question: "How is this different from a full marketing platform?",
+        answer:
+          "RankFortune focuses on the first decision: what should be fixed or published next. Broader platforms add campaign creation, social workflows, and ongoing analytics after the audit is clear.",
+      },
+      {
+        question: "Can agencies use this as a client report?",
+        answer:
+          "Yes. The paid report is designed to summarize the score, competitor gaps, recommended pages, metadata, FAQ, and schema changes in a format that can be shared.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
