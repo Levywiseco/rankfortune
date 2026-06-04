@@ -760,6 +760,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-content-engine-audit",
+    title: "AI Content Engine Audit for GEO Briefs - RankFortune",
+    description:
+      "Audit whether your website has the keyword, entity, competitor, and answer-ready signals needed to produce GEO content briefs.",
+    eyebrow: "AI content engine audit",
+    h1: "Turn GEO content ideas into a fixable brief.",
+    intro:
+      "AI content engines work best when they start from real site evidence. RankFortune checks whether a website has the keyword intent, entity clarity, competitor gaps, and answer-ready pages needed to produce useful GEO briefs.",
+    audience:
+      "Best for founders, content marketers, and agencies comparing AI content engines before building a broader SEO and GEO workflow.",
+    checks: [
+      "Keyword, category, and buyer-intent signals that explain what the site should rank or be cited for",
+      "Entity clarity across title, description, headings, schema, pricing, proof, and internal links",
+      "Competitor page gaps across use cases, alternatives, comparisons, FAQ, and content hubs",
+      "Brief-ready recommendations for pages, answer blocks, headings, schema, and refresh priorities",
+    ],
+    outcomes: [
+      "GEO content brief baseline for one website",
+      "Prioritized content gaps that explain what to publish next",
+      "Copy-ready outline ideas for AI search, ChatGPT, Perplexity, and Google visibility",
+    ],
+    sections: [
+      {
+        title: "Content engines still need a diagnosis",
+        body:
+          "Generating more pages is risky when the site has unclear positioning or missing proof. A useful AI content engine first identifies which buyer questions, entities, and comparison gaps deserve new pages.",
+      },
+      {
+        title: "GEO briefs connect search and answer engines",
+        body:
+          "The strongest briefs cover classic SEO intent and AI answer readiness at the same time: direct answers, schema, competitor context, citations, internal links, and proof sections.",
+      },
+      {
+        title: "RankFortune keeps the first step practical",
+        body:
+          "Instead of trying to become a full campaign suite, the audit turns a URL into a short content brief: the next pages to publish, the headings to add, and the answer blocks worth writing first.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI content engine audit?",
+        answer:
+          "It is a review of whether a website has enough keyword intent, entity clarity, competitor context, and answer-ready structure to generate useful GEO content briefs.",
+      },
+      {
+        question: "How is this different from AI article generation?",
+        answer:
+          "RankFortune focuses on the decision before generation: which pages and answer blocks are missing. Article generation can come later once the brief is grounded in real site gaps.",
+      },
+      {
+        question: "What does the content brief recommend?",
+        answer:
+          "It recommends page ideas, headings, FAQ questions, schema opportunities, competitor gaps, and refresh priorities that can improve SEO, AEO, and AI visibility.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
