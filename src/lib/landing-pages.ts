@@ -761,6 +761,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "ai-search-monitoring",
+    title: "AI Search Monitoring Readiness Audit - RankFortune",
+    description:
+      "Audit whether your website is ready for AI search monitoring across prompts, competitors, model-level visibility, and citation sources.",
+    eyebrow: "AI search monitoring",
+    h1: "Check whether your site is ready for AI search monitoring.",
+    intro:
+      "AI search monitoring is only useful when the prompts, competitors, citations, and model-level gaps are grounded in a site that AI engines can already crawl and understand. RankFortune turns the first scan into a monitoring-ready roadmap.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies comparing AI visibility trackers before committing to weekly monitoring or enterprise GEO dashboards.",
+    checks: [
+      "Prompt groups for ChatGPT, Perplexity, Gemini, Claude, AI Overviews, and buyer-intent search",
+      "Competitor visibility signals such as share of voice, position, mention rate, and displaced prompts",
+      "Citation source readiness across first-party pages, comparison content, UGC, reviews, and authority mentions",
+      "Whether the site has enough answer-ready pages to make weekly monitoring actionable instead of repetitive",
+    ],
+    outcomes: [
+      "Monitoring-readiness baseline before buying a tracker",
+      "Prompt and competitor gap map for AI search visibility",
+      "Prioritized fixes for citations, entity clarity, and pages to publish before weekly reporting",
+    ],
+    sections: [
+      {
+        title: "Monitoring needs a stable prompt set",
+        body:
+          "Strong AI visibility trackers group prompts by buyer job, product category, competitor alternatives, and model behavior. RankFortune checks whether the site has enough category clarity to build that prompt set without guessing.",
+      },
+      {
+        title: "Competitor share of voice must connect to fixes",
+        body:
+          "Seeing that competitors appear more often is useful only when the report explains why. The audit looks for missing comparison pages, proof blocks, FAQ answers, and citation sources that can be improved before weekly tracking starts.",
+      },
+      {
+        title: "Citation sources are the bridge between audit and monitoring",
+        body:
+          "AI engines cite different sources across models. RankFortune highlights whether first-party pages, community proof, reviews, docs, and authority mentions are strong enough to support ongoing AI search visibility work.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is AI search monitoring?",
+        answer:
+          "It is the ongoing tracking of how AI systems mention, rank, cite, and compare a brand across category prompts, competitor prompts, and model-specific answers.",
+      },
+      {
+        question: "Should I audit before buying a monitoring platform?",
+        answer:
+          "Usually yes. If the site lacks crawlable pages, clear entities, comparison content, or citation-ready proof, monitoring will mostly repeat the same gaps until those fixes ship.",
+      },
+      {
+        question: "What signals should AI search monitoring include?",
+        answer:
+          "Useful monitoring includes prompt groups, model-level visibility, competitor share of voice, citation sources, sentiment, displaced prompts, and a fix list tied to pages you can actually publish.",
+      },
+    ],
+  },
+  {
     slug: "ai-content-engine-audit",
     title: "AI Content Engine Audit for GEO Briefs - RankFortune",
     description:
