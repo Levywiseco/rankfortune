@@ -874,6 +874,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-redirect-mapping-audit",
+    title: "AI Redirect Mapping Audit for Website Migrations - RankFortune",
+    description:
+      "Audit website migration redirect readiness with AI-assisted URL matching, sitemap checks, export planning, and SEO risk prioritization.",
+    eyebrow: "AI redirect mapping audit",
+    h1: "Map migration redirects before rankings disappear.",
+    intro:
+      "Website migrations fail when old URLs, new destinations, and content intent are matched too late. RankFortune helps teams audit redirect mapping readiness before a relaunch, rebrand, or CMS move.",
+    audience:
+      "Best for SEO consultants, agencies, and SaaS teams planning a site migration who need a focused redirect plan before implementation.",
+    checks: [
+      "Old URL discovery from sitemap exports, crawls, analytics lists, and known high-value landing pages",
+      "Semantic URL matching signals across path, title, heading, category, and page intent",
+      "Redirect export planning for CSV, Webflow, WordPress, Apache, Nginx, Netlify, and Vercel routes",
+      "Priority flags for revenue pages, AI-visible pages, backlinks, traffic pages, and content that should not be collapsed",
+    ],
+    outcomes: [
+      "Migration risk snapshot for old and new URL sets",
+      "Redirect mapping brief with match confidence and review notes",
+      "Implementation checklist for 301 rules, canonical tags, sitemap refresh, and post-launch verification",
+    ],
+    sections: [
+      {
+        title: "Redirect mapping is a relevance problem",
+        body:
+          "Matching URLs only by path creates mistakes when content was renamed, consolidated, or moved to a new taxonomy. AI-assisted review should compare meaning, buyer intent, and page role before a 301 rule is shipped.",
+      },
+      {
+        title: "Migration SEO needs export-ready decisions",
+        body:
+          "A useful redirect plan should not end with a spreadsheet of guesses. Teams need confidence labels, review queues, and export formats that match the CMS, edge platform, or server where redirects will actually live.",
+      },
+      {
+        title: "RankFortune ties redirects to AI visibility",
+        body:
+          "Pages that AI engines cite or summarize should be protected during a migration. The audit highlights answer-ready pages, comparison pages, and proof content that deserve careful mapping instead of broad homepage redirects.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI redirect mapping audit?",
+        answer:
+          "It is a migration readiness review that compares old and new URLs by meaning, page intent, and SEO value so teams can prepare safer 301 redirects before launch.",
+      },
+      {
+        question: "Does this replace a technical SEO migration plan?",
+        answer:
+          "No. It supports the redirect-mapping layer of a migration plan, then pairs it with checks for canonical tags, sitemap updates, and post-launch verification.",
+      },
+      {
+        question: "Which redirect formats should teams prepare?",
+        answer:
+          "Common exports include generic CSV, Webflow CSV, WordPress redirection imports, Apache .htaccess, Nginx rules, Netlify redirects, and Vercel route configuration.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
