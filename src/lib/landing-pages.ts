@@ -875,6 +875,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "ai-prompt-portfolio-audit",
+    title: "AI Prompt Portfolio Audit for GEO Teams - RankFortune",
+    description:
+      "Audit whether your website has the prompt coverage, competitor context, citation sources, and answer-ready pages needed before AI search tracking.",
+    eyebrow: "AI prompt portfolio audit",
+    h1: "Build the prompt portfolio before tracking AI visibility.",
+    intro:
+      "AI visibility tools are only as useful as the prompts and source gaps they monitor. RankFortune checks whether your site has the buyer questions, competitor context, and citation-ready pages needed for a useful prompt portfolio.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies preparing for ChatGPT, Perplexity, Gemini, and AI Overview tracking without buying a full monitoring suite first.",
+    checks: [
+      "Buyer-intent prompt groups for category, alternatives, comparisons, use cases, pricing, and implementation questions",
+      "Competitor and brand context that explains which companies should appear in each prompt set",
+      "Citation-source readiness across FAQ, docs, pricing, comparison, proof, review, and community-style pages",
+      "Model and market segmentation ideas for teams that later want weekly AI search visibility tracking",
+    ],
+    outcomes: [
+      "A prompt portfolio brief organized by buyer intent and visibility risk",
+      "Missing source and page gaps that make competitors easier for AI engines to cite",
+      "A practical tracking plan for visibility, position, sentiment, and source-citation metrics",
+    ],
+    sections: [
+      {
+        title: "Prompt portfolios need buyer intent",
+        body:
+          "Generic brand prompts rarely explain why competitors win AI recommendations. A useful portfolio groups real buyer questions by category, alternatives, comparison, use case, pricing, and implementation intent.",
+      },
+      {
+        title: "Source gaps come before dashboards",
+        body:
+          "Tools like Peec emphasize visibility, position, sentiment, prompts, sources, models, and reports. RankFortune handles the earlier step: finding which pages and citation sources are missing before those metrics become weekly charts.",
+      },
+      {
+        title: "RankFortune turns tracking ideas into site tasks",
+        body:
+          "The audit converts prompt groups into publishable fixes: FAQ blocks, comparison pages, proof sections, schema opportunities, and internal links that make future AI search tracking more meaningful.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI prompt portfolio?",
+        answer:
+          "It is a structured set of buyer-intent prompts used to test where a brand, competitors, and citation sources appear across AI search and answer engines.",
+      },
+      {
+        question: "Why audit prompts before buying monitoring software?",
+        answer:
+          "Monitoring works better after teams know which prompts matter, which competitors belong in each group, and which site pages need to exist before AI engines can cite the brand confidently.",
+      },
+      {
+        question: "Which metrics should a prompt portfolio support?",
+        answer:
+          "Useful metrics include brand visibility, average position, sentiment, source citations, competitor share of voice, model-level differences, and weekly movement by prompt group.",
+      },
+    ],
+  },
+  {
     slug: "ai-redirect-mapping-audit",
     title: "AI Redirect Mapping Audit for Website Migrations - RankFortune",
     description:
