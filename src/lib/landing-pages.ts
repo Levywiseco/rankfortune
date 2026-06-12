@@ -988,6 +988,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-visibility-evidence-log-audit",
+    title: "AI Visibility Evidence Log Audit - RankFortune",
+    description:
+      "Audit whether your AI visibility work has a clear evidence log for prompts, citations, competitor mentions, source pages, and decisions.",
+    eyebrow: "AI visibility evidence log",
+    h1: "Turn scattered AI visibility signals into an evidence log.",
+    intro:
+      "AI visibility programs get messy when prompts, citations, competitor answers, page changes, and client notes live in separate tools. RankFortune checks whether the site has enough traceable evidence to support repeatable AI search fixes.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies that need a cleaner handoff between one-off AI audits, prompt tracking, competitor research, and future monitoring workflows.",
+    checks: [
+      "Prompt, model, date, source, competitor, and answer-change fields needed for a useful audit log",
+      "Citation evidence across first-party pages, FAQ, docs, comparisons, review pages, UGC, and authority sources",
+      "Decision traceability for why a page, schema block, prompt group, or source gap was prioritized",
+      "Whether audit findings can be turned into docs, client reports, and weekly monitoring inputs without losing context",
+    ],
+    outcomes: [
+      "Evidence-log brief for AI visibility audits and reruns",
+      "Missing citation and decision fields that make reports hard to trust",
+      "Operating checklist for turning scattered findings into a repeatable GEO workflow",
+    ],
+    sections: [
+      {
+        title: "AI visibility needs memory",
+        body:
+          "One scan is useful, but teams need to remember which prompts were tested, which sources were cited, which competitors appeared, and why a fix was chosen. Without that log, each rerun becomes another disconnected snapshot.",
+      },
+      {
+        title: "Traceability improves client reports",
+        body:
+          "The strongest knowledge tools keep answers grounded in source material and decision history. RankFortune applies that lesson to GEO work by mapping audit findings back to prompts, pages, citations, and recommended changes.",
+      },
+      {
+        title: "Start smaller than a full knowledge base",
+        body:
+          "Teams do not need to deploy a full internal memory platform before improving AI search readiness. A practical evidence log can capture the core fields needed for prompt portfolios, competitor reviews, and weekly monitoring.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI visibility evidence log?",
+        answer:
+          "It is a structured record of prompts, answers, cited sources, competitor mentions, page gaps, decisions, and follow-up fixes used to make AI visibility work repeatable.",
+      },
+      {
+        question: "How is this different from prompt monitoring?",
+        answer:
+          "Prompt monitoring tracks movement over time. An evidence log explains the context behind the movement, including which sources were found, which pages were missing, and which decisions were made.",
+      },
+      {
+        question: "Who should keep an evidence log?",
+        answer:
+          "Founders, SEO teams, and agencies should keep one when they run repeated AI visibility audits, compare competitors, or need to explain why a GEO fix was prioritized.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
