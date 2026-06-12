@@ -71,7 +71,7 @@ const platformSteps = [
   ["Scan", "Drop in a public URL and RankFortune crawls the page, robots.txt, sitemap, metadata, and structured data."],
   ["Score", "The report separates technical discoverability, brand clarity, and answer-engine readiness so the weakness is obvious."],
   ["Fix", "You get copy-ready titles, FAQ ideas, schema recommendations, and the next pages to publish."],
-  ["Verify", "The next layer will store audit history so you can rerun and prove whether visibility readiness improved."],
+  ["Verify", "Rerun the audit after you ship the fixes and see whether your visibility readiness actually improved."],
 ];
 
 const visibilitySignals = [
@@ -276,6 +276,9 @@ export default function Home() {
                 See scoring method
               </a>
             </div>
+            <p className="rf-reveal mt-5 text-sm text-slate-400">
+              Free scan &middot; No signup &middot; First snapshot in about 60 seconds
+            </p>
           </div>
 
           <div className="rf-float rounded-[8px] border border-white/10 bg-slate-950/70 p-5 shadow-2xl shadow-cyan-950/30 backdrop-blur">
@@ -295,9 +298,9 @@ export default function Home() {
               ))}
             </div>
             <p className="mt-4 text-sm leading-6 text-slate-400">
-              Inspired by the strongest GEO tools: first diagnose your site
-              readiness, then add prompt monitoring and competitor visibility
-              once the baseline is credible.
+              Every scan checks 15 readiness signals across technical access,
+              brand clarity, and answer-engine coverage — then turns the gaps
+              into a prioritized fix plan.
             </p>
           </div>
         </div>
@@ -352,9 +355,9 @@ export default function Home() {
               More than a score.
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-300">
-              The first version is a fast readiness audit. The product path is
-              clear: save reports, compare competitors, and monitor AI prompts
-              over time.
+              Start with a fast readiness audit. Then save reports, compare
+              competitors, and monitor AI prompts over time as visibility
+              becomes a weekly workflow.
             </p>
           </div>
 
@@ -532,7 +535,7 @@ export default function Home() {
                 Pricing path
               </p>
               <h2 className="mt-3 text-4xl font-semibold text-white">
-                Start free, charge for proof.
+                Start free, upgrade for the full report.
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-slate-400">
@@ -585,8 +588,8 @@ export default function Home() {
               Answer the questions AI engines and buyers both ask.
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-300">
-              The homepage now includes direct answers that can be quoted in AI
-              results, comparison prompts, and buyer research flows.
+              Direct answers about what RankFortune checks, who it is for, and
+              what you get from the free scan and the full report.
             </p>
           </div>
 
