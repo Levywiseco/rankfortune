@@ -1045,6 +1045,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-topic-cluster-audit",
+    title: "AI Topic Cluster Audit for SEO and AEO - RankFortune",
+    description:
+      "Audit whether your website has the keyword clusters, topical authority, competitor gaps, and answer-ready content plan needed for AI search visibility.",
+    eyebrow: "AI topic cluster audit",
+    h1: "Turn scattered keywords into an AI-ready topic cluster plan.",
+    intro:
+      "Modern SEO and answer-engine visibility depend on more than publishing isolated articles. RankFortune checks whether a site has a clear cluster map, buyer-intent coverage, competitor gaps, and publishable briefs for AI-visible content.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies that need to turn keyword research, competitor content, and GEO findings into a practical content roadmap.",
+    checks: [
+      "Anchor keyword, product category, buyer intent, and audience signals for a useful cluster map",
+      "Existing pillar, comparison, alternatives, FAQ, use-case, and proof pages that support topical authority",
+      "Competitor content gaps across ranking pages, answer-ready pages, and AI-citable source material",
+      "Refresh cadence, content calendar, internal-link plan, and briefs that can move from audit to publishing",
+    ],
+    outcomes: [
+      "Topic-cluster readiness snapshot for SEO, GEO, and AEO work",
+      "Priority clusters with missing pillar pages, support pages, and FAQ coverage",
+      "Content brief checklist for turning audit findings into publishable pages",
+    ],
+    sections: [
+      {
+        title: "Topic clusters connect SEO to AI visibility",
+        body:
+          "Keyword lists are not enough when AI engines need a coherent picture of what the brand does, which problems it solves, and how it compares with alternatives. A cluster audit groups buyer questions into publishable page sets.",
+      },
+      {
+        title: "Competitor gaps should become briefs",
+        body:
+          "Tools that cluster keywords and research competitors are useful because they point to missing pages. RankFortune applies that idea to AI visibility by translating gaps into titles, FAQ angles, schema needs, and internal-link targets.",
+      },
+      {
+        title: "Start before full content automation",
+        body:
+          "All-in-one content engines can research, write, design, and publish at scale. Lean teams usually need the safer first step: decide which clusters deserve pages, what evidence those pages need, and how to verify the next update.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI topic cluster audit?",
+        answer:
+          "It is a review of whether a site has the pillar pages, support pages, FAQs, comparisons, internal links, and proof content needed to cover a topic clearly for search engines and AI answer engines.",
+      },
+      {
+        question: "How is this different from keyword clustering?",
+        answer:
+          "Keyword clustering groups related search terms. An AI topic cluster audit connects those groups to page gaps, entity clarity, answer-ready content, schema, and competitor visibility.",
+      },
+      {
+        question: "Does RankFortune publish the articles for me?",
+        answer:
+          "No. RankFortune focuses on the audit and roadmap: which clusters to prioritize, which pages to publish, and what each brief should include before a team writes or automates content.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
