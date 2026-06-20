@@ -1046,6 +1046,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "ai-marketing-root-cause-audit",
+    title: "AI Marketing Root Cause Audit - RankFortune",
+    description:
+      "Audit whether your website can turn AI search, SEO, ad, and content symptoms into root-cause findings and a practical marketing action plan.",
+    eyebrow: "AI marketing root cause audit",
+    h1: "Find the root cause behind AI visibility and marketing drops.",
+    intro:
+      "Marketing teams often see the symptom first: lower visibility, fewer qualified clicks, weaker content performance, or competitors appearing in AI answers. RankFortune checks whether the public website has the evidence needed to explain the cause and turn it into a focused action plan.",
+    audience:
+      "Best for founders, SEO teams, and agencies that want a diagnostic bridge between AI visibility audits, marketing performance reviews, and the next content or campaign fixes.",
+    checks: [
+      "Whether crawl, metadata, schema, and internal-link signals explain technical visibility blockers",
+      "Which buyer-intent prompts, search topics, and competitor pages reveal demand or positioning gaps",
+      "Whether the site has enough FAQ, comparison, pricing, proof, and use-case content to support action recommendations",
+      "How audit findings can become weekly recaps, campaign backlog items, content briefs, and owner-ready next steps",
+    ],
+    outcomes: [
+      "Root-cause brief for AI visibility, SEO, and content symptoms",
+      "Prioritized marketing fixes grouped by technical, positioning, and content evidence",
+      "Action-plan checklist for the next pages, schema blocks, and internal links to ship",
+    ],
+    sections: [
+      {
+        title: "Symptoms need evidence before advice",
+        body:
+          "AI marketing agents can answer questions across ads, analytics, SEO, and ecommerce data. A public-site audit should start with the safer baseline: what evidence exists on the website, what is missing, and which gaps plausibly explain weak AI visibility.",
+      },
+      {
+        title: "Root cause turns reports into backlog",
+        body:
+          "A useful diagnosis separates crawl issues, unclear positioning, missing buyer answers, thin competitor context, and weak proof. Each finding should map to a concrete page, schema, FAQ, or internal-link task instead of another generic recommendation.",
+      },
+      {
+        title: "RankFortune keeps the workflow lightweight",
+        body:
+          "Instead of requiring read-only ad or analytics integrations, the audit uses the public URL first, then turns the strongest visible gaps into a weekly recap, campaign backlog, or content brief a lean team can execute.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI marketing root cause audit?",
+        answer:
+          "It is a website-first review that connects visibility symptoms to likely technical, positioning, competitor, and content causes, then turns those causes into practical marketing fixes.",
+      },
+      {
+        question: "Does this connect to my ad accounts or analytics tools?",
+        answer:
+          "No. RankFortune starts with public website evidence, crawl signals, and AI-ready content gaps. Teams can add private performance data later if they want a deeper marketing ops workflow.",
+      },
+      {
+        question: "What does the action plan include?",
+        answer:
+          "The plan can include metadata fixes, schema blocks, FAQ additions, comparison or use-case pages, internal links, content briefs, and weekly recap items tied to the root cause.",
+      },
+    ],
+  },
+  {
     slug: "ai-topic-cluster-audit",
     title: "AI Topic Cluster Audit for SEO and AEO - RankFortune",
     description:
