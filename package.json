@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test:landing-pages": "node scripts/check-landing-page-config.mjs",
     "start": "next start",
     "lint": "eslint"
   },

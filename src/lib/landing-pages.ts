@@ -818,6 +818,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "ai-citation-gap-audit",
+    title: "AI Citation Gap Audit for AI Search Visibility - RankFortune",
+    description:
+      "Audit the citation, source, prompt, and competitor gaps that keep ChatGPT, Perplexity, Gemini, and Claude from citing or recommending your brand.",
+    eyebrow: "AI citation gap audit",
+    h1: "Find the source gaps behind weak AI citations.",
+    intro:
+      "AI visibility trackers show where competitors get mentioned. RankFortune handles the earlier diagnostic step: which prompts, source pages, proof blocks, and third-party citations are missing before a brand can improve share of voice.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies comparing AI visibility tools but needing a practical source-gap roadmap before weekly monitoring.",
+    checks: [
+      "Prompt groups for ChatGPT, Perplexity, Gemini, Claude, AI Overviews, and buyer recommendation queries",
+      "Citation source coverage across first-party pages, comparison content, docs, proof pages, reviews, directories, and community mentions",
+      "Competitor share of voice signals that explain which brands AI engines cite instead and why",
+      "Missing source pages, schema, FAQ blocks, and internal links that make the brand harder to cite with confidence",
+    ],
+    outcomes: [
+      "Citation-gap snapshot organized by prompt, source type, model, and competitor",
+      "Prioritized source and page fixes before investing in broader AI search monitoring",
+      "Action list for improving mention rate, source quality, and AI-ready proof coverage",
+    ],
+    sections: [
+      {
+        title: "Citation gaps explain weak share of voice",
+        body:
+          "When AI engines recommend competitors, the problem is often not the prompt tracker. It is missing evidence: no comparison page, weak proof content, thin docs, or too few third-party sources that confirm the brand's category and use case.",
+      },
+      {
+        title: "Source quality matters across models",
+        body:
+          "ChatGPT, Perplexity, Gemini, and Claude can surface different sources for the same buyer question. A useful audit groups gaps by model and source type so teams know whether to strengthen first-party pages, external listings, reviews, or community proof.",
+      },
+      {
+        title: "RankFortune turns monitoring data into publishable fixes",
+        body:
+          "Instead of stopping at citation counts, the report maps missing sources to concrete pages, FAQ answers, schema blocks, internal links, and outreach targets that can raise future AI visibility metrics.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI citation gap audit?",
+        answer:
+          "It is a review of the prompts, source pages, competitor mentions, and proof signals that explain why AI search engines cite competitors more often than your brand.",
+      },
+      {
+        question: "How is this different from AI search monitoring?",
+        answer:
+          "Monitoring tracks movement over time. A citation gap audit identifies the missing sources and pages that should be fixed first so monitoring can lead to action instead of repeated reports.",
+      },
+      {
+        question: "Which source gaps should teams fix first?",
+        answer:
+          "Start with first-party FAQ, comparison, use-case, docs, pricing, and proof pages, then add credible third-party listings, reviews, and community mentions where AI engines already find competitors.",
+      },
+    ],
+  },
+  {
     slug: "ai-content-engine-audit",
     title: "AI Content Engine Audit for GEO Briefs - RankFortune",
     description:
