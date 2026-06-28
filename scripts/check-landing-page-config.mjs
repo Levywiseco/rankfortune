@@ -56,3 +56,42 @@ for (const expected of [
 ]) {
   assert(pageText.includes(expected), `Citation gap page should mention ${expected}.`);
 }
+
+const guardrailsPage = getLandingPage("ai-marketing-agent-guardrails-audit");
+assert(guardrailsPage, "Expected ai-marketing-agent-guardrails-audit landing page to exist.");
+assert(
+  guardrailsPage.title.includes("AI Marketing Agent Guardrails Audit"),
+  "Guardrails page title should name the audit.",
+);
+assert(
+  guardrailsPage.description.toLowerCase().includes("approval"),
+  "Guardrails page description should include approval intent.",
+);
+assert(guardrailsPage.checks.length >= 4, "Guardrails page should define at least four checks.");
+assert(
+  guardrailsPage.outcomes.length >= 3,
+  "Guardrails page should define at least three outcomes.",
+);
+assert(
+  guardrailsPage.sections.length === 3,
+  "Guardrails page should define three narrative sections.",
+);
+assert(guardrailsPage.faqs.length === 3, "Guardrails page should define three FAQ entries.");
+
+const guardrailsPageText = JSON.stringify(guardrailsPage).toLowerCase();
+for (const expected of [
+  "agent",
+  "approval",
+  "guardrail",
+  "ads",
+  "outbound",
+  "ai search visibility",
+  "landing",
+  "lead",
+  "read-only",
+]) {
+  assert(
+    guardrailsPageText.includes(expected),
+    `Guardrails page should mention ${expected}.`,
+  );
+}

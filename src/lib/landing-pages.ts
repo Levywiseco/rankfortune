@@ -1103,6 +1103,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "ai-marketing-agent-guardrails-audit",
+    title: "AI Marketing Agent Guardrails Audit - RankFortune",
+    description:
+      "Audit whether your website is ready for AI marketing agents, approval workflows, paid-media diagnostics, outbound evidence, and answer-engine visibility.",
+    eyebrow: "AI marketing agent guardrails audit",
+    h1: "Prepare your marketing site before AI agents touch campaigns.",
+    intro:
+      "Autonomous growth tools now promise AI search visibility, paid-media audits, outbound, landing pages, and lead qualification. RankFortune checks the safer public-site layer first: whether the website has the evidence, guardrails, and conversion paths an agentic marketing workflow would need.",
+    audience:
+      "Best for SaaS founders, agencies, and lean marketing teams evaluating AI growth agents before connecting ad accounts, outbound systems, or private analytics.",
+    checks: [
+      "Public proof that supports AI search visibility, paid-media claims, outbound positioning, and landing-page recommendations",
+      "Approval-ready workflows for read-only audits, suggested changes, review queues, and human sign-off before campaign updates",
+      "Guardrail language for ads, SEO, outbound, pricing, privacy, and lead-qualification claims that should not be over-automated",
+      "Conversion paths that move from free audit to report, checklist, call, or monitored backlog without requiring risky integrations first",
+    ],
+    outcomes: [
+      "Agent-readiness brief for marketing, SEO, AEO, and paid-media workflows",
+      "Approval and guardrail checklist for AI-generated recommendations",
+      "Public-site fixes that make future AI growth tools easier to trust and verify",
+    ],
+    sections: [
+      {
+        title: "Agentic growth still needs a public evidence layer",
+        body:
+          "Tools inspired by AI growth agents often connect search visibility, landing pages, ads, outbound, and lead scoring. Before a team grants access to private accounts, the website should already explain the category, prove the offer, and expose answer-ready pages that an agent can cite.",
+      },
+      {
+        title: "Approval flows reduce campaign risk",
+        body:
+          "The safest AI marketing workflows start read-only, show wasted-spend or content-gap findings, then require a human to approve negative keywords, landing-page edits, outbound copy, or budget changes. RankFortune audits whether those decision points are clear enough to sell.",
+      },
+      {
+        title: "RankFortune keeps the first step integration-light",
+        body:
+          "Instead of asking for ad, CRM, or inbox access on the first visit, the audit turns public URL evidence into a guardrail checklist, AI visibility fixes, and a conversion path for teams that may later adopt deeper marketing agents.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI marketing agent guardrails audit?",
+        answer:
+          "It is a website-first review of whether a team has the public evidence, approval language, campaign boundaries, and conversion steps needed before using AI agents for SEO, ads, outbound, or lead qualification.",
+      },
+      {
+        question: "Does RankFortune connect to Google Ads, Meta Ads, or outbound tools?",
+        answer:
+          "No. This page focuses on the safer first layer: public website evidence and approval readiness. Private integrations can come later after the team knows what should and should not be automated.",
+      },
+      {
+        question: "Which competitor signals inspired this audit?",
+        answer:
+          "Recent AI growth tools emphasize AI search visibility, read-only ad audits, approval-gated changes, outbound workflows, landing-page generation, lead qualification, audit logs, and per-seat or agency pricing.",
+      },
+    ],
+  },
+  {
     slug: "ai-marketing-root-cause-audit",
     title: "AI Marketing Root Cause Audit - RankFortune",
     description:
