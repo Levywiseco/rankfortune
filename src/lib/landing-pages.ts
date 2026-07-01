@@ -1273,6 +1273,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "geo-growth-score-audit",
+    title: "GEO Growth Score Audit - RankFortune",
+    description:
+      "Audit whether your website has the AI search visibility, citation evidence, competitor benchmarks, and growth checklist needed for generative engine optimization.",
+    eyebrow: "GEO growth score audit",
+    h1: "Score the public signals that make AI engines recommend your brand.",
+    intro:
+      "New GEO tools package AI visibility, citation tracking, competitor monitoring, and content recommendations into growth dashboards. RankFortune turns that pattern into a website-first audit: a free baseline score, the source gaps behind it, and a practical checklist your team can ship before paying for ongoing monitoring.",
+    audience:
+      "Best for SaaS founders, SEO teams, and agencies comparing AI search visibility platforms or building the first GEO growth plan for a lean website.",
+    checks: [
+      "Whether the homepage, use-case pages, FAQ, comparisons, and proof pages give AI engines enough public evidence to explain the brand",
+      "Whether prompts, buyer questions, and competitor categories are mapped to citeable pages instead of scattered recommendations",
+      "Whether source gaps, citation gaps, and share-of-voice signals can be scored without claiming private model access or guaranteed rankings",
+      "Whether the next fixes can become a growth checklist, content brief, monitoring backlog, and conversion path from free scan to paid report",
+    ],
+    outcomes: [
+      "GEO growth score across visibility, citation, competitor, and content-readiness layers",
+      "Ranked checklist of public-site fixes for AI search and answer-engine recommendations",
+      "Monitoring-ready brief that explains which prompts, competitors, sources, and pages to track next",
+    ],
+    sections: [
+      {
+        title: "GEO growth needs a score before a dashboard",
+        body:
+          "AI visibility platforms are strongest when they connect prompts, competitor mentions, cited sources, and recommendations. Lean teams still need a simpler first step: a public-site score that shows which missing pages and proof signals explain weak AI search visibility.",
+      },
+      {
+        title: "Citation gaps should lead to growth tasks",
+        body:
+          "A useful GEO report does not stop at saying a competitor appears more often. It should identify the source pages, FAQ answers, comparison angles, internal links, and evidence blocks that make the next improvement concrete.",
+      },
+      {
+        title: "RankFortune keeps the claim verifiable",
+        body:
+          "The audit focuses on signals visible from a public URL: crawl access, metadata, schema, answer-ready copy, competitor context, and citeable proof. That keeps the workflow useful without overclaiming live AI ranking guarantees.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is a GEO growth score?",
+        answer:
+          "It is a practical score for generative engine optimization that reviews whether a site has the public evidence, answer-ready pages, citation signals, and competitor context needed for AI search recommendations.",
+      },
+      {
+        question: "How is this different from citation-gap tracking?",
+        answer:
+          "Citation-gap tracking focuses on where AI engines cite competitors or sources. A GEO growth score connects that evidence to a wider checklist: content gaps, prompt coverage, internal links, schema, and the next pages to publish.",
+      },
+      {
+        question: "Does RankFortune guarantee AI search rankings?",
+        answer:
+          "No. RankFortune gives a public-site baseline and growth checklist. Ongoing prompt monitoring and model-level tracking are useful after the website has stronger citeable evidence.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {

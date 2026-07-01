@@ -95,3 +95,43 @@ for (const expected of [
     `Guardrails page should mention ${expected}.`,
   );
 }
+
+const geoGrowthPage = getLandingPage("geo-growth-score-audit");
+assert(geoGrowthPage, "Expected geo-growth-score-audit landing page to exist.");
+assert(
+  geoGrowthPage.title.includes("GEO Growth Score Audit"),
+  "GEO growth score page title should name the audit.",
+);
+assert(
+  geoGrowthPage.description.toLowerCase().includes("growth checklist"),
+  "GEO growth score page description should include checklist intent.",
+);
+assert(geoGrowthPage.checks.length >= 4, "GEO growth score page should define at least four checks.");
+assert(
+  geoGrowthPage.outcomes.length >= 3,
+  "GEO growth score page should define at least three outcomes.",
+);
+assert(
+  geoGrowthPage.sections.length === 3,
+  "GEO growth score page should define three narrative sections.",
+);
+assert(geoGrowthPage.faqs.length === 3, "GEO growth score page should define three FAQ entries.");
+
+const geoGrowthPageText = JSON.stringify(geoGrowthPage).toLowerCase();
+for (const expected of [
+  "geo",
+  "ai search",
+  "citation",
+  "source",
+  "competitor",
+  "growth checklist",
+  "score",
+  "monitoring",
+  "prompt",
+  "free scan",
+]) {
+  assert(
+    geoGrowthPageText.includes(expected),
+    `GEO growth score page should mention ${expected}.`,
+  );
+}
