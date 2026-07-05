@@ -1160,6 +1160,63 @@ export const landingPages: LandingPage[] = [
     ],
   },
   {
+    slug: "ai-ugc-ad-creative-audit",
+    title: "AI UGC Ad Creative Audit for Ecommerce Sites - RankFortune",
+    description:
+      "Audit whether product pages, claims, proof, hooks, and landing pages are ready before AI UGC ad tools turn a product URL into TikTok and Meta creative.",
+    eyebrow: "AI UGC ad creative audit",
+    h1: "Audit whether your product pages can support AI UGC ad workflows.",
+    intro:
+      "Product-to-video tools now promise AI actors, hook variants, storyboards, captions, and TikTok or Meta formats from a single URL. RankFortune checks the safer first layer: whether the public product and landing pages expose enough claims, benefits, proof, and guardrails for those workflows to produce trustworthy creative.",
+    audience:
+      "Best for ecommerce brands, Shopify stores, and agencies evaluating AI UGC ad tools before connecting catalogs, ad accounts, or paid creator workflows.",
+    checks: [
+      "Whether product URLs expose benefits, audience, claims, specs, usage context, proof, and disclaimers that AI creative tools can safely reuse",
+      "Whether hook angles, scripts, storyboard inputs, captions, and landing-page promises are grounded in public evidence instead of vague product copy",
+      "Whether TikTok, Meta, short-form video, UGC, and creator-style claims have approval boundaries for regulated, sensitive, or exaggerated statements",
+      "Whether the path from free scan to creative brief, ad testing backlog, and conversion page fixes works without requiring private ad-account access first",
+    ],
+    outcomes: [
+      "UGC creative-readiness brief for one product or landing page",
+      "Missing claim, proof, hook, and product-context blocks that weaken AI-generated ad variants",
+      "Action checklist for safer scripts, storyboards, captions, metadata, and landing-page fixes before paid testing",
+    ],
+    sections: [
+      {
+        title: "Product URL ingestion needs better evidence",
+        body:
+          "AI UGC tools can extract hooks and benefits only when the page clearly explains who the product is for, why it matters, what proof supports the claims, and which statements need review. Thin product pages create generic scripts and risky ad promises.",
+      },
+      {
+        title: "Viral formulas still need brand guardrails",
+        body:
+          "Competitor tools built around TikTok formulas, AI actors, and storyboard variants make creative testing faster, but the public site still needs approved claims, offer clarity, visual context, and landing-page consistency before those variants are safe to scale.",
+      },
+      {
+        title: "RankFortune keeps ad readiness public first",
+        body:
+          "Instead of connecting Meta, TikTok, Shopify, or creator accounts on the first visit, the audit turns public URL evidence into a creative brief: missing proof blocks, safer hook ideas, script constraints, and landing-page fixes a team can review.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI UGC ad creative audit?",
+        answer:
+          "It is a website-first review of whether a product or landing page has enough public evidence, claims, hooks, proof, and guardrails to support AI-generated UGC ad scripts and storyboards.",
+      },
+      {
+        question: "Does RankFortune generate the UGC video ads?",
+        answer:
+          "No. RankFortune audits readiness and produces the fix list before a team uses product-to-video, AI actor, or TikTok ad generation tools.",
+      },
+      {
+        question: "Which competitor signals inspired this audit?",
+        answer:
+          "Recent tools emphasize product URL ingestion, AI actors, hook and script variants, TikTok and Meta formats, storyboards, captions, brand kits, claim guardrails, credits, and paid export paths.",
+      },
+    ],
+  },
+  {
     slug: "ai-marketing-root-cause-audit",
     title: "AI Marketing Root Cause Audit - RankFortune",
     description:

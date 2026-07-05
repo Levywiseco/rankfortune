@@ -96,6 +96,46 @@ for (const expected of [
   );
 }
 
+const ugcAdPage = getLandingPage("ai-ugc-ad-creative-audit");
+assert(ugcAdPage, "Expected ai-ugc-ad-creative-audit landing page to exist.");
+assert(
+  ugcAdPage.title.includes("AI UGC Ad Creative Audit"),
+  "UGC ad creative page title should name the audit.",
+);
+assert(
+  ugcAdPage.description.toLowerCase().includes("product url"),
+  "UGC ad creative page description should include product URL intent.",
+);
+assert(ugcAdPage.checks.length >= 4, "UGC ad creative page should define at least four checks.");
+assert(
+  ugcAdPage.outcomes.length >= 3,
+  "UGC ad creative page should define at least three outcomes.",
+);
+assert(
+  ugcAdPage.sections.length === 3,
+  "UGC ad creative page should define three narrative sections.",
+);
+assert(ugcAdPage.faqs.length === 3, "UGC ad creative page should define three FAQ entries.");
+
+const ugcAdPageText = JSON.stringify(ugcAdPage).toLowerCase();
+for (const expected of [
+  "ugc",
+  "product url",
+  "tiktok",
+  "meta",
+  "hook",
+  "storyboard",
+  "claim",
+  "creative",
+  "landing",
+  "guardrail",
+]) {
+  assert(
+    ugcAdPageText.includes(expected),
+    `UGC ad creative page should mention ${expected}.`,
+  );
+}
+
 const geoGrowthPage = getLandingPage("geo-growth-score-audit");
 assert(geoGrowthPage, "Expected geo-growth-score-audit landing page to exist.");
 assert(
