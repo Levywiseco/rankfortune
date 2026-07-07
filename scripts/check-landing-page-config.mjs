@@ -175,3 +175,52 @@ for (const expected of [
     `GEO growth score page should mention ${expected}.`,
   );
 }
+
+const landingPageConversionPage = getLandingPage("ai-landing-page-conversion-audit");
+assert(
+  landingPageConversionPage,
+  "Expected ai-landing-page-conversion-audit landing page to exist.",
+);
+assert(
+  landingPageConversionPage.title.includes("AI Landing Page Conversion Audit"),
+  "Landing page conversion page title should name the audit.",
+);
+assert(
+  landingPageConversionPage.description.toLowerCase().includes("lead forms"),
+  "Landing page conversion page description should include lead form intent.",
+);
+assert(
+  landingPageConversionPage.checks.length >= 4,
+  "Landing page conversion page should define at least four checks.",
+);
+assert(
+  landingPageConversionPage.outcomes.length >= 3,
+  "Landing page conversion page should define at least three outcomes.",
+);
+assert(
+  landingPageConversionPage.sections.length === 3,
+  "Landing page conversion page should define three narrative sections.",
+);
+assert(
+  landingPageConversionPage.faqs.length === 3,
+  "Landing page conversion page should define three FAQ entries.",
+);
+
+const landingPageConversionText = JSON.stringify(landingPageConversionPage).toLowerCase();
+for (const expected of [
+  "landing page",
+  "seo",
+  "geo",
+  "form",
+  "lead",
+  "conversion",
+  "schema",
+  "publishing",
+  "github",
+  "vercel",
+]) {
+  assert(
+    landingPageConversionText.includes(expected),
+    `Landing page conversion page should mention ${expected}.`,
+  );
+}

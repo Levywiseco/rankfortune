@@ -1387,6 +1387,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-landing-page-conversion-audit",
+    title: "AI Landing Page Conversion Audit - RankFortune",
+    description:
+      "Audit whether AI-generated landing pages, SEO/GEO sections, lead forms, proof blocks, and publishing workflows are ready to convert qualified traffic.",
+    eyebrow: "AI landing page conversion audit",
+    h1: "Audit whether AI landing pages can turn attention into qualified leads.",
+    intro:
+      "AI page builders can create branded pages quickly, but conversion still depends on public proof, clear sections, buyer-specific answers, and a form flow that captures the right intent. RankFortune checks the safer website layer before teams scale prompt-to-page workflows.",
+    audience:
+      "Best for SaaS founders, agencies, and lean marketing teams using AI landing page builders, form generators, or website workflows to launch offer pages faster.",
+    checks: [
+      "Whether the page has a clear offer, audience, use case, proof, pricing context, and answer-ready SEO/GEO sections",
+      "Whether forms, quizzes, audit requests, and lead-capture CTAs ask for useful qualification data without adding friction",
+      "Whether brand constraints, examples, internal links, schema, FAQ, and metadata survive the prompt-to-page generation process",
+      "Whether the publishing path covers preview, review, analytics, canonical, sitemap inclusion, and safe handoff to GitHub or Vercel",
+    ],
+    outcomes: [
+      "Landing-page readiness score across offer clarity, answer coverage, proof, form quality, and publishability",
+      "Prioritized fixes for headings, FAQ, schema, examples, conversion copy, and lead-form questions",
+      "Launch checklist for turning AI-generated pages into SEO/GEO assets that can be monitored and improved",
+    ],
+    sections: [
+      {
+        title: "AI page generation still needs conversion structure",
+        body:
+          "Prompt-to-page tools can produce a layout, but they often miss the evidence a buyer and an answer engine need: who the offer serves, what proof supports it, how it compares, and what next step should be taken.",
+      },
+      {
+        title: "Forms should qualify intent, not just collect emails",
+        body:
+          "Recent AI form builders make lead capture easy. The useful audit question is whether the form maps to the buying job: URL, company type, current blocker, urgency, budget signal, and the report or checklist the prospect expects back.",
+      },
+      {
+        title: "RankFortune turns generated pages into launchable assets",
+        body:
+          "The audit checks metadata, FAQ answers, schema, internal links, proof blocks, examples, CTA language, and publishing steps so an AI-generated landing page becomes a measurable SEO/GEO asset instead of a one-off draft.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI landing page conversion audit?",
+        answer:
+          "It is a website-first review of whether AI-generated landing pages have the offer clarity, SEO/GEO sections, proof blocks, lead forms, and publishing checks needed to convert qualified traffic.",
+      },
+      {
+        question: "How is this different from a normal landing page review?",
+        answer:
+          "A normal review focuses on copy and layout. This audit also checks whether generated pages expose answer-ready content, schema, internal links, examples, and safe publish steps for AI search visibility.",
+      },
+      {
+        question: "Which competitor signals inspired this audit?",
+        answer:
+          "Recent tools emphasize AI website generation, branded landing pages, AI SEO tools, form and quiz generation, unlimited responses, preview flows, publishing handoff, and contact-for-pricing conversion paths.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
