@@ -224,3 +224,52 @@ for (const expected of [
     `Landing page conversion page should mention ${expected}.`,
   );
 }
+
+const detectorBenchmarkPage = getLandingPage("ai-detector-benchmark-audit");
+assert(
+  detectorBenchmarkPage,
+  "Expected ai-detector-benchmark-audit landing page to exist.",
+);
+assert(
+  detectorBenchmarkPage.title.includes("AI Detector Benchmark Audit"),
+  "Detector benchmark page title should name the audit.",
+);
+assert(
+  detectorBenchmarkPage.description.toLowerCase().includes("benchmark"),
+  "Detector benchmark page description should include benchmark intent.",
+);
+assert(
+  detectorBenchmarkPage.checks.length >= 4,
+  "Detector benchmark page should define at least four checks.",
+);
+assert(
+  detectorBenchmarkPage.outcomes.length >= 3,
+  "Detector benchmark page should define at least three outcomes.",
+);
+assert(
+  detectorBenchmarkPage.sections.length === 3,
+  "Detector benchmark page should define three narrative sections.",
+);
+assert(
+  detectorBenchmarkPage.faqs.length === 3,
+  "Detector benchmark page should define three FAQ entries.",
+);
+
+const detectorBenchmarkText = JSON.stringify(detectorBenchmarkPage).toLowerCase();
+for (const expected of [
+  "benchmark",
+  "detector",
+  "humanizer",
+  "methodology",
+  "false positive",
+  "gptzero",
+  "originality",
+  "winston",
+  "sample",
+  "rankfortune",
+]) {
+  assert(
+    detectorBenchmarkText.includes(expected),
+    `Detector benchmark page should mention ${expected}.`,
+  );
+}

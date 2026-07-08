@@ -1444,6 +1444,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-detector-benchmark-audit",
+    title: "AI Detector Benchmark Audit - RankFortune",
+    description:
+      "Audit whether an AI detector, humanizer, or content-quality page has the transparent benchmark methodology, false-positive context, sample evidence, and trust signals needed for AI search visibility.",
+    eyebrow: "AI detector benchmark audit",
+    h1: "Audit whether your AI detector benchmark is credible enough to cite.",
+    intro:
+      "AI detector and humanizer pages win trust when they show more than a score. RankFortune checks whether the page explains methodology, sample sets, false positives, detector coverage, and responsible use in a way buyers and answer engines can verify.",
+    audience:
+      "Best for AI writing, content-quality, SEO, education, and authenticity tools that need benchmark pages AI engines can understand without overclaiming perfect detection.",
+    checks: [
+      "Whether the page explains detector coverage across GPTZero, Originality, Winston, Copyleaks, and adjacent benchmark references",
+      "Whether humanizer, paraphraser, mixed-writing, ESL, long-document, and short-sample cases are separated instead of collapsed into one score",
+      "Whether benchmark methodology, prompt samples, source text, output text, scoring rules, and rerun notes are public enough to review",
+      "Whether false positive risk, responsible-use disclaimers, PDF/shareable reports, API claims, and content-quality next steps are clear",
+    ],
+    outcomes: [
+      "Benchmark readiness score across methodology, sample transparency, detector coverage, and citation quality",
+      "Gap list for missing data tables, FAQ answers, schema, source links, false-positive context, and comparison copy",
+      "Launch checklist for turning an AI detector benchmark into a responsible SEO, GEO, and AEO asset",
+    ],
+    sections: [
+      {
+        title: "Detector claims need reproducible proof",
+        body:
+          "The strongest AI detector and humanizer pages do not rely on a single headline accuracy number. They show the sample set, which detectors were tested, how mixed or edited text was handled, and why a buyer should trust the benchmark methodology.",
+      },
+      {
+        title: "False positives are part of the product story",
+        body:
+          "Education, publishing, recruiting, and SEO teams need to know how a tool handles human writing, ESL text, hybrid drafts, short samples, and document-length scans. RankFortune checks whether those limits are visible before a page asks for signups.",
+      },
+      {
+        title: "RankFortune turns benchmark gaps into pages",
+        body:
+          "The audit translates competitor lessons from HumanizerBench, GPTZero, Originality, and Winston into practical page work: methodology sections, detector comparison tables, responsible-use FAQ, schema, sample evidence, and internal links.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI detector benchmark audit?",
+        answer:
+          "It is a review of whether an AI detector, humanizer, or content-authenticity page explains its benchmark methodology, sample evidence, detector coverage, false-positive limits, and buyer-facing trust signals clearly.",
+      },
+      {
+        question: "Does this help people bypass AI detectors?",
+        answer:
+          "No. The audit is framed around transparent evaluation, content quality, and responsible use. It checks whether benchmark claims are clear, reviewable, and careful about limits rather than promising evasion.",
+      },
+      {
+        question: "Which competitor signals inspired this audit?",
+        answer:
+          "Recent benchmark and detector pages emphasize public datasets, detector comparisons, sentence-level evidence, writing-history proof, PDF or shareable reports, API access, false-positive guidance, and methodology transparency.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
