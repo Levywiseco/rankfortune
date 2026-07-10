@@ -273,3 +273,52 @@ for (const expected of [
     `Detector benchmark page should mention ${expected}.`,
   );
 }
+
+const designSystemPage = getLandingPage("ai-design-system-audit");
+assert(
+  designSystemPage,
+  "Expected ai-design-system-audit landing page to exist.",
+);
+assert(
+  designSystemPage.title.includes("AI Design System Audit"),
+  "Design system page title should name the audit.",
+);
+assert(
+  designSystemPage.description.toLowerCase().includes("design tokens"),
+  "Design system page description should include design-token intent.",
+);
+assert(
+  designSystemPage.checks.length >= 4,
+  "Design system page should define at least four checks.",
+);
+assert(
+  designSystemPage.outcomes.length >= 3,
+  "Design system page should define at least three outcomes.",
+);
+assert(
+  designSystemPage.sections.length === 3,
+  "Design system page should define three narrative sections.",
+);
+assert(
+  designSystemPage.faqs.length === 3,
+  "Design system page should define three FAQ entries.",
+);
+
+const designSystemText = JSON.stringify(designSystemPage).toLowerCase();
+for (const expected of [
+  "design system",
+  "design tokens",
+  "component",
+  "spacing",
+  "typography",
+  "design.md",
+  "ai-generated",
+  "landing page",
+  "conversion",
+  "geo",
+]) {
+  assert(
+    designSystemText.includes(expected),
+    `Design system page should mention ${expected}.`,
+  );
+}

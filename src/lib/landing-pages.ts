@@ -1501,6 +1501,63 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  {
+    slug: "ai-design-system-audit",
+    title: "AI Design System Audit for Landing Pages - RankFortune",
+    description:
+      "Audit whether AI-generated landing pages and product interfaces have the design tokens, component consistency, layout patterns, and brand proof needed to stay credible.",
+    eyebrow: "AI design system audit",
+    h1: "Audit whether AI-built pages still feel like one product.",
+    intro:
+      "AI coding tools can ship pages quickly, but they also create visual drift: mismatched buttons, weak spacing rules, vague brand direction, and components that feel copied from different products. RankFortune checks the public page signals that make an AI-generated website look intentional and trustworthy.",
+    audience:
+      "Best for SaaS founders, AI builders, vibe-coding teams, and agencies that use AI to launch landing pages but need a practical design-system baseline before scaling more pages.",
+    checks: [
+      "Whether the page exposes consistent typography, color, spacing, border, icon, and CTA patterns across sections",
+      "Whether buttons, cards, forms, pricing blocks, FAQs, testimonials, and navigation reuse recognizable component rules",
+      "Whether a DESIGN.md-style brief could be written from the live page without inventing missing brand standards",
+      "Whether AI-generated SEO, GEO, and conversion pages preserve brand clarity instead of drifting into generic layouts",
+    ],
+    outcomes: [
+      "Design-system readiness score across tokens, components, layout rhythm, copy hierarchy, and conversion states",
+      "Gap list for inconsistent UI patterns, weak handoff notes, missing examples, and page sections that need standardization",
+      "Launch checklist for turning one-off AI pages into a reusable landing-page system for future SEO and GEO work",
+    ],
+    sections: [
+      {
+        title: "AI-generated pages need reusable visual rules",
+        body:
+          "Recent tools turn real product interfaces into AI-ready design guidance because vague prompts produce random UI choices. RankFortune applies the same lesson to public landing pages: can the live page teach an AI agent the product's typography, spacing, colors, components, and interaction rhythm?",
+      },
+      {
+        title: "Consistency is now part of conversion proof",
+        body:
+          "Buyers notice when a pricing card, form, FAQ, and hero CTA look like they came from different templates. The audit checks whether design tokens and component patterns support trust before the page asks for an email, demo, or paid report.",
+      },
+      {
+        title: "Design drift also affects SEO and GEO scaling",
+        body:
+          "Programmatic SEO and AI visibility pages only compound problems when each page invents a new visual language. RankFortune turns design-system gaps into fixes for headings, CTA states, proof sections, internal links, schema pages, and reusable page briefs.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI design system audit?",
+        answer:
+          "It is a public-page review that checks whether AI-generated or AI-assisted pages use consistent tokens, components, spacing, hierarchy, copy patterns, and handoff notes instead of drifting into one-off layouts.",
+      },
+      {
+        question: "Does this replace a Figma design system?",
+        answer:
+          "No. The audit is a lightweight baseline for live websites. It helps teams identify the visual rules, missing standards, and reusable page patterns they should document before formal design-system work.",
+      },
+      {
+        question: "Which competitor signals inspired this audit?",
+        answer:
+          "Recent tools emphasize DESIGN.md briefs, website-to-design-system extraction, AI UI consistency checks, component libraries, token guidance, and design-to-code handoff for AI builders.",
+      },
+    ],
+  },
 ];
 
 export function getLandingPage(slug: string) {
