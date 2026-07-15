@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test:ai-crawlers": "node --no-warnings --experimental-strip-types scripts/check-ai-crawler-rules.mjs",
     "test:landing-pages": "node scripts/check-landing-page-config.mjs",
     "start": "next start",
     "lint": "eslint"

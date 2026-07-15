@@ -19,6 +19,13 @@ export type AuditScore = {
   summary: string;
 };
 
+export type AiCrawlerAccess = {
+  userAgent: string;
+  provider: string;
+  allowed: boolean;
+  detail: string;
+};
+
 export type PageSnapshot = {
   finalUrl: string;
   host: string;
@@ -44,6 +51,7 @@ export type PageSnapshot = {
   robotsTxt: {
     exists: boolean;
     sitemapUrls: string[];
+    aiCrawlers: AiCrawlerAccess[];
   };
   sitemap: {
     exists: boolean;

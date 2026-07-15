@@ -7,7 +7,7 @@ const faqItems = [
   {
     question: "What does RankFortune check in the free audit?",
     answer:
-      "The free audit reviews crawl access, metadata clarity, structured data, internal linking, and whether your homepage gives AI engines enough evidence to explain and recommend the product.",
+      "The free audit reviews crawl access for named OpenAI, Google, Perplexity, and Anthropic bots, plus metadata clarity, structured data, internal linking, and whether your homepage gives AI engines enough evidence to explain and recommend the product.",
   },
   {
     question: "Who is RankFortune for?",
@@ -32,7 +32,7 @@ const faqItems = [
 ];
 
 const proofMetrics = [
-  ["15", "readiness signals"],
+  ["16", "readiness signals"],
   ["3", "score layers"],
   ["7 day", "fix roadmap"],
   ["60s", "first snapshot"],
@@ -48,7 +48,7 @@ const auditLayers = [
   {
     title: "Technical discovery",
     detail:
-      "Checks sitemap, robots, canonical tags, indexability, internal links, and whether crawlers can reach the important parts of the site.",
+      "Checks sitemap, canonical tags, indexability, internal links, and whether named OpenAI, Google, Perplexity, and Anthropic crawlers are blocked by robots.txt.",
   },
   {
     title: "Entity clarity",
@@ -68,7 +68,7 @@ const auditLayers = [
 ];
 
 const platformSteps = [
-  ["Scan", "Drop in a public URL and RankFortune crawls the page, robots.txt, sitemap, metadata, and structured data."],
+  ["Scan", "Drop in a public URL and RankFortune crawls the page, resolves named AI crawler rules in robots.txt, and checks sitemap, metadata, and structured data."],
   ["Score", "The report separates technical discoverability, brand clarity, and answer-engine readiness so the weakness is obvious."],
   ["Fix", "You get copy-ready titles, FAQ ideas, schema recommendations, and the next pages to publish."],
   ["Verify", "Rerun the audit after you ship the fixes and see whether your visibility readiness actually improved."],
@@ -133,7 +133,7 @@ const plans = [
     name: "Free Snapshot",
     price: "$0",
     detail: "One-page audit with score, blockers, and top fixes.",
-    features: ["No login for first scan", "15 readiness signals", "Sample copy suggestions"],
+    features: ["No login for first scan", "16 readiness signals", "Named AI crawler access"],
     href: "#audit",
     cta: "Run free scan",
   },
@@ -298,7 +298,7 @@ export default function Home() {
               ))}
             </div>
             <p className="mt-4 text-sm leading-6 text-slate-400">
-              Every scan checks 15 readiness signals across technical access,
+              Every scan checks 16 readiness signals across technical access,
               brand clarity, and answer-engine coverage — then turns the gaps
               into a prioritized fix plan.
             </p>

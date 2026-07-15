@@ -423,6 +423,58 @@ export function AuditForm() {
               ))}
             </div>
 
+            <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h4 className="font-semibold text-white">
+                    AI crawler access
+                  </h4>
+                  <p className="mt-1 text-sm text-slate-400">
+                    Homepage access resolved from specific and wildcard robots.txt groups.
+                  </p>
+                </div>
+                <p className="font-mono text-sm text-cyan-200">
+                  {
+                    report.snapshot.robotsTxt.aiCrawlers.filter(
+                      (crawler) => crawler.allowed,
+                    ).length
+                  }
+                  /{report.snapshot.robotsTxt.aiCrawlers.length} allowed
+                </p>
+              </div>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+                {report.snapshot.robotsTxt.aiCrawlers.map((crawler) => (
+                  <div
+                    className="rounded-[8px] border border-white/10 bg-slate-950 p-3"
+                    key={crawler.userAgent}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-medium text-white">
+                          {crawler.userAgent}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {crawler.provider}
+                        </p>
+                      </div>
+                      <span
+                        className={
+                          crawler.allowed
+                            ? "text-xs text-emerald-300"
+                            : "text-xs text-rose-300"
+                        }
+                      >
+                        {crawler.allowed ? "Allowed" : "Blocked"}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      {crawler.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
               <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
                 <h4 className="font-semibold text-white">Biggest gaps</h4>

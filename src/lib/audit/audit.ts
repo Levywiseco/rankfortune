@@ -8,6 +8,7 @@ import type {
   FixItem,
   PageSnapshot,
 } from "./types";
+import { analyzeAiCrawlerAccess } from "./robots";
 
 const REQUEST_TIMEOUT_MS = 9000;
 const MAX_HTML_BYTES = 1_000_000;
@@ -158,7 +159,11 @@ async function fetchRobotsAndSitemap(origin: string) {
     robotsText = await fetchText(robotsUrl, 5000);
   } catch {
     return {
-      robotsTxt: { exists: false, sitemapUrls: [] },
+      robotsTxt: {
+        exists: false,
+        sitemapUrls: [],
+        aiCrawlers: analyzeAiCrawlerAccess(""),
+      },
       sitemap: { exists: false, urlCount: 0 },
     };
   }
@@ -175,13 +180,21 @@ async function fetchRobotsAndSitemap(origin: string) {
     sitemapText = await fetchText(sitemapUrl, 5000);
   } catch {
     return {
-      robotsTxt: { exists: true, sitemapUrls },
+      robotsTxt: {
+        exists: true,
+        sitemapUrls,
+        aiCrawlers: analyzeAiCrawlerAccess(robotsText),
+      },
       sitemap: { exists: false, urlCount: 0 },
     };
   }
 
   return {
-    robotsTxt: { exists: true, sitemapUrls },
+    robotsTxt: {
+      exists: true,
+      sitemapUrls,
+      aiCrawlers: analyzeAiCrawlerAccess(robotsText),
+    },
     sitemap: {
       exists: true,
       urlCount: (sitemapText.match(/<loc>/g) ?? []).length,
@@ -200,6 +213,9 @@ function buildSignals(snapshot: PageSnapshot): AuditSignal[] {
     Number(snapshot.detectedPages.alternatives) +
     Number(snapshot.detectedPages.useCases) +
     Number(snapshot.detectedPages.about);
+  const allowedAiCrawlers = snapshot.robotsTxt.aiCrawlers.filter(
+    (crawler) => crawler.allowed,
+  ).length;
 
   return [
     {
@@ -258,6 +274,13 @@ function buildSignals(snapshot: PageSnapshot): AuditSignal[] {
         ? "robots.txt found"
         : "robots.txt not found",
       weight: 6,
+    },
+    {
+      key: "aiCrawlerAccess",
+      label: "AI crawler access",
+      passed: allowedAiCrawlers === snapshot.robotsTxt.aiCrawlers.length,
+      detail: `${allowedAiCrawlers}/${snapshot.robotsTxt.aiCrawlers.length} named AI crawlers allowed at /`,
+      weight: 8,
     },
     {
       key: "sitemap",
@@ -334,6 +357,7 @@ function buildScores(signals: AuditSignal[]) {
     "canonical",
     "robots",
     "robotsTxt",
+    "aiCrawlerAccess",
     "sitemap",
     "internalLinks",
   ]);
@@ -396,6 +420,15 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
     effort: "Small",
     detail:
       "Add a sitemap.xml and reference it in robots.txt so crawlers can discover every important page.",
+  });
+  addFix(fixes, failed.has("aiCrawlerAccess"), {
+    title: "Unblock AI search crawlers in robots.txt",
+    priority: "High",
+    effort: "Small",
+    detail: `Review the rules blocking ${snapshot.robotsTxt.aiCrawlers
+      .filter((crawler) => !crawler.allowed)
+      .map((crawler) => crawler.userAgent)
+      .join(", ")}. Allow the search and user-fetch bots you want to surface your public pages.`,
   });
   addFix(fixes, failed.has("faq"), {
     title: "Create an FAQ block with buyer-intent questions",
@@ -495,6 +528,7 @@ async function requestAiJson(
       h2: snapshot.h2.slice(0, 10),
       schemaTypes: snapshot.schemaTypes,
       detectedPages: snapshot.detectedPages,
+      aiCrawlers: snapshot.robotsTxt.aiCrawlers,
       textSample: snapshot.textSample,
     },
     requiredShape: {
