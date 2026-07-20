@@ -67,6 +67,7 @@ export type FixItem = {
 };
 
 export type AuditReport = {
+  auditedAt: string;
   input: AuditInput;
   snapshot: PageSnapshot;
   overallScore: number;

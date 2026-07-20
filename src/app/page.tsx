@@ -17,7 +17,7 @@ const faqItems = [
   {
     question: "What do I get after the first scan?",
     answer:
-      "You get a visibility score, the biggest technical and content gaps, copy-ready title and description ideas, and the next pages or proof assets that are most worth publishing.",
+      "You get a website-readiness score based on live HTML, robots.txt, sitemap, metadata, and structured data; the biggest technical and content gaps; copy-ready title and description ideas; and the next pages or proof assets that are most worth publishing. The free scan does not claim live prompt mention share.",
   },
   {
     question: "How is RankFortune different from a normal SEO audit?",

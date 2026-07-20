@@ -84,6 +84,30 @@ export function AuditForm() {
 
   const hasLeadEmail = email.trim().includes("@");
 
+  const evidence = useMemo(() => {
+    if (!report) return null;
+
+    try {
+      const origin = new URL(report.snapshot.finalUrl).origin;
+      return {
+        scannedAt: new Intl.DateTimeFormat("en", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          timeZoneName: "short",
+        }).format(new Date(report.auditedAt)),
+        homepage: report.snapshot.finalUrl,
+        robots: `${origin}/robots.txt`,
+        sitemap:
+          report.snapshot.robotsTxt.sitemapUrls[0] ?? `${origin}/sitemap.xml`,
+      };
+    } catch {
+      return null;
+    }
+  }, [report]);
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("loading");
@@ -263,13 +287,13 @@ export function AuditForm() {
             <div className="flex flex-col gap-4 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
-                  Example report
+                  Fictional example report
                 </p>
                 <p className="mt-3 text-sm text-slate-400">
                   sample-saas.com
                 </p>
                 <h3 className="mt-2 text-3xl font-semibold text-white">
-                  AI visibility score
+                  AI readiness score
                 </h3>
               </div>
               <div className="flex items-end gap-2">
@@ -391,8 +415,13 @@ export function AuditForm() {
               <div>
                 <p className="text-sm text-slate-400">{report.snapshot.host}</p>
                 <h3 className="mt-2 text-3xl font-semibold text-white">
-                  AI visibility score
+                  AI readiness score
                 </h3>
+                {evidence ? (
+                  <p className="mt-2 text-xs leading-5 text-slate-500">
+                    Live website evidence captured {evidence.scannedAt}
+                  </p>
+                ) : null}
               </div>
               <div className="flex items-end gap-2">
                 <span className="text-6xl font-semibold text-cyan-200">
@@ -422,6 +451,50 @@ export function AuditForm() {
                 </div>
               ))}
             </div>
+
+            {evidence ? (
+              <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-4">
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="max-w-2xl">
+                    <h4 className="font-semibold text-white">
+                      What this score measures
+                    </h4>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                      This readiness score comes from the live homepage,
+                      robots.txt, sitemap, metadata, structured data, and
+                      internal links captured in this scan. It does not claim
+                      real-time ChatGPT, Perplexity, or Gemini mention share.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <a
+                      className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
+                      href={evidence.homepage}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Homepage evidence
+                    </a>
+                    <a
+                      className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
+                      href={evidence.robots}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      robots.txt
+                    </a>
+                    <a
+                      className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
+                      href={evidence.sitemap}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Sitemap
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ) : null}
 
             <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">

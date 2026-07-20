@@ -715,6 +715,7 @@ export async function runAudit(input: AuditInput): Promise<AuditReport> {
   const aiReport = await buildOptionalAiReport(input, snapshot, biggestGaps);
 
   return {
+    auditedAt: new Date().toISOString(),
     input,
     snapshot,
     overallScore,
