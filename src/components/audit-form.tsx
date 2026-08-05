@@ -1,7 +1,9 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import Link from "next/link";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import type { AuditReport } from "@/lib/audit/types";
+import { trackToolEvent } from "@/lib/tool-analytics";
 
 type Status = "idle" | "loading" | "ready" | "error";
 type CheckoutStatus = "idle" | "loading";
@@ -65,6 +67,8 @@ const samplePromptChecks = [
   },
 ];
 
+const AUDIT_TOOL = "ai-visibility-audit";
+
 export function AuditForm() {
   const [url, setUrl] = useState("pdf-everything.com");
   const [productName, setProductName] = useState("");
@@ -83,6 +87,12 @@ export function AuditForm() {
   }, [report]);
 
   const hasLeadEmail = email.trim().includes("@");
+
+  useEffect(() => {
+    if (status === "ready" && report) {
+      trackToolEvent("tool_success", AUDIT_TOOL);
+    }
+  }, [report, status]);
 
   const evidence = useMemo(() => {
     if (!report) return null;
@@ -110,6 +120,7 @@ export function AuditForm() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    trackToolEvent("tool_start", AUDIT_TOOL);
     setStatus("loading");
     setError("");
     setReport(null);
@@ -276,7 +287,12 @@ export function AuditForm() {
 
         <p className="mt-4 text-xs leading-5 text-slate-500">
           Free scan runs immediately. Add an email if you want the full report,
-          export, and weekly monitoring offer after the score is ready.
+          export, and weekly monitoring offer after the score is ready. Usage
+          measurement excludes your URL, inputs, session, and report contents.{" "}
+          <Link className="text-slate-300 underline hover:text-white" href="/privacy">
+            Privacy details
+          </Link>
+          .
         </p>
       </section>
 
