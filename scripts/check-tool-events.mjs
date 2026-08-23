@@ -17,6 +17,14 @@ assert.deepEqual(
     source: "verification",
   },
 );
+assert.deepEqual(
+  parseToolEventPayload({ event: "founder_audit_interest", tool: "ai-visibility-audit" }),
+  { event: "founder_audit_interest", tool: "ai-visibility-audit" },
+);
+assert.deepEqual(
+  parseToolEventPayload({ event: "audit_retest_completed", tool: "ai-visibility-audit" }),
+  { event: "audit_retest_completed", tool: "ai-visibility-audit" },
+);
 
 for (const payload of [
   null,

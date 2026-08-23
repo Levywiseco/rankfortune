@@ -12,11 +12,33 @@ function percent(score: number, maxScore: number) {
   return Math.round((score / Math.max(maxScore, 1)) * 100);
 }
 
+function comparisonTarget(value: string) {
+  try {
+    const candidate = /^https?:\/\//i.test(value.trim())
+      ? value.trim()
+      : `https://${value.trim()}`;
+    const parsed = new URL(candidate);
+    return `${parsed.host}${parsed.pathname.replace(/\/$/, "") || "/"}`;
+  } catch {
+    return value.trim().toLowerCase();
+  }
+}
+
 function priorityClass(priority: string) {
   if (priority === "High") return "border-rose-400/60 bg-rose-500/10 text-rose-100";
   if (priority === "Medium")
     return "border-amber-400/60 bg-amber-500/10 text-amber-100";
   return "border-emerald-400/60 bg-emerald-500/10 text-emerald-100";
+}
+
+function evidenceClass(outcome: string) {
+  if (outcome === "verified") {
+    return "border-emerald-400/40 bg-emerald-500/10 text-emerald-100";
+  }
+  if (outcome === "missing") {
+    return "border-rose-400/40 bg-rose-500/10 text-rose-100";
+  }
+  return "border-amber-400/40 bg-amber-500/10 text-amber-100";
 }
 
 const sampleScores = [
@@ -49,21 +71,21 @@ const sampleGaps = [
 const samplePromptChecks = [
   {
     prompt: "Best AI workflow automation tools for small teams",
-    model: "ChatGPT",
-    status: "Not cited",
-    action: "Create a comparison page with clear category positioning.",
+    model: "ChatGPT candidate",
+    status: "Not queried",
+    action: "Example only: validate this prompt separately before treating it as evidence.",
   },
   {
     prompt: "Sample SaaS alternatives for founders",
-    model: "Perplexity",
-    status: "Competitors cited",
-    action: "Publish alternatives and use-case pages with answer-first copy.",
+    model: "Perplexity candidate",
+    status: "Not queried",
+    action: "Example only: no competitor citation result has been measured here.",
   },
   {
     prompt: "Is Sample SaaS good for secure team workflows?",
-    model: "Gemini",
-    status: "Weak evidence",
-    action: "Add security, pricing, FAQ, and proof sections to the homepage.",
+    model: "Gemini candidate",
+    status: "Not queried",
+    action: "Example only: use this as a research prompt, not a visibility claim.",
   },
 ];
 
@@ -78,6 +100,9 @@ export function AuditForm() {
   const [checkoutStatus, setCheckoutStatus] = useState<CheckoutStatus>("idle");
   const [error, setError] = useState("");
   const [report, setReport] = useState<AuditReport | null>(null);
+  const [previousReport, setPreviousReport] = useState<AuditReport | null>(null);
+  const [selectedFixKeys, setSelectedFixKeys] = useState<string[]>([]);
+  const [founderIntentRecorded, setFounderIntentRecorded] = useState(false);
 
   const scoreLabel = useMemo(() => {
     if (!report) return "Ready";
@@ -87,6 +112,37 @@ export function AuditForm() {
   }, [report]);
 
   const hasLeadEmail = email.trim().includes("@");
+
+  const selectedFixes = useMemo(() => {
+    const fixesByKey = new Map(
+      [...(previousReport?.biggestGaps ?? []), ...(report?.biggestGaps ?? [])].map(
+        (fix) => [fix.signalKey, fix],
+      ),
+    );
+    return selectedFixKeys.flatMap((signalKey) => {
+      const fix = fixesByKey.get(signalKey);
+      return fix ? [fix] : [];
+    });
+  }, [previousReport, report, selectedFixKeys]);
+
+  const comparison = useMemo(() => {
+    if (!previousReport || !report) return null;
+    const previousPassed = previousReport.signals.filter(
+      (signal) => signal.passed,
+    ).length;
+    const currentPassed = report.signals.filter((signal) => signal.passed).length;
+
+    return {
+      scoreDelta: report.overallScore - previousReport.overallScore,
+      passDelta: currentPassed - previousPassed,
+      checks: selectedFixes.map((fix) => ({
+        ...fix,
+        verified:
+          report.signals.find((signal) => signal.key === fix.signalKey)
+            ?.passed ?? false,
+      })),
+    };
+  }, [previousReport, report, selectedFixes]);
 
   useEffect(() => {
     if (status === "ready" && report) {
@@ -107,7 +163,7 @@ export function AuditForm() {
           hour: "numeric",
           minute: "2-digit",
           timeZoneName: "short",
-        }).format(new Date(report.auditedAt)),
+        }).format(new Date(report.evidence.observedAt)),
         homepage: report.snapshot.finalUrl,
         robots: `${origin}/robots.txt`,
         sitemap:
@@ -118,12 +174,30 @@ export function AuditForm() {
     }
   }, [report]);
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    trackToolEvent("tool_start", AUDIT_TOOL);
+  async function runScan(mode: "initial" | "retest") {
+    const baseline = report;
+    if (
+      mode === "retest" &&
+      baseline &&
+      comparisonTarget(url) !== comparisonTarget(baseline.input.url)
+    ) {
+      setError("Retest the same website URL, or run a new audit for this target.");
+      setStatus("error");
+      return;
+    }
+
+    trackToolEvent(
+      mode === "retest" ? "audit_retest_started" : "tool_start",
+      AUDIT_TOOL,
+    );
     setStatus("loading");
     setError("");
-    setReport(null);
+    setFounderIntentRecorded(false);
+    if (mode === "initial") {
+      setReport(null);
+      setPreviousReport(null);
+      setSelectedFixKeys([]);
+    }
 
     try {
       const response = await fetch("/api/audit", {
@@ -142,12 +216,39 @@ export function AuditForm() {
       const json = await response.json();
       if (!response.ok) throw new Error(json.error ?? "Audit failed.");
 
-      setReport(json as AuditReport);
+      const nextReport = json as AuditReport;
+      if (mode === "retest" && baseline) {
+        setPreviousReport(baseline);
+      }
+      setReport(nextReport);
       setStatus("ready");
+      if (mode === "retest") {
+        trackToolEvent("audit_retest_completed", AUDIT_TOOL);
+      }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Audit failed.");
       setStatus("error");
     }
+  }
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    void runScan("initial");
+  }
+
+  function toggleFix(signalKey: string) {
+    setSelectedFixKeys((current) => {
+      const selected = current.includes(signalKey);
+      if (!selected) trackToolEvent("audit_fix_selected", AUDIT_TOOL);
+      return selected
+        ? current.filter((key) => key !== signalKey)
+        : [...current, signalKey];
+    });
+  }
+
+  function recordFounderIntent() {
+    trackToolEvent("founder_audit_interest", AUDIT_TOOL);
+    setFounderIntentRecorded(true);
   }
 
   async function startCheckout() {
@@ -303,10 +404,10 @@ export function AuditForm() {
             <div className="flex flex-col gap-4 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
-                  Fictional example report
+                  Illustrative layout — not a live audit
                 </p>
                 <p className="mt-3 text-sm text-slate-400">
-                  sample-saas.com
+                  sample-saas.com · placeholder data
                 </p>
                 <h3 className="mt-2 text-3xl font-semibold text-white">
                   AI readiness score
@@ -394,10 +495,10 @@ export function AuditForm() {
             <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
               <div className="flex items-center justify-between gap-3">
                 <h4 className="font-semibold text-white">
-                  Prompt visibility preview
+                  Prompt research examples
                 </h4>
                 <span className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-slate-300">
-                  Full report
+                  Not measured
                 </span>
               </div>
               <div className="mt-4 space-y-3">
@@ -469,46 +570,63 @@ export function AuditForm() {
             </div>
 
             {evidence ? (
-              <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-4">
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="max-w-2xl">
-                    <h4 className="font-semibold text-white">
-                      What this score measures
+              <div className="rounded-[8px] border border-emerald-300/20 bg-emerald-300/[0.04] p-4">
+                <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-200">
+                      Verifiable scan evidence
+                    </p>
+                    <h4 className="mt-2 font-semibold text-white">
+                      Public sources checked {evidence.scannedAt}
                     </h4>
-                    <p className="mt-2 text-sm leading-6 text-slate-300">
-                      This readiness score comes from the live homepage,
-                      robots.txt, sitemap, metadata, structured data, and
-                      internal links captured in this scan. It does not claim
-                      real-time ChatGPT, Perplexity, or Gemini mention share.
+                    <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+                      {report.evidence.method}
                     </p>
                   </div>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <a
-                      className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
-                      href={evidence.homepage}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      Homepage evidence
-                    </a>
-                    <a
-                      className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
-                      href={evidence.robots}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      robots.txt
-                    </a>
-                    <a
-                      className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
-                      href={evidence.sitemap}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      Sitemap
-                    </a>
-                  </div>
+                  <span className="w-fit rounded-full border border-emerald-300/30 px-2.5 py-1 text-xs text-emerald-100">
+                    Live fetch
+                  </span>
                 </div>
+                <div className="mt-4 grid gap-3 md:grid-cols-2">
+                  {report.evidence.sources.map((source) => (
+                    <div
+                      className="rounded-[8px] border border-white/10 bg-slate-950 p-3"
+                      key={`${source.label}-${source.url}`}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-sm font-medium text-white">{source.label}</p>
+                        <span
+                          className={`rounded-full border px-2 py-0.5 text-[11px] ${evidenceClass(source.outcome)}`}
+                        >
+                          {source.status ? `HTTP ${source.status}` : source.outcome}
+                        </span>
+                      </div>
+                      {/https?:\/\//i.test(source.url) ? (
+                        <a
+                          className="mt-2 block break-all text-xs text-slate-500 underline decoration-white/10 hover:text-slate-300"
+                          href={source.url}
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          {source.url}
+                        </a>
+                      ) : (
+                        <p className="mt-2 break-all text-xs text-slate-500">{source.url}</p>
+                      )}
+                      <p className="mt-2 text-xs leading-5 text-slate-400">{source.detail}</p>
+                    </div>
+                  ))}
+                </div>
+                <details className="mt-4 rounded-[8px] border border-white/10 bg-slate-950 p-3">
+                  <summary className="cursor-pointer text-sm font-medium text-white">
+                    What this scan does not prove
+                  </summary>
+                  <ul className="mt-3 space-y-2 text-xs leading-5 text-slate-400">
+                    {report.evidence.limitations.map((limitation) => (
+                      <li key={limitation}>• {limitation}</li>
+                    ))}
+                  </ul>
+                </details>
               </div>
             ) : null}
 
@@ -591,6 +709,20 @@ export function AuditForm() {
                       <p className="mt-2 text-sm leading-6 text-slate-400">
                         {gap.detail}
                       </p>
+                      <button
+                        aria-pressed={selectedFixKeys.includes(gap.signalKey)}
+                        className={`mt-4 rounded-[8px] border px-3 py-2 text-xs font-semibold transition ${
+                          selectedFixKeys.includes(gap.signalKey)
+                            ? "border-cyan-300 bg-cyan-300 text-slate-950"
+                            : "border-white/15 text-slate-200 hover:border-cyan-300/50"
+                        }`}
+                        onClick={() => toggleFix(gap.signalKey)}
+                        type="button"
+                      >
+                        {selectedFixKeys.includes(gap.signalKey)
+                          ? "Selected for retest"
+                          : "Select this fix"}
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -625,6 +757,71 @@ export function AuditForm() {
               </aside>
             </div>
 
+            <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-4">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-cyan-200">
+                    Scan → choose fixes → retest
+                  </p>
+                  <h4 className="mt-2 text-lg font-semibold text-white">
+                    Verify the work against the same deterministic checks.
+                  </h4>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+                    Select the fixes you intend to ship. After the public site is updated, rerun the same URL to compare its score and pass/fix signals. A higher score proves only these checks, not traffic or AI citations.
+                  </p>
+                </div>
+                <button
+                  className="flex h-11 shrink-0 items-center justify-center rounded-[8px] bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+                  disabled={selectedFixKeys.length === 0 || status === "loading"}
+                  onClick={() => void runScan("retest")}
+                  type="button"
+                >
+                  {status === "loading" ? "Retesting..." : "Rerun selected checks"}
+                </button>
+              </div>
+
+              {selectedFixes.length > 0 ? (
+                <div className="mt-4 grid gap-2 md:grid-cols-2">
+                  {selectedFixes.map((fix) => (
+                    <div
+                      className="rounded-[8px] border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-300"
+                      key={fix.signalKey}
+                    >
+                      {fix.title}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-4 text-sm text-slate-500">No fixes selected yet.</p>
+              )}
+
+              {comparison ? (
+                <div className="mt-4 rounded-[8px] border border-white/10 bg-slate-950 p-4">
+                  <div className="flex flex-wrap gap-3 text-sm">
+                    <span className="rounded-full border border-white/10 px-3 py-1 text-slate-300">
+                      Score {comparison.scoreDelta >= 0 ? "+" : ""}{comparison.scoreDelta}
+                    </span>
+                    <span className="rounded-full border border-white/10 px-3 py-1 text-slate-300">
+                      Passed signals {comparison.passDelta >= 0 ? "+" : ""}{comparison.passDelta}
+                    </span>
+                  </div>
+                  <div className="mt-3 space-y-2">
+                    {comparison.checks.map((check) => (
+                      <div
+                        className="flex items-start justify-between gap-3 text-sm"
+                        key={check.signalKey}
+                      >
+                        <span className="text-slate-300">{check.title}</span>
+                        <span className={check.verified ? "text-emerald-300" : "text-amber-200"}>
+                          {check.verified ? "Verified" : "Still needs work"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
             <div className="grid gap-4 lg:grid-cols-2">
               <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
                 <h4 className="font-semibold text-white">Copy suggestions</h4>
@@ -646,7 +843,7 @@ export function AuditForm() {
 
               <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-4">
                 <div className="flex items-center justify-between gap-3">
-                  <h4 className="font-semibold text-white">AI report</h4>
+                  <h4 className="font-semibold text-white">Narrative assistance</h4>
                   <span className="rounded-full border border-cyan-300/30 px-2.5 py-1 text-xs text-cyan-100">
                     {report.aiReport.enabled ? "Connected" : "Rule fallback"}
                   </span>
@@ -662,6 +859,38 @@ export function AuditForm() {
                     <li key={recommendation}>• {recommendation}</li>
                   ))}
                 </ul>
+                <p className="mt-4 border-t border-cyan-300/10 pt-3 text-xs leading-5 text-slate-500">
+                  This narrative interprets the fetched page. It does not run live recommendation prompts or prove that an AI engine cites the site.
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-[8px] border border-amber-300/20 bg-amber-300/[0.05] p-5">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p className="text-sm font-medium uppercase tracking-[0.18em] text-amber-200">
+                    Founder audit pilot
+                  </p>
+                  <h4 className="mt-2 text-xl font-semibold text-white">
+                    Would a human teardown help you choose the first fix?
+                  </h4>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
+                    This records an anonymous interest signal only. It does not create a booking, start checkout, change a price, or charge a card.
+                  </p>
+                  {founderIntentRecorded ? (
+                    <p className="mt-3 text-sm text-emerald-300" aria-live="polite">
+                      Interest recorded. No purchase or booking was created.
+                    </p>
+                  ) : null}
+                </div>
+                <button
+                  className="flex h-11 shrink-0 items-center justify-center rounded-[8px] border border-amber-300/40 px-5 text-sm font-semibold text-amber-100 transition hover:bg-amber-300 hover:text-slate-950 disabled:cursor-default disabled:border-emerald-300/30 disabled:text-emerald-300"
+                  disabled={founderIntentRecorded}
+                  onClick={recordFounderIntent}
+                  type="button"
+                >
+                  {founderIntentRecorded ? "Interest recorded" : "I want a founder teardown"}
+                </button>
               </div>
             </div>
 

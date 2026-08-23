@@ -1,4 +1,12 @@
-export const TOOL_EVENTS = ["tool_start", "tool_success", "tool_export"] as const;
+export const TOOL_EVENTS = [
+  "tool_start",
+  "tool_success",
+  "tool_export",
+  "audit_fix_selected",
+  "audit_retest_started",
+  "audit_retest_completed",
+  "founder_audit_interest",
+] as const;
 
 export type ToolEvent = (typeof TOOL_EVENTS)[number];
 export type ToolEventSource = "verification";

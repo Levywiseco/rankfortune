@@ -21,13 +21,15 @@ export default function PrivacyPage() {
           RankFortune receives the public website URL and optional product and
           competitor details you submit so it can generate the audit shown to
           you. A work email is only required when you choose to buy a delivered
-          report.
+          report. The founder teardown interest button is anonymous and does
+          not create a booking or purchase.
         </p>
 
         <section className="mt-8">
           <h2 className="text-xl font-semibold text-white">Tool usage events</h2>
           <p className="mt-3 text-sm leading-7 text-slate-300">
-            When a free audit starts or returns a result, RankFortune writes a
+            When a free audit starts, returns a result, selects a fix, runs a
+            retest, or records founder-audit interest, RankFortune writes a
             small usage event to its application logs. That event contains only
             the event name and the fixed tool name. Verification checks may also
             include the source label &quot;verification&quot;.

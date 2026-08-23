@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import type { AnyNode } from "domhandler";
 import type {
+  AuditEvidenceSource,
   AuditInput,
   AuditReport,
   AuditScore,
@@ -12,6 +13,24 @@ import { analyzeAiCrawlerAccess } from "./robots";
 
 const REQUEST_TIMEOUT_MS = 9000;
 const MAX_HTML_BYTES = 1_000_000;
+
+type FetchResult = {
+  text: string;
+  url: string;
+  status: number;
+};
+
+class FetchResponseError extends Error {
+  status: number;
+  url: string;
+
+  constructor(url: string, status: number) {
+    super(`Request failed with HTTP ${status}.`);
+    this.name = "FetchResponseError";
+    this.status = status;
+    this.url = url;
+  }
+}
 
 function normalizeUrl(rawUrl: string) {
   const trimmed = rawUrl.trim();
@@ -43,11 +62,15 @@ async function fetchText(url: string, timeoutMs = REQUEST_TIMEOUT_MS) {
     });
 
     if (!response.ok) {
-      throw new Error(`Request failed with HTTP ${response.status}.`);
+      throw new FetchResponseError(response.url || url, response.status);
     }
 
     const text = await response.text();
-    return text.slice(0, MAX_HTML_BYTES);
+    return {
+      text: text.slice(0, MAX_HTML_BYTES),
+      url: response.url || url,
+      status: response.status,
+    } satisfies FetchResult;
   } finally {
     clearTimeout(timeout);
   }
@@ -153,11 +176,12 @@ function detectPages(baseUrl: URL, internalLinks: string[]) {
 
 async function fetchRobotsAndSitemap(origin: string) {
   const robotsUrl = `${origin}/robots.txt`;
-  let robotsText = "";
+  let robotsResult: FetchResult;
 
   try {
-    robotsText = await fetchText(robotsUrl, 5000);
-  } catch {
+    robotsResult = await fetchText(robotsUrl, 5000);
+  } catch (error) {
+    const status = error instanceof FetchResponseError ? error.status : null;
     return {
       robotsTxt: {
         exists: false,
@@ -165,40 +189,97 @@ async function fetchRobotsAndSitemap(origin: string) {
         aiCrawlers: analyzeAiCrawlerAccess(""),
       },
       sitemap: { exists: false, urlCount: 0 },
+      evidenceSources: [
+        {
+          label: "robots.txt",
+          url: robotsUrl,
+          status,
+          outcome: status === 404 ? "missing" : "unavailable",
+          detail:
+            status === 404
+              ? "robots.txt returned HTTP 404."
+              : "robots.txt could not be fetched during this scan.",
+        },
+        {
+          label: "sitemap.xml",
+          url: `${origin}/sitemap.xml`,
+          status: null,
+          outcome: "not-checked",
+          detail: "Sitemap fetch was skipped because robots.txt was unavailable.",
+        },
+      ] satisfies AuditEvidenceSource[],
     };
   }
 
   const sitemapUrls = unique(
-    robotsText
+    robotsResult.text
       .split("\n")
       .map((line) => line.match(/^sitemap:\s*(.+)$/i)?.[1]?.trim() ?? ""),
   );
 
   const sitemapUrl = sitemapUrls[0] ?? `${origin}/sitemap.xml`;
-  let sitemapText = "";
+  let sitemapResult: FetchResult;
   try {
-    sitemapText = await fetchText(sitemapUrl, 5000);
-  } catch {
+    sitemapResult = await fetchText(sitemapUrl, 5000);
+  } catch (error) {
+    const status = error instanceof FetchResponseError ? error.status : null;
     return {
       robotsTxt: {
         exists: true,
         sitemapUrls,
-        aiCrawlers: analyzeAiCrawlerAccess(robotsText),
+        aiCrawlers: analyzeAiCrawlerAccess(robotsResult.text),
       },
       sitemap: { exists: false, urlCount: 0 },
+      evidenceSources: [
+        {
+          label: "robots.txt",
+          url: robotsResult.url,
+          status: robotsResult.status,
+          outcome: "verified",
+          detail: `${sitemapUrls.length} sitemap reference${sitemapUrls.length === 1 ? "" : "s"} found.`,
+        },
+        {
+          label: "sitemap.xml",
+          url: sitemapUrl,
+          status,
+          outcome: status === 404 ? "missing" : "unavailable",
+          detail:
+            status === 404
+              ? "Sitemap returned HTTP 404."
+              : "Sitemap could not be fetched during this scan.",
+        },
+      ] satisfies AuditEvidenceSource[],
     };
   }
+
+  const sitemapUrlCount = (sitemapResult.text.match(/<loc>/g) ?? []).length;
 
   return {
     robotsTxt: {
       exists: true,
       sitemapUrls,
-      aiCrawlers: analyzeAiCrawlerAccess(robotsText),
+      aiCrawlers: analyzeAiCrawlerAccess(robotsResult.text),
     },
     sitemap: {
       exists: true,
-      urlCount: (sitemapText.match(/<loc>/g) ?? []).length,
+      urlCount: sitemapUrlCount,
     },
+    evidenceSources: [
+      {
+        label: "robots.txt",
+        url: robotsResult.url,
+        status: robotsResult.status,
+        outcome: "verified",
+        detail: `${sitemapUrls.length} sitemap reference${sitemapUrls.length === 1 ? "" : "s"} found.`,
+      },
+      {
+        label: "sitemap.xml",
+        url: sitemapResult.url,
+        status: sitemapResult.status,
+        outcome: "verified",
+        detail: `${sitemapUrlCount} sitemap URL${sitemapUrlCount === 1 ? "" : "s"} found.`,
+      },
+    ] satisfies AuditEvidenceSource[],
   };
 }
 
@@ -401,6 +482,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
   const fixes: FixItem[] = [];
 
   addFix(fixes, failed.has("description"), {
+    signalKey: "description",
     title: "Rewrite the meta description around a clear job-to-be-done",
     priority: "High",
     effort: "Small",
@@ -408,6 +490,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
       "Describe the user, the problem, and the outcome in one sentence. This helps search engines and AI answer engines classify the product.",
   });
   addFix(fixes, failed.has("schema"), {
+    signalKey: "schema",
     title: "Add SoftwareApplication and FAQPage JSON-LD",
     priority: "High",
     effort: "Small",
@@ -415,6 +498,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
       "Structured data gives AI crawlers explicit product, category, pricing, and question-answer signals.",
   });
   addFix(fixes, failed.has("sitemap"), {
+    signalKey: "sitemap",
     title: "Expose a sitemap from robots.txt",
     priority: "High",
     effort: "Small",
@@ -422,6 +506,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
       "Add a sitemap.xml and reference it in robots.txt so crawlers can discover every important page.",
   });
   addFix(fixes, failed.has("aiCrawlerAccess"), {
+    signalKey: "aiCrawlerAccess",
     title: "Unblock AI search crawlers in robots.txt",
     priority: "High",
     effort: "Small",
@@ -431,6 +516,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
       .join(", ")}. Allow the search and user-fetch bots you want to surface your public pages.`,
   });
   addFix(fixes, failed.has("faq"), {
+    signalKey: "faq",
     title: "Create an FAQ block with buyer-intent questions",
     priority: "High",
     effort: "Small",
@@ -438,6 +524,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
       "Answer pricing, use case, data safety, alternatives, and setup questions in short, citeable paragraphs.",
   });
   addFix(fixes, failed.has("alternatives"), {
+    signalKey: "alternatives",
     title: "Publish one comparison or alternatives page",
     priority: "Medium",
     effort: "Medium",
@@ -445,6 +532,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
       "AI answers often recommend products through comparison-style prompts. Add a page that honestly compares your product with the most searched alternatives.",
   });
   addFix(fixes, failed.has("useCases"), {
+    signalKey: "useCases",
     title: "Add use-case pages for the top 2-3 customer jobs",
     priority: "Medium",
     effort: "Medium",
@@ -452,6 +540,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
       "Separate pages for concrete use cases improve entity coverage and give answer engines more specific retrieval targets.",
   });
   addFix(fixes, failed.has("contentDepth"), {
+    signalKey: "contentDepth",
     title: "Expand crawlable homepage copy",
     priority: "Medium",
     effort: "Small",
@@ -461,6 +550,7 @@ function buildFixes(snapshot: PageSnapshot, signals: AuditSignal[]) {
 
   if (fixes.length < 3 && snapshot.detectedPages.blog) {
     fixes.push({
+      signalKey: "contentDepth",
       title: "Turn existing blog content into answer-style pages",
       priority: "Low",
       effort: "Medium",
@@ -645,11 +735,11 @@ async function buildOptionalAiReport(
   }
 }
 
-async function snapshotPage(inputUrl: string): Promise<PageSnapshot> {
-  const url = normalizeUrl(inputUrl);
-  const html = await fetchText(url.toString());
-  const $ = cheerio.load(html);
-  const finalUrl = url.toString();
+async function snapshotPage(input: AuditInput) {
+  const requestedUrl = normalizeUrl(input.url);
+  const pageResult = await fetchText(requestedUrl.toString());
+  const finalUrl = new URL(pageResult.url);
+  const $ = cheerio.load(pageResult.text);
   const title = compactText($("title").first().text());
   const description = compactText(
     $("meta[name='description']").attr("content") ?? "",
@@ -673,21 +763,27 @@ async function snapshotPage(inputUrl: string): Promise<PageSnapshot> {
         const href = $(element).attr("href");
         if (!href) return "";
         try {
-          const target = new URL(href, url);
-          return target.host === url.host ? target.pathname : "";
+          const target = new URL(href, finalUrl);
+          return target.host === finalUrl.host ? target.pathname : "";
         } catch {
           return "";
         }
       })
       .get(),
   ).slice(0, 80);
+  $("script, style, noscript, template, svg").remove();
   const text = compactText($("body").text());
   const wordCount = text ? text.split(/\s+/).length : 0;
-  const robotsAndSitemap = await fetchRobotsAndSitemap(url.origin);
+  const robotsAndSitemap = await fetchRobotsAndSitemap(finalUrl.origin);
+  const {
+    evidenceSources: crawlEvidenceSources,
+    robotsTxt,
+    sitemap,
+  } = robotsAndSitemap;
 
-  return {
-    finalUrl,
-    host: url.host,
+  const snapshot: PageSnapshot = {
+    finalUrl: finalUrl.toString(),
+    host: finalUrl.host,
     title,
     description,
     h1,
@@ -696,15 +792,62 @@ async function snapshotPage(inputUrl: string): Promise<PageSnapshot> {
     robotsIndexable,
     schemaTypes,
     internalLinks,
-    detectedPages: detectPages(url, internalLinks),
+    detectedPages: detectPages(finalUrl, internalLinks),
     wordCount,
     textSample: text.slice(0, 1600),
-    ...robotsAndSitemap,
+    robotsTxt,
+    sitemap,
+  };
+
+  const competitorSources: AuditEvidenceSource[] = (input.competitors ?? []).map(
+    (competitor) => {
+      let competitorUrl = competitor;
+      try {
+        competitorUrl = normalizeUrl(competitor).toString();
+      } catch {
+        // Preserve the submitted value without pretending it was fetched.
+      }
+
+      return {
+        label: `Competitor: ${competitor}`,
+        url: competitorUrl,
+        status: null,
+        outcome: "not-checked",
+        detail: "Recorded for context only; the free scan does not crawl competitors.",
+      };
+    },
+  );
+  const observedAt = new Date().toISOString();
+
+  return {
+    snapshot,
+    evidence: {
+      observedAt,
+      method:
+        "Deterministic fetch of the public homepage, robots.txt, and sitemap.xml followed by HTML, JSON-LD, link, and crawler-rule inspection.",
+      sources: [
+        {
+          label: "Public homepage",
+          url: pageResult.url,
+          status: pageResult.status,
+          outcome: "verified" as const,
+          detail: `${snapshot.wordCount} visible words and ${snapshot.internalLinks.length} internal links inspected.`,
+        },
+        ...crawlEvidenceSources,
+        ...competitorSources,
+      ],
+      limitations: [
+        "This scan inspects public crawlable HTML only; it cannot see private analytics, conversions, or authenticated pages.",
+        "The score measures readiness signals, not actual rankings, citations, traffic, or revenue.",
+        "ChatGPT, Perplexity, Gemini, and AI Overview prompts are not queried in the free scan.",
+        "Competitor domains are recorded for planning but are not crawled or compared in the free scan.",
+      ],
+    },
   };
 }
 
 export async function runAudit(input: AuditInput): Promise<AuditReport> {
-  const snapshot = await snapshotPage(input.url);
+  const { snapshot, evidence } = await snapshotPage(input);
   const signals = buildSignals(snapshot);
   const scores = buildScores(signals);
   const biggestGaps = buildFixes(snapshot, signals).slice(0, 5);
@@ -715,9 +858,10 @@ export async function runAudit(input: AuditInput): Promise<AuditReport> {
   const aiReport = await buildOptionalAiReport(input, snapshot, biggestGaps);
 
   return {
-    auditedAt: new Date().toISOString(),
+    auditedAt: evidence.observedAt,
     input,
     snapshot,
+    evidence,
     overallScore,
     scores,
     signals,

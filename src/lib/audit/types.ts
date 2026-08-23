@@ -12,6 +12,21 @@ export type AuditSignal = {
   weight: number;
 };
 
+export type AuditEvidenceSource = {
+  label: string;
+  url: string;
+  status: number | null;
+  outcome: "verified" | "missing" | "unavailable" | "not-checked";
+  detail: string;
+};
+
+export type AuditEvidence = {
+  observedAt: string;
+  method: string;
+  sources: AuditEvidenceSource[];
+  limitations: string[];
+};
+
 export type AuditScore = {
   label: string;
   score: number;
@@ -60,6 +75,7 @@ export type PageSnapshot = {
 };
 
 export type FixItem = {
+  signalKey: string;
   title: string;
   priority: "High" | "Medium" | "Low";
   effort: "Small" | "Medium" | "Large";
@@ -70,6 +86,7 @@ export type AuditReport = {
   auditedAt: string;
   input: AuditInput;
   snapshot: PageSnapshot;
+  evidence: AuditEvidence;
   overallScore: number;
   scores: AuditScore[];
   signals: AuditSignal[];
