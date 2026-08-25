@@ -100,6 +100,8 @@ export type AuditReport = {
   };
   aiReport: {
     enabled: boolean;
+    mode: "preview" | "full" | "fallback" | "limited";
+    freePreviewRemaining: number | null;
     summary: string;
     positioning: string;
     recommendations: string[];

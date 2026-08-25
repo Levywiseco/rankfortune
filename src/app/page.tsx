@@ -78,7 +78,7 @@ const visibilitySignals = [
   ["Prompt coverage", "Buyer-intent prompts where the brand should appear but does not."],
   ["Citation readiness", "Pages with direct answers, clear entities, and structured proof that AI engines can quote."],
   ["Competitor gap", "The pages competitors have that make them easier to recommend."],
-  ["Tracking path", "A repeatable baseline for future weekly monitoring and share-of-voice checks."],
+  ["Rerun path", "A repeatable baseline you can rerun after publishing the next fixes."],
 ];
 
 const comparisonCards = [
@@ -132,24 +132,16 @@ const plans = [
   {
     name: "Free Snapshot",
     price: "$0",
-    detail: "One-page audit with score, blockers, and top fixes.",
-    features: ["No login for first scan", "16 readiness signals", "Named AI crawler access"],
+    detail: "A no-login audit with score, blockers, top fixes, and a limited AI preview.",
+    features: ["No login for first scan", "16 readiness signals", "Up to 3 AI previews per day"],
     href: "#audit",
     cta: "Run free scan",
   },
   {
     name: "Full Report",
     price: "$19",
-    detail: "A founder-ready report for one website.",
+    detail: "An optional founder-ready report for one website when the scan is useful.",
     features: ["Full AI narrative report", "PDF/Markdown export", "7-day execution checklist"],
-    href: "#audit",
-    cta: "Run scan first",
-  },
-  {
-    name: "Monitor",
-    price: "$39/mo",
-    detail: "Weekly reruns and competitor tracking.",
-    features: ["Audit history", "Competitor comparison", "Email alerts for score drops"],
     href: "#audit",
     cta: "Run scan first",
   },
@@ -191,13 +183,6 @@ const productSchema = {
       name: "Full Report",
       price: "19",
       priceCurrency: "USD",
-    },
-    {
-      "@type": "Offer",
-      name: "Monitor",
-      price: "39",
-      priceCurrency: "USD",
-      billingDuration: "P1M",
     },
   ],
 };
@@ -539,12 +524,12 @@ export default function Home() {
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-slate-400">
-              Start with a free scan, then upgrade when you need the deeper
-              report, export, and monitoring workflow.
+              Start with a free scan and limited AI preview. Upgrade only when
+              you need the full narrative report and export.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {plans.map((plan) => (
               <article
                 className="rf-rise rounded-[8px] border border-white/10 bg-white/[0.04] p-5"

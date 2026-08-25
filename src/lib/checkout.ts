@@ -3,16 +3,12 @@ export const checkoutProducts = {
     id: "pdt_0NfWo9jSycHJv16ZUlpD3",
     label: "RankFortune Full Report",
   },
-  monitorMonthly: {
-    id: "pdt_0NfWo9p9ml2W0HnkC5Nsc",
-    label: "RankFortune Monitor Monthly",
-  },
 } as const;
 
 export type CheckoutProduct = keyof typeof checkoutProducts;
 
 export function isCheckoutProduct(value: unknown): value is CheckoutProduct {
-  return value === "fullReport" || value === "monitorMonthly";
+  return value === "fullReport";
 }
 
 export function buildCheckoutUrl({

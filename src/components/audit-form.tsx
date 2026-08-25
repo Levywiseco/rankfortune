@@ -345,7 +345,7 @@ export function AuditForm() {
 
           <label className="block">
             <span className="text-sm font-medium text-slate-200">
-              Work email for full report
+              Work email for optional full report
             </span>
             <input
               className="mt-2 h-11 w-full rounded-[8px] border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none ring-cyan-300/40 transition focus:border-cyan-300 focus:ring-4"
@@ -387,9 +387,10 @@ export function AuditForm() {
         </div>
 
         <p className="mt-4 text-xs leading-5 text-slate-500">
-          Free scan runs immediately. Add an email if you want the full report,
-          export, and weekly monitoring offer after the score is ready. Usage
-          measurement excludes your URL, inputs, session, and report contents.{" "}
+          Free scan runs immediately with deterministic checks and a limited AI
+          preview. Add an email only if you want the optional $19 full report
+          and export. Usage measurement excludes your URL, inputs, session, and
+          report contents.{" "}
           <Link className="text-slate-300 underline hover:text-white" href="/privacy">
             Privacy details
           </Link>
@@ -845,7 +846,13 @@ export function AuditForm() {
                 <div className="flex items-center justify-between gap-3">
                   <h4 className="font-semibold text-white">Narrative assistance</h4>
                   <span className="rounded-full border border-cyan-300/30 px-2.5 py-1 text-xs text-cyan-100">
-                    {report.aiReport.enabled ? "Connected" : "Rule fallback"}
+                    {report.aiReport.mode === "preview"
+                      ? `Free AI preview · ${report.aiReport.freePreviewRemaining ?? 0} left today`
+                      : report.aiReport.mode === "limited"
+                        ? "Daily preview limit reached"
+                        : report.aiReport.enabled
+                          ? "Full report AI"
+                          : "Rule fallback"}
                   </span>
                 </div>
                 <p className="mt-4 text-sm leading-6 text-slate-300">
@@ -860,7 +867,10 @@ export function AuditForm() {
                   ))}
                 </ul>
                 <p className="mt-4 border-t border-cyan-300/10 pt-3 text-xs leading-5 text-slate-500">
-                  This narrative interprets the fetched page. It does not run live recommendation prompts or prove that an AI engine cites the site.
+                  This narrative interprets the fetched page. Free scans receive
+                  up to three AI previews per day; the optional full report adds
+                  export and delivery. It does not run live recommendation
+                  prompts or prove that an AI engine cites the site.
                 </p>
               </div>
             </div>
@@ -898,15 +908,15 @@ export function AuditForm() {
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
-                    Next step
+                    Optional upgrade
                   </p>
                   <h4 className="mt-2 text-xl font-semibold text-white">
-                    Turn this scan into a full report.
+                    Keep the scan free. Upgrade only when you need the full report.
                   </h4>
                   <p className="mt-2 text-sm leading-6 text-slate-300">
                     {hasLeadEmail
-                      ? `Ready to prepare delivery for ${email.trim()}.`
-                      : "Add a work email in the form, then rerun the scan when you want report delivery."}
+                      ? `Ready to prepare the optional $19 report for ${email.trim()}.`
+                      : "Add a work email only if you want the optional $19 report and export."}
                   </p>
                 </div>
                 <button
@@ -915,7 +925,9 @@ export function AuditForm() {
                   onClick={startCheckout}
                   type="button"
                 >
-                  {checkoutStatus === "loading" ? "Starting checkout..." : "Buy full report"}
+                  {checkoutStatus === "loading"
+                    ? "Starting checkout..."
+                    : "Unlock full report · $19"}
                 </button>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { runAudit } from "@/lib/audit/audit";
+import { aiPreviewKeyFromRequest } from "@/lib/audit/ai-quota";
 import type { AuditInput } from "@/lib/audit/types";
 
 export const runtime = "nodejs";
@@ -27,6 +28,8 @@ export async function POST(request: Request) {
       productName:
         typeof body.productName === "string" ? body.productName : undefined,
       competitors,
+    }, {
+      aiPreviewKey: aiPreviewKeyFromRequest(request),
     });
 
     return NextResponse.json(report);

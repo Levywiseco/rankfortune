@@ -9,6 +9,7 @@ import type {
   FixItem,
   PageSnapshot,
 } from "./types";
+import { consumeFreeAiPreview } from "./ai-quota";
 import { analyzeAiCrawlerAccess } from "./robots";
 
 const REQUEST_TIMEOUT_MS = 9000;
@@ -691,21 +692,58 @@ async function requestAiJson(
   return parseAiJson(text);
 }
 
+type AuditRunOptions = {
+  aiPreviewKey?: string;
+};
+
+function deterministicAiReport(
+  snapshot: PageSnapshot,
+  fixes: FixItem[],
+  summary: string,
+  mode: "fallback" | "limited",
+  freePreviewRemaining: number | null,
+) {
+  return {
+    enabled: false,
+    mode,
+    freePreviewRemaining,
+    summary,
+    positioning:
+      cleanHeadline(snapshot.h1[0] ?? "") ||
+      `${snapshot.host} needs clearer product positioning for AI answer engines.`,
+    recommendations: fixes.slice(0, 3).map((fix) => fix.title),
+  } satisfies AuditReport["aiReport"];
+}
+
 async function buildOptionalAiReport(
   input: AuditInput,
   snapshot: PageSnapshot,
   fixes: FixItem[],
-) {
+  options: AuditRunOptions = {},
+): Promise<AuditReport["aiReport"]> {
   if (!process.env.OPENAI_API_KEY) {
-    return {
-      enabled: false,
-      summary:
-        "AI report generation is not connected yet. Add OPENAI_API_KEY to generate a richer narrative report.",
-      positioning:
-        cleanHeadline(snapshot.h1[0] ?? "") ||
-        `${snapshot.host} needs clearer product positioning for AI answer engines.`,
-      recommendations: fixes.slice(0, 3).map((fix) => fix.title),
-    };
+    return deterministicAiReport(
+      snapshot,
+      fixes,
+      "This scan is using deterministic rules. The optional full report adds the AI narrative and export.",
+      "fallback",
+      null,
+    );
+  }
+
+  const isFreePreview = Boolean(options.aiPreviewKey);
+  const quota = isFreePreview
+    ? consumeFreeAiPreview(options.aiPreviewKey ?? "anonymous")
+    : null;
+
+  if (quota && !quota.allowed) {
+    return deterministicAiReport(
+      snapshot,
+      fixes,
+      "Your free AI preview limit has been reached for today. The deterministic audit remains available; the optional full report includes the AI narrative and export.",
+      "limited",
+      0,
+    );
   }
 
   try {
@@ -716,6 +754,8 @@ async function buildOptionalAiReport(
 
     return {
       enabled: true,
+      mode: isFreePreview ? "preview" : "full",
+      freePreviewRemaining: quota?.remaining ?? null,
       summary: String(parsed.summary ?? ""),
       positioning: String(parsed.positioning ?? ""),
       recommendations: Array.isArray(parsed.recommendations)
@@ -723,15 +763,13 @@ async function buildOptionalAiReport(
         : fixes.slice(0, 3).map((fix) => fix.title),
     };
   } catch {
-    return {
-      enabled: false,
-      summary:
-        "AI report generation failed, so this report is using deterministic audit rules.",
-      positioning:
-        cleanHeadline(snapshot.h1[0] ?? "") ||
-        `${snapshot.host} needs clearer product positioning for AI answer engines.`,
-      recommendations: fixes.slice(0, 3).map((fix) => fix.title),
-    };
+    return deterministicAiReport(
+      snapshot,
+      fixes,
+      "The AI preview is unavailable right now, so this scan is using deterministic audit rules.",
+      "fallback",
+      quota?.remaining ?? null,
+    );
   }
 }
 
@@ -846,7 +884,10 @@ async function snapshotPage(input: AuditInput) {
   };
 }
 
-export async function runAudit(input: AuditInput): Promise<AuditReport> {
+export async function runAudit(
+  input: AuditInput,
+  options: AuditRunOptions = {},
+): Promise<AuditReport> {
   const { snapshot, evidence } = await snapshotPage(input);
   const signals = buildSignals(snapshot);
   const scores = buildScores(signals);
@@ -855,7 +896,12 @@ export async function runAudit(input: AuditInput): Promise<AuditReport> {
   const overallScore = Math.round(
     scores.reduce((sum, score) => sum + toPercent(score), 0) / scores.length,
   );
-  const aiReport = await buildOptionalAiReport(input, snapshot, biggestGaps);
+  const aiReport = await buildOptionalAiReport(
+    input,
+    snapshot,
+    biggestGaps,
+    options,
+  );
 
   return {
     auditedAt: evidence.observedAt,
