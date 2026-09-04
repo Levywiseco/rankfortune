@@ -279,6 +279,12 @@ export default function Home() {
             <p className="rf-reveal mt-5 text-sm text-slate-400">
               Free scan &middot; No signup &middot; First snapshot in about 60 seconds
             </p>
+            <p className="rf-reveal mt-3 text-sm text-slate-400">
+              Want to see the output first?{" "}
+              <Link className="text-cyan-200 underline decoration-cyan-300/40 underline-offset-4 hover:text-white" href="/sample-report">
+                View an example audit report
+              </Link>
+            </p>
           </div>
 
           <div className="rf-float rounded-[8px] border border-white/10 bg-slate-950/70 p-5 shadow-2xl shadow-cyan-950/30 backdrop-blur">

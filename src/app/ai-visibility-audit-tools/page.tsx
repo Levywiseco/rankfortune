@@ -243,6 +243,33 @@ export default function AiVisibilityAuditToolsPage() {
         </div>
       </section>
 
+      <section className="border-t border-white/10 py-16">
+        <div className="mx-auto max-w-6xl px-5">
+          <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
+            How we compare
+          </p>
+          <h2 className="mt-3 text-4xl font-semibold text-white">
+            Evaluation method and review date
+          </h2>
+          <div className="mt-6 max-w-4xl space-y-4 text-sm leading-7 text-slate-300">
+            <p>
+              This comparison is editorially maintained by the RankFortune team and
+              was last reviewed on September 5, 2026. Tools are assessed on four
+              criteria: whether they diagnose before they track, whether fixes are
+              specific enough to ship, how much setup a lean team needs, and how the
+              pricing model fits an audit-first workflow.
+            </p>
+            <p>
+              We include RankFortune in this list and apply the same criteria to
+              ourselves. Where a competitor is the better fit for a team shape, we
+              say so in the decision rules above. If a listed tool changes its
+              product or pricing, mention it through the audit feedback channel and
+              we will re-check the entry.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="border-t border-white/10 bg-slate-950/40 py-16">
         <div className="mx-auto max-w-6xl px-5">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200">
