@@ -7,7 +7,7 @@ const siteUrl = "https://rankfortune.com";
 export const metadata: Metadata = {
   title: "RankFortune - AI Visibility Audit for Websites",
   description:
-    "Check whether ChatGPT, Perplexity, Gemini, and AI search engines can understand, cite, and recommend your website.",
+    "Inspect public-page search readiness with versioned evidence, scoped issues and unknown states. Actual AI citations and traffic require separate measurement.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "RankFortune - AI Visibility Audit for Websites",
     description:
-      "Check whether ChatGPT, Perplexity, Gemini, and AI search engines can understand, cite, and recommend your website.",
+      "Inspect public-page search readiness with versioned evidence, scoped issues and unknown states. Actual AI citations and traffic require separate measurement.",
     url: siteUrl,
     siteName: "RankFortune",
     type: "website",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "RankFortune - AI Visibility Audit for Websites",
     description:
-      "Check whether ChatGPT, Perplexity, Gemini, and AI search engines can understand, cite, and recommend your website.",
+      "Inspect public-page search readiness with versioned evidence, scoped issues and unknown states. Actual AI citations and traffic require separate measurement.",
     images: ["/twitter-image"],
   },
 };

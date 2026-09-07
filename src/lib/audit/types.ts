@@ -7,9 +7,9 @@ export type AuditInput = {
 export type AuditSignal = {
   key: string;
   label: string;
-  passed: boolean;
+  state: "observed" | "issue" | "unknown" | "not-applicable";
   detail: string;
-  weight: number;
+  scope: string;
 };
 
 export type AuditEvidenceSource = {
@@ -27,18 +27,25 @@ export type AuditEvidence = {
   limitations: string[];
 };
 
-export type AuditScore = {
+export type EvidenceTrack = {
+  id: string;
   label: string;
-  score: number;
-  maxScore: number;
+  state: "observed" | "partial" | "not-measured";
   summary: string;
 };
 
 export type AiCrawlerAccess = {
   userAgent: string;
   provider: string;
-  allowed: boolean;
+  purpose: "search" | "training" | "user-fetch";
+  allowed: boolean | null;
   detail: string;
+};
+
+export type IndexingDirective = {
+  target: string;
+  value: string;
+  source: "meta" | "X-Robots-Tag";
 };
 
 export type PageSnapshot = {
@@ -49,7 +56,8 @@ export type PageSnapshot = {
   h1: string[];
   h2: string[];
   canonical: string;
-  robotsIndexable: string;
+  indexingDirectives: IndexingDirective[];
+  canonicalCount: number;
   schemaTypes: string[];
   internalLinks: string[];
   detectedPages: {
@@ -62,36 +70,41 @@ export type PageSnapshot = {
     about: boolean;
   };
   wordCount: number;
+  textLength: number;
   textSample: string;
   robotsTxt: {
-    exists: boolean;
+    exists: boolean | null;
+    checkedPath: string;
     sitemapUrls: string[];
     aiCrawlers: AiCrawlerAccess[];
   };
   sitemap: {
-    exists: boolean;
+    exists: boolean | null;
     urlCount: number;
+    kind: "urlset" | "sitemapindex" | "unknown";
   };
 };
 
 export type FixItem = {
   signalKey: string;
   title: string;
-  priority: "High" | "Medium" | "Low";
+  priority: "P1" | "P2";
   effort: "Small" | "Medium" | "Large";
   detail: string;
+  scope: string;
+  verification: string;
 };
 
 export type AuditReport = {
+  ruleVersion: string;
   auditedAt: string;
   input: AuditInput;
   snapshot: PageSnapshot;
   evidence: AuditEvidence;
-  overallScore: number;
-  scores: AuditScore[];
+  tracks: EvidenceTrack[];
   signals: AuditSignal[];
   biggestGaps: FixItem[];
-  sevenDayPlan: FixItem[];
+  actionPlan: FixItem[];
   copySuggestions: {
     title: string;
     description: string;

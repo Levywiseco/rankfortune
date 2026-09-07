@@ -5,154 +5,199 @@ import Link from "next/link";
 
 const faqItems = [
   {
-    question: "What does RankFortune check in the free audit?",
-    answer:
-      "The free audit reviews crawl access for named OpenAI, Google, Perplexity, and Anthropic bots, plus metadata clarity, structured data, internal linking, and whether your homepage gives AI engines enough evidence to explain and recommend the product.",
+    "question": "What does the free scan actually check?",
+    "answer": "It reads one public URL, robots.txt and one sitemap candidate. It reports raw-HTML metadata, JSON-LD, links and named crawler preferences, with scoped evidence and unknown states."
   },
   {
-    question: "Who is RankFortune for?",
-    answer:
-      "RankFortune is built for indie SaaS founders, SEO teams, and agencies that need a fast way to spot why ChatGPT, Perplexity, Gemini, and AI search results are not citing a site yet.",
+    "question": "Does this measure real AI citations?",
+    "answer": "No. The free scan does not query AI answers, crawl competitors or connect analytics. Actual mentions, citations and business outcomes require separate observations."
   },
   {
-    question: "What do I get after the first scan?",
-    answer:
-      "You get a website-readiness score based on live HTML, robots.txt, sitemap, metadata, and structured data; the biggest technical and content gaps; copy-ready title and description ideas; and the next pages or proof assets that are most worth publishing. The free scan does not claim live prompt mention share.",
+    "question": "What do I receive?",
+    "answer": "Four separate evidence tracks, observed issues, unresolved checks, sources and verification steps. There is no combined GEO score or automatic requirement to publish FAQ, comparison or pricing pages."
   },
   {
-    question: "How is RankFortune different from a normal SEO audit?",
-    answer:
-      "A normal SEO audit often stops at crawlability and rankings. RankFortune adds answer-engine readiness, competitor citation gaps, and fixes designed for AI discovery and recommendation prompts.",
+    "question": "Should I allow training crawlers to improve search?",
+    "answer": "Search, training and user-triggered access are separate purposes. RankFortune does not penalize training opt-outs or change your robots rules."
   },
   {
-    question: "Should I use RankFortune before an AI visibility monitoring platform?",
-    answer:
-      "Yes, if you do not yet know what to fix. Monitoring platforms are more useful after the site has clear crawl signals, comparison pages, FAQ answers, pricing context, and proof content that AI systems can cite.",
-  },
+    "question": "Do I have to finish an audit before measuring citations?",
+    "answer": "No. Technical diagnostics and actual AI observations can be collected independently. Keep their scope, dates and meanings separate."
+  }
 ];
 
 const proofMetrics = [
-  ["16", "readiness signals"],
-  ["3", "score layers"],
-  ["7 day", "fix roadmap"],
-  ["60s", "first snapshot"],
+  [
+    "1 URL",
+    "defined scan scope"
+  ],
+  [
+    "4",
+    "evidence tracks"
+  ],
+  [
+    "No score",
+    "no invented certainty"
+  ],
+  [
+    "Versioned",
+    "repeatable checks"
+  ]
 ];
 
 const audienceFit = [
-  ["Indie SaaS", "Find the pages and proof AI engines need before recommending your tool."],
-  ["SEO teams", "Turn technical crawl checks into answer-engine content priorities."],
-  ["Agencies", "Use a quick audit as a lead magnet before selling deeper GEO work."],
+  [
+    "Indie SaaS",
+    "Understand public-page observations and the evidence still needed."
+  ],
+  [
+    "SEO teams",
+    "Review engine-specific rules without confusing training and search."
+  ],
+  [
+    "Agencies",
+    "Deliver scoped findings, limitations and verifiable implementation steps."
+  ]
 ];
 
 const auditLayers = [
   {
-    title: "Technical discovery",
-    detail:
-      "Checks sitemap, canonical tags, indexability, internal links, and whether named OpenAI, Google, Perplexity, and Anthropic crawlers are blocked by robots.txt.",
+    "title": "Technical observations",
+    "detail": "Inspect raw HTML, canonical declarations, page directives, robots preferences and one sitemap candidate. Actual indexing and bot access remain separate checks."
   },
   {
-    title: "Entity clarity",
-    detail:
-      "Reviews title, meta description, H1, schema, pricing signals, and whether an AI model can explain what the product does.",
+    "title": "Content and claim evidence",
+    "detail": "Extract metadata and content candidates. Task completeness, factual claims, expertise and sources require independent review."
   },
   {
-    title: "Answer readiness",
-    detail:
-      "Looks for FAQ, use-case, alternatives, comparison, and structured answer content that AI engines can cite directly.",
+    "title": "Actual AI visibility",
+    "detail": "The free scan marks this not measured. Target-product queries and visible source records are required before reporting mentions or citations."
   },
   {
-    title: "Fix roadmap",
-    detail:
-      "Turns the audit into prioritized actions for founders, marketers, and developers instead of stopping at a raw score.",
-  },
+    "title": "Business outcomes",
+    "detail": "The free scan marks this not measured. Attributable referrals and conversions need first-party data, not a readiness score."
+  }
 ];
 
 const platformSteps = [
-  ["Scan", "Drop in a public URL and RankFortune crawls the page, resolves named AI crawler rules in robots.txt, and checks sitemap, metadata, and structured data."],
-  ["Score", "The report separates technical discoverability, brand clarity, and answer-engine readiness so the weakness is obvious."],
-  ["Fix", "You get copy-ready titles, FAQ ideas, schema recommendations, and the next pages to publish."],
-  ["Verify", "Rerun the audit after you ship the fixes and see whether your visibility readiness actually improved."],
+  [
+    "Scan",
+    "Read one public URL and scoped supporting files."
+  ],
+  [
+    "Inspect",
+    "Separate observations, issues and unknown evidence."
+  ],
+  [
+    "Act",
+    "Choose justified changes; preserve intentional exclusions and training preferences."
+  ],
+  [
+    "Retest",
+    "Compare the same final URL and rule version. Changed checks do not prove citation or traffic gains."
+  ]
 ];
 
 const visibilitySignals = [
-  ["Prompt coverage", "Buyer-intent prompts where the brand should appear but does not."],
-  ["Citation readiness", "Pages with direct answers, clear entities, and structured proof that AI engines can quote."],
-  ["Competitor gap", "The pages competitors have that make them easier to recommend."],
-  ["Tracking path", "A repeatable baseline for future weekly monitoring and share-of-voice checks."],
+  [
+    "Query research",
+    "Candidate questions for a future test, not measured citation gaps."
+  ],
+  [
+    "Claim evidence",
+    "Review whether the stated source supports the exact product claim."
+  ],
+  [
+    "Competitor context",
+    "Domains are recorded only; the free scan does not crawl or compare them."
+  ],
+  [
+    "Measurement plan",
+    "Record target product, market, query, date and visible sources before making comparisons."
+  ]
 ];
 
 const comparisonCards = [
   [
-    "Audit-first tools",
-    "Best when you need the first roadmap before paying for a bigger monitoring platform.",
+    "Page diagnostics",
+    "Useful for scoped HTTP and HTML observations."
   ],
   [
-    "Prompt trackers",
-    "Useful when you already know your category and want repeated mention checks across AI engines.",
+    "Answer observations",
+    "Useful for actual mentions and visible citations under recorded conditions."
   ],
   [
-    "Authority suites",
-    "Worth it when your team also needs citation, backlink, and wider brand-signal workflows.",
-  ],
+    "First-party analytics",
+    "Useful for attributable visits and business events."
+  ]
 ];
 
 const competitorTakeaways = [
   {
-    tool: "Profound-style platforms",
-    emphasis: "Full-stack AI search workflows with agents, prompt demand, and crawler analytics.",
-    gap: "Strong after a team already has enough pages, proof, and budget to operate a program.",
-    rankfortune:
-      "RankFortune starts earlier: it finds the missing crawl, entity, FAQ, comparison, and proof signals before weekly monitoring.",
+    "tool": "Public-page scan",
+    "emphasis": "One URL and supporting files.",
+    "gap": "Cannot establish real indexing or AI citations.",
+    "rankfortune": "RankFortune records sources, states and limits for each finding."
   },
   {
-    tool: "Peec-style trackers",
-    emphasis: "Visibility, position, and sentiment tracking across AI search prompts and markets.",
-    gap: "Useful for trend reporting, but the first blocker is often missing answer-ready content.",
-    rankfortune:
-      "RankFortune turns that blocker into a 7-day fix plan with copy-ready title, FAQ, schema, and page recommendations.",
+    "tool": "Target AI observations",
+    "emphasis": "Actual answers and displayed source URLs.",
+    "gap": "Not collected by this free scan.",
+    "rankfortune": "Collect separately; a model-generated narrative is not this evidence."
   },
   {
-    tool: "SEO authority suites",
-    emphasis: "Broad brand, search, and authority workflows that sit beside traditional SEO operations.",
-    gap: "Too heavy when an indie SaaS or agency lead only needs to decide what to publish next.",
-    rankfortune:
-      "RankFortune keeps the first step small: scan a public URL, explain the gaps, then upgrade only when the report is useful.",
-  },
+    "tool": "Business measurement",
+    "emphasis": "Attributable referrals and defined conversion events.",
+    "gap": "Requires first-party data and comparable windows.",
+    "rankfortune": "Do not infer business impact from a changed metadata check."
+  }
 ];
 
 const reportDeliverables = [
-  "Visibility score with technical, clarity, and answer-readiness layers",
-  "Prompt gap examples for ChatGPT, Perplexity, Gemini, and AI Overviews",
-  "Competitor page gaps and the next pages to publish",
-  "Copy-ready title, description, FAQ, and schema recommendations",
-  "7-day fix roadmap that a founder or marketer can execute",
+  "Four independent evidence tracks, without a combined GEO score",
+  "Scope, timestamps and sources for the scan",
+  "Observed issues and unresolved checks kept separate",
+  "Verification steps for justified changes",
+  "Observed metadata to review, not invented publish-ready claims"
 ];
 
 const plans = [
   {
-    name: "Free Snapshot",
-    price: "$0",
-    detail: "One-page audit with score, blockers, and top fixes.",
-    features: ["No login for first scan", "16 readiness signals", "Named AI crawler access"],
-    href: "#audit",
-    cta: "Run free scan",
+    "name": "Free Snapshot",
+    "price": "$0",
+    "detail": "One-URL evidence review, not a citation measurement.",
+    "features": [
+      "No login for first scan",
+      "Versioned observations",
+      "Search and training separated"
+    ],
+    "href": "#audit",
+    "cta": "Run free scan"
   },
   {
-    name: "Full Report",
-    price: "$19",
-    detail: "A founder-ready report for one website.",
-    features: ["Full AI narrative report", "PDF/Markdown export", "7-day execution checklist"],
-    href: "#audit",
-    cta: "Run scan first",
+    "name": "Full Report",
+    "price": "$19",
+    "detail": "The captured evidence in an emailed report.",
+    "features": [
+      "HTML and Markdown report",
+      "Scoped issues and limitations",
+      "Verification checklist"
+    ],
+    "href": "#audit",
+    "cta": "Run scan first"
   },
   {
-    name: "Monitor",
-    price: "$39/mo",
-    detail: "Weekly reruns and competitor tracking.",
-    features: ["Audit history", "Competitor comparison", "Email alerts for score drops"],
-    href: "#audit",
-    cta: "Run scan first",
-  },
+    "name": "Monitor",
+    "price": "$39/mo",
+    "detail": "Planned service. New subscriptions are not open; scheduled monitoring is not currently delivered.",
+    "features": [
+      "Planned: scheduled observations",
+      "Planned: comparable history",
+      "No live citation tracking promised"
+    ],
+    "href": "#audit",
+    "cta": "Not open for purchase"
+  }
 ];
 
 const seoPages = landingPages;
@@ -178,7 +223,7 @@ const productSchema = {
   operatingSystem: "Web",
   url: "https://rankfortune.com/",
   description:
-    "AI visibility audit for websites that checks technical discoverability, entity clarity, and answer-engine readiness.",
+    "Evidence-based public-page readiness review with separate technical, content, AI-observation and business-data tracks.",
   offers: [
     {
       "@type": "Offer",
@@ -191,13 +236,6 @@ const productSchema = {
       name: "Full Report",
       price: "19",
       priceCurrency: "USD",
-    },
-    {
-      "@type": "Offer",
-      name: "Monitor",
-      price: "39",
-      priceCurrency: "USD",
-      billingDuration: "P1M",
     },
   ],
 };
@@ -251,16 +289,15 @@ export default function Home() {
         <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_460px] lg:items-end">
           <div>
             <p className="rf-reveal inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-100 backdrop-blur">
-              AI visibility audit for SaaS and indie tools
+              SEO + GEO evidence review for SaaS and indie tools
             </p>
             <h1 className="rf-reveal mt-6 max-w-4xl text-5xl font-semibold leading-[1.05] text-white md:text-7xl">
-              See what keeps AI engines from recommending your website.
+              See the evidence behind your website’s search readiness.
             </h1>
             <p className="rf-reveal mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              RankFortune checks whether your website is discoverable,
-              understandable, and citeable for ChatGPT, Perplexity, Gemini, AI
-              Overviews, and answer engines. Start with a free snapshot, then
-              upgrade to a full report when the gaps are worth fixing.
+              Inspect one public page, its HTML and crawler preferences.
+              Separate observed issues from missing evidence. Actual AI mentions,
+              citations and business outcomes are not measured by this scan.
             </p>
             <div className="rf-reveal mt-8 flex flex-col gap-3 sm:flex-row">
               <a
@@ -273,7 +310,7 @@ export default function Home() {
                 className="flex h-12 items-center justify-center rounded-[8px] border border-white/10 px-5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/50 hover:text-white"
                 href="#methodology"
               >
-                See scoring method
+                See evidence method
               </a>
             </div>
             <p className="rf-reveal mt-5 text-sm text-slate-400">
@@ -304,9 +341,9 @@ export default function Home() {
               ))}
             </div>
             <p className="mt-4 text-sm leading-6 text-slate-400">
-              Every scan checks 16 readiness signals across technical access,
-              brand clarity, and answer-engine coverage — then turns the gaps
-              into a prioritized fix plan.
+              Every finding includes its scope and rule version. Unknown access,
+              indexing, factual support and AI visibility remain unknown.
+              Fixes require observed evidence and a verification step.
             </p>
           </div>
         </div>
@@ -329,9 +366,9 @@ export default function Home() {
               Built around audit, evidence, and execution.
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-300">
-              Competitors win trust by showing exactly what they measure.
-              RankFortune makes the scoring model visible: technical access,
-              entity clarity, answer-ready content, and the roadmap to improve.
+              Keep technical observations, content evidence, actual AI visibility
+              and business outcomes separate. The free scan measures only a limited
+              part of this framework; the remaining checks are explicitly unresolved.
             </p>
           </div>
 
@@ -358,12 +395,12 @@ export default function Home() {
               Workflow
             </p>
             <h2 className="mt-3 text-4xl font-semibold text-white">
-              More than a score.
+              Evidence you can inspect.
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-300">
-              Start with a fast readiness audit. Then save reports, compare
-              competitors, and monitor AI prompts over time as visibility
-              becomes a weekly workflow.
+              Inspect scoped findings, choose justified changes and retest the
+              same final URL with the same rules. Competitor experiments,
+              prompt monitoring and attribution need separate evidence collection.
             </p>
           </div>
 
@@ -422,7 +459,7 @@ export default function Home() {
             className="rf-rise mt-8 inline-flex h-12 items-center justify-center rounded-[8px] border border-cyan-300/30 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
             href="/ai-visibility-audit-tools"
           >
-            Compare AI visibility audit tools
+            Compare SEO + GEO evidence review tools
           </Link>
 
           <div className="rf-rise mt-10 overflow-hidden rounded-[8px] border border-white/10">
@@ -506,12 +543,12 @@ export default function Home() {
               Visibility preview
             </p>
             <h2 className="mt-3 text-4xl font-semibold text-white">
-              Show the missing recommendation path.
+              Separate observations from research questions.
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-300">
-              RankFortune starts with the reasons your site is not ready to be
-              cited, then turns that into the prompts, pages, and proof assets
-              to build next.
+              RankFortune records public-page evidence and unresolved checks.
+              Actual AI answers, competitor comparisons and business outcomes
+              require separate observations. Read the <Link href="/methodology" className="text-cyan-200 underline">methodology</Link> before interpreting a report.
             </p>
           </div>
 

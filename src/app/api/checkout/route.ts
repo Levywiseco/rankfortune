@@ -14,6 +14,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unknown checkout product." }, { status: 400 });
     }
 
+    // Preserve the product identity and existing subscription webhooks, but do
+    // not create new purchase links for a service that is not yet delivered.
+    if (body.product === "monitorMonthly") {
+      return NextResponse.json(
+        {
+          error: "Monitor is planned and is not open for new subscriptions.",
+          code: "MONITOR_NOT_AVAILABLE",
+        },
+        { status: 409 },
+      );
+    }
+
     const email =
       typeof body.email === "string" && body.email.includes("@")
         ? body.email.trim().toLowerCase()

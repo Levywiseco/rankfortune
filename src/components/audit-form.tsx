@@ -8,8 +8,10 @@ import { trackToolEvent } from "@/lib/tool-analytics";
 type Status = "idle" | "loading" | "ready" | "error";
 type CheckoutStatus = "idle" | "loading";
 
-function percent(score: number, maxScore: number) {
-  return Math.round((score / Math.max(maxScore, 1)) * 100);
+function signalClass(state: string) {
+  if (state === "issue") return "text-rose-300";
+  if (state === "observed") return "text-emerald-300";
+  return "text-amber-200";
 }
 
 function comparisonTarget(value: string) {
@@ -18,15 +20,15 @@ function comparisonTarget(value: string) {
       ? value.trim()
       : `https://${value.trim()}`;
     const parsed = new URL(candidate);
-    return `${parsed.host}${parsed.pathname.replace(/\/$/, "") || "/"}`;
+    return `${parsed.origin}${parsed.pathname}${parsed.search}`;
   } catch {
     return value.trim().toLowerCase();
   }
 }
 
 function priorityClass(priority: string) {
-  if (priority === "High") return "border-rose-400/60 bg-rose-500/10 text-rose-100";
-  if (priority === "Medium")
+  if (priority === "P1") return "border-rose-400/60 bg-rose-500/10 text-rose-100";
+  if (priority === "P2")
     return "border-amber-400/60 bg-amber-500/10 text-amber-100";
   return "border-emerald-400/60 bg-emerald-500/10 text-emerald-100";
 }
@@ -42,30 +44,14 @@ function evidenceClass(outcome: string) {
 }
 
 const sampleScores = [
-  ["Technical Discoverability", "92", "Sitemap, robots, canonical, and indexability are healthy."],
-  ["Brand Clarity", "78", "The homepage explains the core job, but the category could be sharper."],
-  ["AI Answer Readiness", "46", "Missing FAQ, comparison, and use-case pages limit answer-engine coverage."],
+  ["Technical observations", "Partial", "Public HTML inspected. Real crawler access and indexing still need evidence."],
+  ["Content evidence", "Partial", "Candidate content found; factual support requires source review."],
+  ["Actual AI visibility", "Not measured", "No target AI answers queried; no citation or traffic claim."],
 ];
 
 const sampleGaps = [
-  {
-    title: "Create an FAQ block with buyer-intent questions",
-    priority: "High",
-    detail:
-      "Add short answers for pricing, use cases, security, alternatives, and setup so AI answers have citeable content.",
-  },
-  {
-    title: "Publish one alternatives page",
-    priority: "Medium",
-    detail:
-      "Comparison-style pages help AI systems recommend your product for high-intent prompts.",
-  },
-  {
-    title: "Add use-case pages for the top customer jobs",
-    priority: "Medium",
-    detail:
-      "Separate pages for concrete workflows improve entity coverage and retrieval quality.",
-  },
+  { title: "Repair malformed JSON-LD", priority: "P1", detail: "Illustrative issue: fix a syntax error in an existing applicable block; do not add arbitrary schema types." },
+  { title: "Review a scoped search restriction", priority: "P1", detail: "Illustrative issue: confirm the named bot and URL should be public before changing a rule. Keep training preferences unchanged." },
 ];
 
 const samplePromptChecks = [
@@ -104,12 +90,7 @@ export function AuditForm() {
   const [selectedFixKeys, setSelectedFixKeys] = useState<string[]>([]);
   const [founderIntentRecorded, setFounderIntentRecorded] = useState(false);
 
-  const scoreLabel = useMemo(() => {
-    if (!report) return "Ready";
-    if (report.overallScore >= 80) return "Strong";
-    if (report.overallScore >= 60) return "Fixable";
-    return "Needs work";
-  }, [report]);
+  const scoreLabel = report ? "Evidence ready" : "Ready";
 
   const hasLeadEmail = email.trim().includes("@");
 
@@ -126,20 +107,13 @@ export function AuditForm() {
   }, [previousReport, report, selectedFixKeys]);
 
   const comparison = useMemo(() => {
-    if (!previousReport || !report) return null;
-    const previousPassed = previousReport.signals.filter(
-      (signal) => signal.passed,
-    ).length;
-    const currentPassed = report.signals.filter((signal) => signal.passed).length;
-
+    if (!previousReport || !report || previousReport.ruleVersion !== report.ruleVersion ||
+        previousReport.snapshot.finalUrl !== report.snapshot.finalUrl) return null;
     return {
-      scoreDelta: report.overallScore - previousReport.overallScore,
-      passDelta: currentPassed - previousPassed,
       checks: selectedFixes.map((fix) => ({
         ...fix,
-        verified:
-          report.signals.find((signal) => signal.key === fix.signalKey)
-            ?.passed ?? false,
+        before: previousReport.signals.find((item) => item.key === fix.signalKey)?.state ?? "unknown",
+        after: report.signals.find((item) => item.key === fix.signalKey)?.state ?? "unknown",
       })),
     };
   }, [previousReport, report, selectedFixes]);
@@ -378,7 +352,7 @@ export function AuditForm() {
           </div>
           <div className="rounded-[8px] bg-white/[0.04] p-3">
             Check
-            <strong className="mt-1 block text-white">AEO</strong>
+            <strong className="mt-1 block text-white">Rules</strong>
           </div>
           <div className="rounded-[8px] bg-white/[0.04] p-3">
             Report
@@ -387,8 +361,8 @@ export function AuditForm() {
         </div>
 
         <p className="mt-4 text-xs leading-5 text-slate-500">
-          Free scan runs immediately. Add an email if you want the full report,
-          export, and weekly monitoring offer after the score is ready. Usage
+          Free scan runs immediately. An email is optional for the paid report
+          workflow. Usage
           measurement excludes your URL, inputs, session, and report contents.{" "}
           <Link className="text-slate-300 underline hover:text-white" href="/privacy">
             Privacy details
@@ -407,17 +381,17 @@ export function AuditForm() {
                   Illustrative layout — not a live audit
                 </p>
                 <p className="mt-3 text-sm text-slate-400">
-                  sample-saas.com · placeholder data
+                  sample-saas.example · placeholder data
                 </p>
                 <h3 className="mt-2 text-3xl font-semibold text-white">
-                  AI readiness score
+                  Evidence-based readiness review
                 </h3>
               </div>
               <div className="flex items-end gap-2">
-                <span className="text-6xl font-semibold text-cyan-200">
-                  72
+                <span className="text-3xl font-semibold text-cyan-200">
+                  Sample
                 </span>
-                <span className="pb-2 text-sm text-slate-400">/100</span>
+                <span className="pb-2 text-sm text-slate-400">not a score</span>
               </div>
             </div>
 
@@ -470,7 +444,7 @@ export function AuditForm() {
 
             <div className="rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-4">
               <div className="flex items-center justify-between gap-3">
-                <h4 className="font-semibold text-white">Copy-ready fixes</h4>
+                <h4 className="font-semibold text-white">Metadata review example</h4>
                 <span className="rounded-full border border-cyan-300/30 px-2.5 py-1 text-xs text-cyan-100">
                   Preview
                 </span>
@@ -532,7 +506,7 @@ export function AuditForm() {
               <div>
                 <p className="text-sm text-slate-400">{report.snapshot.host}</p>
                 <h3 className="mt-2 text-3xl font-semibold text-white">
-                  AI readiness score
+                  Evidence-based readiness review
                 </h3>
                 {evidence ? (
                   <p className="mt-2 text-xs leading-5 text-slate-500">
@@ -542,29 +516,22 @@ export function AuditForm() {
               </div>
               <div className="flex items-end gap-2">
                 <span className="text-6xl font-semibold text-cyan-200">
-                  {report.overallScore}
+                  {report.biggestGaps.length}
                 </span>
-                <span className="pb-2 text-sm text-slate-400">/100</span>
+                <span className="pb-2 text-sm text-slate-400">issues to review</span>
               </div>
             </div>
 
-            <div className="grid gap-3 md:grid-cols-3">
-              {report.scores.map((score) => (
-                <div
-                  className="rounded-[8px] border border-white/10 bg-white/[0.04] p-4"
-                  key={score.label}
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <h4 className="text-sm font-semibold text-white">
-                      {score.label}
-                    </h4>
-                    <span className="font-mono text-lg text-cyan-200">
-                      {percent(score.score, score.maxScore)}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">
-                    {score.summary}
-                  </p>
+            <p className="text-sm text-slate-400">
+              Rules: {report.ruleVersion}. Observed, issue, unknown and not-applicable states are separate.
+              No overall GEO score or prediction. <Link className="text-cyan-200 underline" href="/methodology">Read the method</Link>.
+            </p>
+            <div className="grid gap-3 md:grid-cols-2">
+              {report.tracks.map((track) => (
+                <div className="rounded-[8px] border border-white/10 bg-white/[0.04] p-4" key={track.id}>
+                  <h4 className="font-semibold text-white">{track.label}</h4>
+                  <p className="mt-2 text-xs uppercase text-cyan-200">{track.state}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{track.summary}</p>
                 </div>
               ))}
             </div>
@@ -634,10 +601,10 @@ export function AuditForm() {
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <h4 className="font-semibold text-white">
-                    AI crawler access
+                    Crawler preferences by purpose
                   </h4>
                   <p className="mt-1 text-sm text-slate-400">
-                    Homepage access resolved from specific and wildcard robots.txt groups.
+                    Parsed rules for {report.snapshot.robotsTxt.checkedPath}. Search, training and user-fetch preferences are separate; this is not verified bot access.
                   </p>
                 </div>
                 <p className="font-mono text-sm text-cyan-200">
@@ -646,7 +613,7 @@ export function AuditForm() {
                       (crawler) => crawler.allowed,
                     ).length
                   }
-                  /{report.snapshot.robotsTxt.aiCrawlers.length} allowed
+                  /{report.snapshot.robotsTxt.aiCrawlers.length} rule-allowed; {report.snapshot.robotsTxt.aiCrawlers.filter((crawler) => crawler.allowed === null).length} unknown
                 </p>
               </div>
               <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
@@ -661,17 +628,15 @@ export function AuditForm() {
                           {crawler.userAgent}
                         </p>
                         <p className="mt-1 text-xs text-slate-500">
-                          {crawler.provider}
+                          {crawler.provider} · {crawler.purpose}
                         </p>
                       </div>
                       <span
                         className={
-                          crawler.allowed
-                            ? "text-xs text-emerald-300"
-                            : "text-xs text-rose-300"
+                          crawler.allowed === null ? "text-xs text-amber-200" : crawler.allowed ? "text-xs text-emerald-300" : "text-xs text-slate-300"
                         }
                       >
-                        {crawler.allowed ? "Allowed" : "Blocked"}
+                        {crawler.allowed === null ? "Unknown" : crawler.allowed ? "Rule allows" : "Rule disallows"}
                       </span>
                     </div>
                     <p className="mt-2 text-xs leading-5 text-slate-500">
@@ -684,7 +649,8 @@ export function AuditForm() {
 
             <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
               <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
-                <h4 className="font-semibold text-white">Biggest gaps</h4>
+                <h4 className="font-semibold text-white">Scoped issues to review</h4>
+                {report.biggestGaps.length === 0 ? <p className="mt-3 text-sm text-slate-400">No automatic issues confirmed in this limited scan. Unknown checks still need evidence; this is not an all-clear.</p> : null}
                 <div className="mt-4 space-y-3">
                   {report.biggestGaps.map((gap) => (
                     <div
@@ -709,6 +675,8 @@ export function AuditForm() {
                       <p className="mt-2 text-sm leading-6 text-slate-400">
                         {gap.detail}
                       </p>
+                      <p className="mt-2 break-words text-xs text-slate-400">Scope: {gap.scope}</p>
+                      <p className="mt-2 text-xs text-cyan-100">Verify: {gap.verification}</p>
                       <button
                         aria-pressed={selectedFixKeys.includes(gap.signalKey)}
                         className={`mt-4 rounded-[8px] border px-3 py-2 text-xs font-semibold transition ${
@@ -731,7 +699,7 @@ export function AuditForm() {
               <aside className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
                 <h4 className="font-semibold text-white">Detected signals</h4>
                 <div className="mt-4 space-y-2">
-                  {report.signals.slice(0, 10).map((signal) => (
+                  {report.signals.map((signal) => (
                     <div
                       className="flex items-start justify-between gap-3 rounded-[8px] bg-slate-950 px-3 py-2"
                       key={signal.key}
@@ -746,10 +714,10 @@ export function AuditForm() {
                       </div>
                       <span
                         className={
-                          signal.passed ? "text-emerald-300" : "text-rose-300"
+                          signalClass(signal.state)
                         }
                       >
-                        {signal.passed ? "Pass" : "Fix"}
+                        {signal.state}
                       </span>
                     </div>
                   ))}
@@ -767,7 +735,7 @@ export function AuditForm() {
                     Verify the work against the same deterministic checks.
                   </h4>
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
-                    Select the fixes you intend to ship. After the public site is updated, rerun the same URL to compare its score and pass/fix signals. A higher score proves only these checks, not traffic or AI citations.
+                    Select the issues you intend to address. Rerun the same final URL with the same rule version to compare observed states. Unknown is not failure, and a changed check does not prove indexing, AI citations or traffic.
                   </p>
                 </div>
                 <button
@@ -797,14 +765,7 @@ export function AuditForm() {
 
               {comparison ? (
                 <div className="mt-4 rounded-[8px] border border-white/10 bg-slate-950 p-4">
-                  <div className="flex flex-wrap gap-3 text-sm">
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-slate-300">
-                      Score {comparison.scoreDelta >= 0 ? "+" : ""}{comparison.scoreDelta}
-                    </span>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-slate-300">
-                      Passed signals {comparison.passDelta >= 0 ? "+" : ""}{comparison.passDelta}
-                    </span>
-                  </div>
+                  <p className="text-sm text-slate-300">Same final URL and rule version. Compare only the selected observations below.</p>
                   <div className="mt-3 space-y-2">
                     {comparison.checks.map((check) => (
                       <div
@@ -812,9 +773,7 @@ export function AuditForm() {
                         key={check.signalKey}
                       >
                         <span className="text-slate-300">{check.title}</span>
-                        <span className={check.verified ? "text-emerald-300" : "text-amber-200"}>
-                          {check.verified ? "Verified" : "Still needs work"}
-                        </span>
+                        <span className={signalClass(check.after)}>{check.before} → {check.after}</span>
                       </div>
                     ))}
                   </div>
@@ -824,7 +783,7 @@ export function AuditForm() {
 
             <div className="grid gap-4 lg:grid-cols-2">
               <div className="rounded-[8px] border border-white/10 bg-white/[0.03] p-4">
-                <h4 className="font-semibold text-white">Copy suggestions</h4>
+                <h4 className="font-semibold text-white">Observed metadata — review before rewriting</h4>
                 <dl className="mt-4 space-y-4 text-sm">
                   <div>
                     <dt className="text-slate-500">Title</dt>

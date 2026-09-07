@@ -20,519 +20,438 @@ export type LandingPage = {
 
 export const landingPages: LandingPage[] = [
   {
-    slug: "ai-visibility-audit",
-    title: "AI Visibility Audit for Websites - RankFortune",
-    description:
-      "Run an AI visibility audit to see whether ChatGPT, Perplexity, Gemini, and AI search engines can understand, cite, and recommend your website.",
-    eyebrow: "AI visibility audit",
-    h1: "Audit whether AI engines can understand and recommend your website.",
-    intro:
-      "RankFortune checks the technical, content, and answer-engine signals that make a site easier for AI systems to crawl, summarize, cite, and recommend.",
-    audience:
-      "Best for founders, SaaS marketers, and agencies that need a fast baseline before investing in a full AI visibility platform.",
-    checks: [
-      "Crawl access, robots.txt, sitemap, canonical, and indexability",
-      "Title, description, H1, internal links, and structured data",
-      "FAQ, comparison, use-case, pricing, and proof content signals",
-      "Copy-ready fixes for metadata, schema, and answer-first content",
+    "slug": "ai-visibility-audit",
+    "title": "AI Visibility Audit for Websites - RankFortune",
+    "description": "A one-URL diagnostic for founders and agencies, with technical observations kept separate from actual AI visibility.",
+    "eyebrow": "AI Visibility Audit for Websites",
+    "h1": "Review search readiness with inspectable evidence.",
+    "intro": "A one-URL diagnostic for founders and agencies, with technical observations kept separate from actual AI visibility.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
     ],
-    outcomes: [
-      "Visibility score with three diagnostic layers",
-      "Prioritized blockers that explain why AI engines may skip the site",
-      "7-day execution plan for improving AI answer readiness",
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
     ],
-    sections: [
+    "sections": [
       {
-        title: "What an AI visibility audit measures",
-        body:
-          "A normal SEO audit often stops at crawlability and rankings. An AI visibility audit adds entity clarity, answer structure, citation readiness, and whether the site gives models enough evidence to mention the product confidently.",
+        "title": "Decide what this scan can establish",
+        "body": "The free scan reads the submitted page and sampled supporting files. It cannot establish why a model chose or omitted a brand."
       },
       {
-        title: "Why this matters before monitoring",
-        body:
-          "Prompt tracking is useful after the site has enough citeable pages. If the homepage has weak positioning, missing FAQ content, or no comparison pages, monitoring only confirms the same gap every week.",
+        "title": "Choose a real user task",
+        "body": "Review whether the page helps its intended reader and whether important claims have current supporting sources. Candidate headings are not proof of completeness."
       },
       {
-        title: "How RankFortune turns findings into fixes",
-        body:
-          "The report groups problems into technical discovery, brand clarity, and answer readiness, then turns the biggest gaps into concrete copy, schema, and page recommendations.",
-      },
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: "What is an AI visibility audit?",
-        answer:
-          "It is a review of whether AI assistants and answer engines can crawl, understand, cite, and recommend a website for relevant buyer prompts.",
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
       },
       {
-        question: "How is this different from SEO?",
-        answer:
-          "SEO focuses on search rankings and crawl health. AI visibility adds answer-ready pages, entity clarity, citation proof, and prompt-level recommendation gaps.",
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
       },
       {
-        question: "Can I run the audit before paying?",
-        answer:
-          "Yes. RankFortune provides a free first scan, then the paid report turns the findings into a fuller deliverable.",
-      },
-    ],
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
   },
   {
-    slug: "ai-search-visibility-checker",
-    title: "AI Search Visibility Checker - RankFortune",
-    description:
-      "Check whether your website is ready to appear in AI search results, AI Overviews, Perplexity answers, and ChatGPT-style recommendations.",
-    eyebrow: "AI search visibility checker",
-    h1: "Check if your website is ready for AI search results.",
-    intro:
-      "AI search visibility depends on more than ranking pages. Your site needs clear entities, direct answers, structured proof, and pages AI engines can cite.",
-    audience:
-      "Best for teams that want to understand why AI search engines mention competitors but not their own product.",
-    checks: [
-      "Homepage clarity and category positioning",
-      "Structured data and metadata quality",
-      "Answer-ready FAQ, use-case, and comparison content",
-      "Sitemap, robots, canonical, and crawl signals",
+    "slug": "ai-search-visibility-checker",
+    "title": "AI Search Visibility Checker - RankFortune",
+    "description": "Review public-page evidence before choosing any engine-specific change.",
+    "eyebrow": "AI Search Visibility Checker",
+    "h1": "Inspect AI-search preparation, not an invented visibility score.",
+    "intro": "Review public-page evidence before choosing any engine-specific change.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
     ],
-    outcomes: [
-      "A practical AI search readiness score",
-      "Specific missing content types to publish next",
-      "Copy suggestions for metadata and answer blocks",
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
     ],
-    sections: [
+    "sections": [
       {
-        title: "AI search needs citeable evidence",
-        body:
-          "AI search engines prefer pages that answer direct questions, define the product category, and support claims with clear public content. Thin homepages make recommendations harder.",
+        "title": "Keep engine surfaces distinct",
+        "body": "A Google Search observation is not automatically evidence for ChatGPT, Perplexity or Claude. Record the engine, URL and date for every claim."
       },
       {
-        title: "The checker looks for missing page types",
-        body:
-          "RankFortune checks whether the site exposes pricing, FAQ, comparisons, alternatives, use cases, docs, and proof signals that make answers easier to generate.",
+        "title": "Combine diagnostics and observations carefully",
+        "body": "You can record actual citations while some technical checks remain unknown. Neither track needs to be falsely marked complete before the other can begin."
       },
       {
-        title: "The output is built for action",
-        body:
-          "Instead of giving a raw crawl report, RankFortune highlights the fixes most likely to improve AI search visibility for a lean team.",
-      },
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: "What is AI search visibility?",
-        answer:
-          "It is the likelihood that AI search engines can find, understand, and cite your brand when users ask relevant questions.",
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
       },
       {
-        question: "Which AI search engines does this help with?",
-        answer:
-          "The audit is designed around readiness signals useful for ChatGPT, Perplexity, Gemini, AI Overviews, and other answer engines.",
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
       },
       {
-        question: "Do I need historical tracking first?",
-        answer:
-          "Usually no. Start with a baseline audit, fix obvious blockers, then add monitoring once the site has stronger answer-ready content.",
-      },
-    ],
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
   },
   {
-    slug: "chatgpt-visibility-checker",
-    title: "ChatGPT Visibility Checker for SaaS Websites - RankFortune",
-    description:
-      "Check whether your website gives ChatGPT enough public information to understand, explain, and recommend your product.",
-    eyebrow: "ChatGPT visibility checker",
-    h1: "Find out why ChatGPT may not recommend your product.",
-    intro:
-      "When ChatGPT does not mention a product, the reason is often weak public evidence: unclear positioning, thin comparison content, missing FAQ answers, or poor crawl signals.",
-    audience:
-      "Best for SaaS founders and marketers who want a first-pass diagnosis before building a larger GEO program.",
-    checks: [
-      "Whether the homepage explains the product category clearly",
-      "FAQ and buyer-intent answer coverage",
-      "Comparison, alternatives, and use-case page signals",
-      "Metadata, schema, and internal links",
+    "slug": "chatgpt-visibility-checker",
+    "title": "ChatGPT Visibility Checker - RankFortune",
+    "description": "This checker inspects website evidence; it does not query ChatGPT or explain an unobserved omission.",
+    "eyebrow": "ChatGPT Visibility Checker",
+    "h1": "Review public-page readiness for ChatGPT Search.",
+    "intro": "This checker inspects website evidence; it does not query ChatGPT or explain an unobserved omission.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
     ],
-    outcomes: [
-      "ChatGPT readiness score",
-      "Prompts and page gaps to address first",
-      "Recommended copy blocks for better entity clarity",
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
     ],
-    sections: [
+    "sections": [
       {
-        title: "ChatGPT visibility starts with public clarity",
-        body:
-          "Models need enough public text to explain what a product is, who it is for, and how it differs from alternatives. If that evidence is missing, even good products are easy to overlook.",
+        "title": "Separate the OpenAI purposes",
+        "body": "OAI-SearchBot is a search crawler. GPTBot and ChatGPT-User serve different purposes. A training opt-out does not by itself demonstrate a search block."
       },
       {
-        title: "Comparison content helps recommendation prompts",
-        body:
-          "Queries like best tools, alternatives, and software for a specific workflow depend on category and competitor context. RankFortune checks whether those pages exist.",
+        "title": "Collect an actual ChatGPT Search observation",
+        "body": "Keep the query, market, date, product mode, visible answer and displayed source URL. A brand name in prose without a displayed source is a mention, not a citation."
       },
       {
-        title: "The report gives copy-ready next steps",
-        body:
-          "You get practical fixes for title tags, descriptions, FAQ questions, schema types, and the next pages to publish.",
-      },
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: "Can this guarantee ChatGPT will mention my site?",
-        answer:
-          "No tool can guarantee mentions, but the audit identifies the public signals and content gaps that often prevent a site from being recommended.",
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
       },
       {
-        question: "What should I publish first?",
-        answer:
-          "Usually FAQ, use-case, and comparison pages are the first useful pages because they match buyer questions and recommendation prompts.",
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
       },
       {
-        question: "Is this useful for new websites?",
-        answer:
-          "Yes. New sites benefit from a baseline because they can build AI-ready structure before waiting months to discover missing content.",
-      },
-    ],
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
   },
   {
-    slug: "perplexity-visibility-checker",
-    title: "Perplexity Visibility Checker - RankFortune",
-    description:
-      "Check whether your website has the crawl, citation, and answer-ready signals needed to appear in Perplexity-style AI search results.",
-    eyebrow: "Perplexity visibility checker",
-    h1: "Check if Perplexity can cite and explain your website.",
-    intro:
-      "Perplexity-style search depends heavily on pages that are easy to crawl, quote, and connect to a clear entity. RankFortune checks those signals.",
-    audience:
-      "Best for teams that care about citations, source quality, and whether AI search results can use their site as evidence.",
-    checks: [
-      "Indexable pages and sitemap exposure",
-      "Clear title, description, headings, and schema",
-      "Citation-ready FAQ and answer sections",
-      "Internal links to proof, pricing, docs, and comparison pages",
+    "slug": "perplexity-visibility-checker",
+    "title": "Perplexity Visibility Checker - RankFortune",
+    "description": "The free scan reads PerplexityBot preferences, not live Perplexity answers or rankings.",
+    "eyebrow": "Perplexity Visibility Checker",
+    "h1": "Inspect Perplexity search-rule evidence for one URL.",
+    "intro": "The free scan reads PerplexityBot preferences, not live Perplexity answers or rankings.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
     ],
-    outcomes: [
-      "Perplexity-style citation readiness score",
-      "Missing source and proof signals",
-      "Fix list for pages that should be easier to cite",
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
     ],
-    sections: [
+    "sections": [
       {
-        title: "Citation readiness is a content problem",
-        body:
-          "If a page does not answer direct questions or make claims easy to verify, AI search engines have less reason to use it as a source.",
+        "title": "Inspect the submitted path",
+        "body": "A homepage allow rule does not establish access to a restricted subpage. Record the exact URL and keep network failures unknown."
       },
       {
-        title: "Technical access still matters",
-        body:
-          "Blocked crawlers, missing sitemap references, weak canonical tags, and thin metadata can all reduce the chance that answer engines use the site.",
+        "title": "Review visible sources separately",
+        "body": "PerplexityBot and user-triggered fetching should not be treated as interchangeable. Record actual source cards and verify that the cited page supports the answer."
       },
       {
-        title: "RankFortune prioritizes the next source pages",
-        body:
-          "The audit recommends whether to publish FAQ, comparison, use-case, docs, or proof pages before investing in ongoing visibility tracking.",
-      },
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: "What makes a page easier for Perplexity to cite?",
-        answer:
-          "Clear answers, descriptive headings, source-like details, structured data, and crawlable pages all improve citation readiness.",
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
       },
       {
-        question: "Does this check live Perplexity rankings?",
-        answer:
-          "RankFortune focuses on readiness and fix recommendations. Live prompt tracking can be added after the site has a credible baseline.",
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
       },
       {
-        question: "Should I optimize my homepage or create new pages?",
-        answer:
-          "Both can matter, but many teams need new answer-ready FAQ, comparison, and use-case pages because homepages cannot cover every buyer question.",
-      },
-    ],
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
   },
   {
-    slug: "reddit-ai-visibility-checker",
-    title: "Reddit AI Visibility Checker for UGC Citation Gaps - RankFortune",
-    description:
-      "Check whether your brand has the Reddit, forum, and community signals that AI engines often cite for buyer-intent recommendations.",
-    eyebrow: "Reddit AI visibility checker",
-    h1: "See whether AI engines find enough Reddit and community proof to cite your brand.",
-    intro:
-      "When AI search results mention competitors instead of your product, the missing signal is often not another landing page. It is the lack of crawlable community proof, honest comparisons, and discussion pages that buyers already trust.",
-    audience:
-      "Best for SaaS founders, SEO teams, and agencies that want to understand how Reddit, forums, and UGC shape AI recommendations for commercial prompts.",
-    checks: [
-      "Whether the site links to comparison, alternatives, docs, and proof pages buyers can discuss",
-      "Whether public pages answer the objections that often surface in Reddit threads and forum recommendations",
-      "Whether the brand has enough crawlable entity clarity for AI engines to connect site claims with community mentions",
-      "Whether the content plan includes pages that can earn citations beyond the homepage",
+    "slug": "reddit-ai-visibility-checker",
+    "title": "Reddit and Community Evidence Review - RankFortune",
+    "description": "This scan does not search Reddit, count community mentions or measure Reddit-derived AI citations.",
+    "eyebrow": "Reddit and Community Evidence Review",
+    "h1": "Plan an honest community-source review.",
+    "intro": "This scan does not search Reddit, count community mentions or measure Reddit-derived AI citations.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
     ],
-    outcomes: [
-      "A Reddit and UGC citation-readiness baseline",
-      "A list of missing proof, comparison, and buyer-question pages",
-      "A practical roadmap for making community mentions easier for AI engines to trust and reuse",
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
     ],
-    sections: [
+    "sections": [
       {
-        title: "AI recommendations often borrow community evidence",
-        body:
-          "For high-intent prompts, answer engines frequently lean on Reddit, forums, and review-style discussions because they contain candid buyer language. If your site lacks matching proof pages, AI systems have little first-party evidence to connect with those mentions.",
+        "title": "Use real discussions, not manufactured mentions",
+        "body": "When independently reviewing a public thread, retain its date, context, actual author statements and any affiliation disclosure. Do not create fake reviews or concealed promotion."
       },
       {
-        title: "Reddit visibility is really a page-coverage problem",
-        body:
-          "Teams often assume they need more prompt tracking, but the earlier win is publishing comparison, alternatives, use-case, FAQ, and proof pages that mirror the objections and workflows discussed in community threads.",
+        "title": "Check whether the discussion supports the claim",
+        "body": "A reachable thread or a mention of the brand does not establish that the product recommendation is supported. Compare the exact claim, quoted context and product version."
       },
       {
-        title: "RankFortune turns UGC signals into site fixes",
-        body:
-          "The audit highlights where the site is too thin for AI engines to reconcile buyer discussions with official product claims, then recommends the next pages and proof blocks to publish.",
-      },
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: "Why does Reddit matter for AI visibility?",
-        answer:
-          "Reddit and other forums often rank well and contain authentic buyer language. AI engines can use those discussions as evidence, especially when a brand's own site does not answer the same questions clearly.",
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
       },
       {
-        question: "Can RankFortune check my Reddit mentions directly?",
-        answer:
-          "The current audit focuses on readiness: whether your site has the pages, proof, and entity clarity needed to benefit from community citations and recommendation prompts.",
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
       },
       {
-        question: "What should I publish first if competitors win on Reddit-style prompts?",
-        answer:
-          "Usually comparison pages, alternatives pages, strong FAQ blocks, and proof-heavy use-case pages are the first assets to publish because they match how buyers discuss tools in community threads.",
-      },
-    ],
-  },
-    {
-    slug: "ai-agent-observability-audit",
-    title: "AI Agent Observability Audit for Website Signals - RankFortune",
-    description:
-      "Audit whether your AI agent product site explains observability, tracing, integrations, and outcome metrics clearly enough for buyers and answer engines.",
-    eyebrow: "AI agent observability audit",
-    h1: "Audit whether buyers and AI engines understand your agent observability story.",
-    intro:
-      "AI agent analytics tools sell trust, debugging, and measurable improvement. RankFortune checks whether the public site exposes enough integrations, workflow proof, event metrics, and answer-ready pages for AI engines to recommend it accurately.",
-    audience:
-      "Best for AI agent analytics, monitoring, evaluation, and automation platforms that need clearer public proof before investing in heavier prompt tracking.",
-    checks: [
-      "Whether the homepage explains agent tracing, event capture, resolution metrics, and optimization outcomes",
-      "Whether SDK, framework, security, and data-ownership signals are easy for buyers and AI engines to find",
-      "Whether pricing, use cases, dashboards, and team workflows are framed as business outcomes instead of raw telemetry",
-      "Whether FAQ and comparison pages answer buyer questions about OpenAI, Anthropic, Gemini, LangChain, CrewAI, and Vercel AI SDK support",
-    ],
-    outcomes: [
-      "A readiness baseline for AI agent observability positioning",
-      "Missing proof blocks for SDK onboarding, dashboards, metrics, and team adoption",
-      "A practical roadmap for making the site easier for answer engines to cite in agent monitoring recommendations",
-    ],
-    sections: [
-      {
-        title: "Agent observability needs more than a dashboard claim",
-        body:
-          "The strongest pages make the path from SDK install to event timeline to outcome metrics obvious. If that story is buried, AI engines have little evidence for why the product belongs in monitoring and analytics recommendations.",
-      },
-      {
-        title: "Integration proof reduces buyer risk",
-        body:
-          "Public support for major models, orchestration frameworks, and TypeScript or Python SDKs gives answer engines concrete facts to reuse when buyers ask which tools fit their stack.",
-      },
-      {
-        title: "RankFortune turns observability positioning into site fixes",
-        body:
-          "The audit identifies missing metadata, FAQ answers, integration pages, pricing clarity, and proof sections so the site communicates trust before a prospect reaches a demo.",
-      },
-    ],
-    faqs: [
-      {
-        question: "What is an AI agent observability audit?",
-        answer:
-          "It is a review of whether a site clearly explains agent monitoring, traces, integrations, outcome metrics, pricing, and trust signals in ways buyers and answer engines can understand.",
-      },
-      {
-        question: "Why does this matter for AI visibility?",
-        answer:
-          "Agent analytics is a technical category. AI engines need specific public evidence about SDKs, supported frameworks, dashboards, security, and use cases before they can recommend a product confidently.",
-      },
-      {
-        question: "What should an agent observability site publish first?",
-        answer:
-          "Start with SDK onboarding, supported framework pages, dashboard examples, pricing clarity, security answers, and comparison content for common monitoring alternatives.",
-      },
-    ],
-  },
-      {
-    slug: "llm-visibility-audit",
-    title: "LLM Visibility Audit for Websites - RankFortune",
-    description:
-      "Run an LLM visibility audit to understand whether large language models can identify, explain, and recommend your website.",
-    eyebrow: "LLM visibility audit",
-    h1: "Audit whether LLMs have enough evidence to recommend your product.",
-    intro:
-      "LLM visibility depends on public content, crawlability, entity clarity, and whether the site answers the questions buyers and models ask.",
-    audience:
-      "Best for early teams that want a practical LLM-readiness baseline without buying an enterprise monitoring platform first.",
-    checks: [
-      "Entity and product positioning clarity",
-      "Crawlable public pages and internal links",
-      "FAQ, alternatives, use-case, and pricing signals",
-      "Structured data and copy-ready recommendation gaps",
-    ],
-    outcomes: [
-      "LLM readiness score",
-      "Content gaps that weaken recommendation prompts",
-      "Next-page recommendations for better model understanding",
-    ],
-    sections: [
-      {
-        title: "LLMs need more than a homepage",
-        body:
-          "A homepage can introduce a product, but LLMs need supporting pages that answer who it is for, how it works, what it costs, and how it compares.",
-      },
-      {
-        title: "Your public web footprint is the input",
-        body:
-          "RankFortune audits the public signals available to crawlers and answer engines, then points out what is missing or hard to interpret.",
-      },
-      {
-        title: "The audit helps you prioritize",
-        body:
-          "Instead of trying to optimize for every model at once, start with fixes that make the site easier for any LLM-driven search or answer system to understand.",
-      },
-    ],
-    faqs: [
-      {
-        question: "What does LLM visibility mean?",
-        answer:
-          "It means a large language model can recognize your brand, understand what it does, and use public evidence to recommend or cite it.",
-      },
-      {
-        question: "Can I improve LLM visibility with website changes?",
-        answer:
-          "Yes. Clearer metadata, schema, FAQ, comparison pages, use cases, and proof content can all improve the signals available to LLM-driven systems.",
-      },
-      {
-        question: "Does this replace SEO?",
-        answer:
-          "No. It builds on SEO foundations while adding answer-readiness and entity clarity for generative systems.",
-      },
-    ],
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
   },
   {
-    slug: "ai-overviews-visibility-checker",
-    title: "AI Overviews Visibility Checker - RankFortune",
-    description:
-      "Check whether your website has the answer-ready structure and crawl signals needed for Google AI Overviews-style visibility.",
-    eyebrow: "AI Overviews visibility checker",
-    h1: "Check whether your pages are ready for AI Overviews-style answers.",
-    intro:
-      "AI Overviews-style visibility depends on clear answers, crawlable pages, entity signals, and content that can support generated summaries.",
-    audience:
-      "Best for SEO teams that want to adapt existing pages for AI-generated search experiences.",
-    checks: [
-      "Direct answer coverage and heading structure",
-      "Canonical, robots, sitemap, and metadata health",
-      "Schema and FAQ readiness",
-      "Internal links to proof, use cases, and comparison content",
+    "slug": "ai-agent-observability-audit",
+    "title": "AI Agent Observability Website Review - RankFortune",
+    "description": "Use the scan for public HTML observations; review traces, integrations and outcome claims separately.",
+    "eyebrow": "AI Agent Observability Website Review",
+    "h1": "Review the public evidence for your agent-observability product.",
+    "intro": "Use the scan for public HTML observations; review traces, integrations and outcome claims separately.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
     ],
-    outcomes: [
-      "AI Overviews readiness baseline",
-      "Recommended answer sections and schema",
-      "Fix list for technical and content blockers",
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
     ],
-    sections: [
+    "sections": [
       {
-        title: "Generated answers need source-like pages",
-        body:
-          "Pages that define the problem, answer common questions, and provide concise proof are easier for AI search experiences to summarize.",
+        "title": "Make a workflow reproducible",
+        "body": "A useful real example identifies the SDK version, input event, trace, result and failure boundary. A dashboard screenshot alone does not establish a measured outcome."
       },
       {
-        title: "Technical SEO still supports AI visibility",
-        body:
-          "If a page is blocked, poorly canonicalized, or missing from the sitemap, answer systems have less reliable access to the content.",
+        "title": "Do not turn integration names into proof",
+        "body": "Document the versions and behaviors actually supported. Distinguish tested functionality, planned integrations and user-supplied examples; do not imply this scan ran the SDK."
       },
       {
-        title: "RankFortune connects checks to publishing work",
-        body:
-          "The audit turns readiness gaps into concrete page and copy tasks that can be shipped quickly by a lean team.",
-      },
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: "Can this guarantee AI Overviews placement?",
-        answer:
-          "No. The audit focuses on readiness signals and fix opportunities, not guaranteed placement.",
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
       },
       {
-        question: "Which pages should I optimize first?",
-        answer:
-          "Start with pages that answer high-intent buyer questions, compare alternatives, or explain concrete use cases.",
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
       },
       {
-        question: "Do schema and FAQ still matter?",
-        answer:
-          "They can help clarify page structure, but they work best when paired with genuinely useful answer-first content.",
-      },
-    ],
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
   },
   {
-    slug: "geo-audit-tool",
-    title: "GEO Audit Tool for Generative Engine Optimization - RankFortune",
-    description:
-      "Use RankFortune as a GEO audit tool to find generative engine optimization gaps across crawlability, entity clarity, and answer-ready content.",
-    eyebrow: "GEO audit tool",
-    h1: "Find the GEO gaps that keep generative engines from citing you.",
-    intro:
-      "Generative engine optimization is easiest to start with a baseline: what can models crawl, what can they understand, and what evidence can they cite?",
-    audience:
-      "Best for founders, SEO consultants, and agencies packaging AI visibility work into a clear first deliverable.",
-    checks: [
-      "Generative engine crawl and index readiness",
-      "Entity and category clarity",
-      "Citation-ready proof, FAQ, and comparison pages",
-      "Action plan for content and technical fixes",
+    "slug": "llm-visibility-audit",
+    "title": "LLM Visibility Audit - RankFortune",
+    "description": "The free scan checks public HTML; it does not measure what every language model knows about your brand.",
+    "eyebrow": "LLM Visibility Audit",
+    "h1": "Separate model knowledge from search evidence.",
+    "intro": "The free scan checks public HTML; it does not measure what every language model knows about your brand.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
     ],
-    outcomes: [
-      "GEO baseline score",
-      "High-priority fixes for better generative visibility",
-      "Report-ready output for founders, marketers, or clients",
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
     ],
-    sections: [
+    "sections": [
       {
-        title: "GEO starts with visible evidence",
-        body:
-          "If a website does not expose clear public evidence, generative engines have little to work with. RankFortune identifies those missing signals.",
+        "title": "Name the product being observed",
+        "body": "A model API completion is not automatically equivalent to a consumer product with web search. Record model version when exposed; otherwise mark it unknown."
       },
       {
-        title: "Audit before monitoring",
-        body:
-          "Monitoring share of voice is useful, but the first step is making sure the site has crawlable, understandable, and citeable pages.",
+        "title": "Avoid universal prescriptions",
+        "body": "Useful source-backed content matters to readers, but there is no universal word count, FAQ quota or set of page types that proves an LLM will recommend it."
       },
       {
-        title: "Use the report as a first client deliverable",
-        body:
-          "The paid report is formatted so agencies and consultants can share a concise roadmap with clients before deeper implementation work.",
-      },
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: "What is GEO?",
-        answer:
-          "GEO stands for generative engine optimization: improving the signals that help AI and answer engines understand, cite, and recommend a brand.",
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
       },
       {
-        question: "What does a GEO audit include?",
-        answer:
-          "It includes crawl checks, entity clarity, structured data, answer-ready content, competitor page gaps, and a prioritized fix roadmap.",
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
       },
       {
-        question: "Who should use a GEO audit tool?",
-        answer:
-          "Founders, SEO teams, and agencies can use it to decide what to fix before investing in ongoing tracking or broader authority work.",
-      },
-    ],
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
   },
-                              ];
+  {
+    "slug": "ai-overviews-visibility-checker",
+    "title": "AI Overviews Visibility Checker - RankFortune",
+    "description": "Inspect the public URL, then verify actual Google indexing and effective Search generative AI settings with account evidence.",
+    "eyebrow": "AI Overviews Visibility Checker",
+    "h1": "Review Google AI search prerequisites and unknowns.",
+    "intro": "Inspect the public URL, then verify actual Google indexing and effective Search generative AI settings with account evidence.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
+    ],
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
+    ],
+    "sections": [
+      {
+        "title": "Verify the effective Google control",
+        "body": "Record Include, Exclude or Inherit and its effective inherited setting in Search Console. Keep this separate from ordinary Search and Google-Extended training preferences."
+      },
+      {
+        "title": "Use the real report definition",
+        "body": "The current Google Generative AI report exposes impressions and page, country, date and device dimensions. Do not invent query-level clicks, citation counts or rankings; a missing report is not zero."
+      },
+      {
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
+      },
+      {
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
+      },
+      {
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
+  },
+  {
+    "slug": "geo-audit-tool",
+    "title": "GEO Audit Tool - RankFortune",
+    "description": "A versioned diagnostic for technical observations, content evidence, actual AI answers and business results.",
+    "eyebrow": "GEO Audit Tool",
+    "h1": "Turn SEO + GEO evidence into scoped actions.",
+    "intro": "A versioned diagnostic for technical observations, content evidence, actual AI answers and business results.",
+    "audience": "For site owners and teams who need a scoped, source-backed review rather than a result guarantee.",
+    "checks": [
+      "Raw HTML metadata and declared canonical",
+      "Generic and matching-agent indexing directives",
+      "Named search, training and user-fetch robots preferences",
+      "One sitemap candidate, internal links and JSON-LD syntax"
+    ],
+    "outcomes": [
+      "Observed issues and unknown checks, kept separate",
+      "Sources, timestamps, scope and versioned rules",
+      "Verification steps; actual citations and conversions remain not measured"
+    ],
+    "sections": [
+      {
+        "title": "Define the evidence unit",
+        "body": "Use an engine surface and exact URL for access observations, a claim-source pair for factual support, and a recorded run for actual citations."
+      },
+      {
+        "title": "Retest comparable conditions",
+        "body": "Keep final URL, rule version, query set, market, product mode and counting definitions comparable. A changed check is not a causal estimate of business impact."
+      },
+      {
+        "title": "What happens after the scan",
+        "body": "Review justified actions against the actual page goal. Add only truthful, applicable content or markup. The free scan does not crawl competitors, connect analytics or query target AI products; independent review and observations can proceed alongside it."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Does this scan measure actual AI visibility?",
+        "answer": "No. It is a public-page readiness review. The report marks actual AI mentions, citations and business outcomes as not measured."
+      },
+      {
+        "question": "Are FAQ, pricing and comparison pages mandatory?",
+        "answer": "No. They are only candidate content patterns. Their absence is not a failure or a reason to publish low-value variations."
+      },
+      {
+        "question": "Can I compare two scans?",
+        "answer": "Compare the same final URL and rule version, with the same intended scope. Preserve unknown states and confirm important changes with the appropriate external evidence."
+      }
+    ]
+  }
+];
 
 export function getLandingPage(slug: string) {
   return landingPages.find((page) => page.slug === slug);

@@ -11,17 +11,22 @@ type RobotsGroup = {
 };
 
 const AI_CRAWLERS = [
-  { userAgent: "OAI-SearchBot", provider: "OpenAI search" },
-  { userAgent: "ChatGPT-User", provider: "ChatGPT user fetch" },
-  { userAgent: "GPTBot", provider: "OpenAI training" },
-  { userAgent: "Google-Extended", provider: "Google AI training" },
-  { userAgent: "Googlebot", provider: "Google Search / AI" },
-  { userAgent: "PerplexityBot", provider: "Perplexity search" },
-  { userAgent: "Perplexity-User", provider: "Perplexity user fetch" },
-  { userAgent: "Claude-SearchBot", provider: "Claude search" },
-  { userAgent: "Claude-User", provider: "Claude user fetch" },
-  { userAgent: "ClaudeBot", provider: "Anthropic training" },
+  { userAgent: "Googlebot", provider: "Google Search", purpose: "search" },
+  { userAgent: "Bingbot", provider: "Bing search", purpose: "search" },
+  { userAgent: "OAI-SearchBot", provider: "OpenAI search", purpose: "search" },
+  { userAgent: "PerplexityBot", provider: "Perplexity search", purpose: "search" },
+  { userAgent: "Claude-SearchBot", provider: "Claude search", purpose: "search" },
+  { userAgent: "GPTBot", provider: "OpenAI training", purpose: "training" },
+  { userAgent: "Google-Extended", provider: "Google product control token (not Google Search)", purpose: "training" },
+  { userAgent: "ClaudeBot", provider: "Anthropic training", purpose: "training" },
+  { userAgent: "ChatGPT-User", provider: "ChatGPT user fetch", purpose: "user-fetch" },
+  { userAgent: "Perplexity-User", provider: "Perplexity user fetch", purpose: "user-fetch" },
+  { userAgent: "Claude-User", provider: "Claude user fetch", purpose: "user-fetch" },
 ] as const;
+
+export function unknownCrawlerAccess(reason: string): AiCrawlerAccess[] {
+  return AI_CRAWLERS.map((crawler) => ({ ...crawler, allowed: null, detail: reason }));
+}
 
 function parseRobotsGroups(robotsText: string) {
   const groups: RobotsGroup[] = [];

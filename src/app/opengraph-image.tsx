@@ -58,17 +58,17 @@ export default function OpenGraphImage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: "920px" }}>
           <div style={{ fontSize: "68px", lineHeight: 1.05, fontWeight: 700 }}>
-            See what keeps AI engines from recommending your website.
+            Search readiness. Evidence you can inspect.
           </div>
           <div style={{ fontSize: "28px", lineHeight: 1.35, color: "rgb(203, 213, 225)" }}>
-            Check technical discoverability, entity clarity, answer readiness,
-            and the next fixes to ship.
+            Scoped observations, unknown states and verifiable next steps.
+            No invented citation or traffic score.
           </div>
         </div>
 
         <div style={{ display: "flex", gap: "16px" }}>
           {[
-            "15 readiness signals",
+            "Versioned evidence",
             "Free snapshot",
             "Fix roadmap",
           ].map((item) => (

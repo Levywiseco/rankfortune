@@ -223,7 +223,7 @@ export default async function LandingPageRoute({ params }: PageProps) {
 
           <aside className="h-fit rounded-[8px] border border-cyan-300/20 bg-cyan-300/[0.05] p-6">
             <h2 className="text-2xl font-semibold text-white">
-              Get the first score before building a bigger program.
+              Inspect the evidence before choosing your next change.
             </h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">
               Run a free scan, then buy the full report only if the gaps are worth
