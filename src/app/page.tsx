@@ -582,8 +582,8 @@ export default function Home() {
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-slate-400">
-              Start with a free scan, then upgrade when you need the deeper
-              report, export, and monitoring workflow.
+              Start with a free scan, then upgrade for the full evidence report
+              and export. Monitor is planned and not open for new subscriptions.
             </p>
           </div>
 

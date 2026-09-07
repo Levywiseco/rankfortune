@@ -33,5 +33,7 @@ try {
   const home = readFileSync(new URL('../src/app/page.tsx', import.meta.url), 'utf8');
   assert.match(home, /New subscriptions are not open/);
   assert.match(home, /Not open for purchase/);
+  assert.match(home, /Monitor is planned and not open for new subscriptions/);
+  assert.doesNotMatch(home, /report, export, and monitoring workflow/);
   console.log('PASS Monitor new-checkout guard, preserved product identity, full-report validation and unchanged URL generation (no external payment calls)');
 } finally { globalThis.fetch = originalFetch; }
